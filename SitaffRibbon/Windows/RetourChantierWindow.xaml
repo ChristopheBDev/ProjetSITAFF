@@ -1,0 +1,343 @@
+﻿<Window x:Class="SitaffRibbon.Windows.RetourChantierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Title="Retour chantier" MinHeight="600" MinWidth="825" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <!--Définitions des lignes-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--Définitions des colonnes-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="15"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Children>
+            <!--Début en-tête-->
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <!--Définitions des colonnes de l'en-tête-->
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.Children>
+                    <TextBlock
+                        x:Name="_textBlockAffaire"
+                        Text="Affaire :"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        >
+                    </TextBlock>
+                    <ComboBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="_comboBoxAffaire"
+                                SelectedItem="{Binding Path=Affaire1}"
+                                DisplayMemberPath="Numero"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RetourChantierWindow}}, Path=listAffaire}"
+                                SelectionChanged="_comboBoxAffaire_SelectionChanged_1"
+                                >
+                    </ComboBox>
+
+                    <TextBlock
+                        x:Name="_textBlockSalarie"
+                        Text="Salarié :"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        >
+                    </TextBlock>
+                    <ComboBox
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                x:Name="_comboBoxSalarie"
+                                SelectedItem="{Binding Path=Salarie2}"
+                                DisplayMemberPath="Personne.fullname"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RetourChantierWindow}}, Path=listSalarie}"
+                        SelectionChanged="_comboBoxSalarie_SelectionChanged_1"
+                                >
+                    </ComboBox>
+
+                    <TextBlock
+                        x:Name="_textBlockResponsableChantier"
+                        Text="Responsable chantier :"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        >
+                    </TextBlock>
+                    <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                x:Name="_comboBoxResponsableChantier"
+                                SelectedItem="{Binding Path=Salarie1}"
+                                DisplayMemberPath="Personne.fullname"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RetourChantierWindow}}, Path=listSalarie}"
+                        SelectionChanged="_comboBoxResponsableChantier_SelectionChanged_1"
+                                >
+                    </ComboBox>
+
+                    <TextBlock
+                        x:Name="_textBlockDate_Retour"
+                        Text="Date retour :"
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        >
+                    </TextBlock>
+                    <DatePicker
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                x:Name="_textBoxDate_Retour"
+                                SelectedDate="{Binding Path=Date_Retour}"
+                        SelectedDateChanged="_textBoxDate_Retour_SelectedDateChanged_1"
+                                >
+                    </DatePicker>
+
+                    <TextBlock
+                        x:Name="_textBlockNumero"
+                        Text="Numéro :"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        >
+                    </TextBlock>
+                    <TextBox
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="_textBoxNumero"
+                                Text="{Binding Path=Numero}"
+                                IsReadOnly="True"
+                                TextChanged="_textBoxNumero_TextChanged_1"
+                                >
+                    </TextBox>
+
+                    <TextBlock
+                        x:Name="_textBlockDesignation"
+                        Text="Designation :"
+                        Grid.Row="4"
+                        Grid.Column="3"
+                        >
+                    </TextBlock>
+                    <TextBox
+                                Grid.Row="4"
+                                Grid.Column="4"
+                                x:Name="_textBoxDesignation"
+                                Text="{Binding Path=Designation}"
+                        TextChanged="_textBoxDesignation_TextChanged_1"
+                                >
+                    </TextBox>
+                </Grid.Children>
+            </Grid>
+            <!--Fin en-tête-->
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!-- Vide -->
+            </Grid>
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <DataGrid
+                                        MinHeight="150"
+                                        MaxHeight="600"
+                                        AllowDrop="True"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        x:Name="_dataGridContenu"
+                                        ItemsSource="{Binding Path=Contenu_Retour_Chantier}"
+                                        AutoGenerateColumns="False"
+                                        CanUserDeleteRows="False"
+                                        KeyUp="_dataGridContenuSupplementaire_KeyUp">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                                    Header="Référence"
+                                                    Binding="{Binding Path=Reference}"                                                    
+                                                    >
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn 
+                                                    Header="Désignation"
+                                                    Binding="{Binding Path=Designation}"                                                    
+                                                    >
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn 
+                                                    Header="Quantité" 
+                                                    Binding="{Binding Path=Quantite, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="P.U." Binding="{Binding Path=Prix, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Prix Total" IsReadOnly="True" Binding="{Binding Path=Prix_Total, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style>
+                                        <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25*"></RowDefinition>
+                            <RowDefinition Height="25*"></RowDefinition>
+                            <RowDefinition Height="25*"></RowDefinition>
+                            <RowDefinition Height="25*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Button
+                        ToolTip="Supprimer"
+                        x:Name="_ButtonSupprimer"
+                        Grid.Row="0"  
+                        Grid.Column="0"
+                        Click="_ButtonSupprimer_Click_1"
+                                    >
+                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                        ToolTip="Coller"
+                        x:Name="_ButtonColler"
+                        Grid.Row="1"  
+                        Grid.Column="0"
+                        Click="_ButtonColler_Click_1"
+                                    >
+                                <Image Source="..\Images\icone-coller-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            x:Name="_buttonCalculer"
+                                            ToolTip="Calculer"
+                                            Click="_buttonCalculer_Click_1"
+                                            >
+                                <Image Source="..\Images\icone-calculatrice-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            x:Name="_buttonImporter"
+                                            ToolTip="Sélection par Contenu facture ou sortie atelier"
+                                            Click="_buttonImporter_Click_1"
+                                            >
+                                <Image Source="..\Images\icone-commande-large.png" Height="20"></Image>
+                            </Button>
+                        </Grid.Children>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <!--Définitions des colonnes de la ligne "Montant"-->
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="65*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Children>
+                    <!--Outils de la ligne "Montant"-->
+                    <TextBlock 
+                        Grid.Row="1" 
+                        Grid.Column="0" 
+                        Text="Montant : " 
+                        x:Name="_textBlockMontant">
+                    </TextBlock>
+                    <TextBox 
+                        Text="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}" 
+                        Grid.Row="1" 
+                        Grid.Column="1" 
+                        IsReadOnly="True"
+                        TextAlignment="Right"
+                        x:Name="_textBoxMontant">
+                    </TextBox>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="9" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <!--Définitions des colonnes de la ligne des boutons "OK" et "Annuler"-->
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Children>
+                    <!--Outils de la ligne des boutons "OK" et "Annuler"-->
+                    <Button 
+                        Grid.Row="1" 
+                        Grid.Column="1" 
+                        Content="OK" 
+                        x:Name="_buttonOK" 
+                        Click="_buttonOK_Click_1">
+                    </Button>
+                    <Button 
+                        Grid.Row="1" 
+                        Grid.Column="3" 
+                        Content="Annuler" 
+                        x:Name="_buttonAnnuler" 
+                        Click="_buttonAnnuler_Click_1">
+                    </Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

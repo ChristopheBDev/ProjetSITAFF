@@ -1,0 +1,898 @@
+﻿<Window x:Class="SitaffRibbon.Windows.PassageAffaireWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+      xmlns:local="clr-namespace:SitaffRibbon.Windows"
+       Width="Auto" Height="Auto" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" Icon="..\Images\icone-affaire-large.png"
+	  Title="Passage en commande"
+      FontFamily="Comic Sans MS"
+      Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" MinWidth="5"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="5" MinWidth="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" MinHeight="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5" MinHeight="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="140"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <ListBox Name="_TreeViewPassageAffaire" 
+                                     MaxWidth="200"
+                                     MaxHeight="445"                                     DisplayMemberPath="numeroAvecDesignation"
+                                     ItemsSource="{Binding Path=Versions}"
+                                     SelectionChanged="_TreeViewPassageAffaire_SelectionChanged" >
+                            </ListBox>
+                        </Grid.Children>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*" MinWidth="10"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*" MinWidth="10"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="4*" MinWidth="10"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--  Fin Definition des colonnes  -->
+                                <!--  Definition des lignes  -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*" MinHeight="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="3*" MinHeight="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="3*" MinHeight="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="3*" MinHeight="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="3*" MinHeight="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Fin Definition des lignes  -->
+                                <Grid.Children>
+
+                                    <Label  
+                        Grid.Row="3" 
+                        Grid.Column="1"
+                        Content="Numéro de l'affaire :"
+                        x:Name="_LabelNumeroAffaire"/>
+                                    <TextBox
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        x:Name="_TextBoxNumeroAffaire"
+                        IsEnabled="True"
+                        Visibility="Hidden" />
+                                    <Grid Grid.Row="5" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        x:Name="_ComboBoxNumeroAffaire"
+                        SelectionChanged="_ComboBoxNumeroAffaire_SelectionChanged"
+                        DisplayMemberPath="Numero" 
+                        SelectedItem="{Binding Path=Affaire1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:PassageAffaireWindow}}, Path=listAffaires}"
+                >
+                                                <ComboBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel/>
+                                                    </ItemsPanelTemplate>
+                                                </ComboBox.ItemsPanel>
+                                            </ComboBox>
+                                            <Button
+                                        Grid.Column="1"
+                                        x:Name="NullAffaire"
+                                        Click="NullAffaire_Click_1"   
+                                        ToolTip="Mettre à null"
+                                        >
+                                                <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+
+                                    <Label 
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Content="Chargé d'affaire :" 
+                        x:Name="_LabelChargeAffaire" />
+                                    <TextBox  
+                        Grid.Row="9" 
+                        Grid.Column="1" 
+                        IsEnabled="False"
+                        Text="{Binding Path=Salarie.Personne.fullname, Mode=OneWay}"
+                        x:Name="_ComboBoxChargeAffaire" />
+
+                                    <Label  
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Content="Bon commande client :"
+                        x:Name="_LabelBonCommandeClient" />
+                                    <TextBox 
+                        Grid.Row="5" 
+                        Grid.Column="3" 
+                        Text="{Binding Path=Commande1.Numero_Commande, Mode=TwoWay}"
+                        LostFocus="_TextBoxBonCommandeClient_LostFocus"
+                        x:Name="_TextBoxBonCommandeClient" />
+
+                                    <Label 
+                        Grid.Row="7" 
+                        Grid.Column="3" 
+                        Content="Date de commande client :" 
+                        x:Name="_LabelDateCommandeClientdanscomand" />
+                                    <DatePicker  
+                        Grid.Row="9" 
+                        Grid.Column="3" 
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Path=Commande1.Date_Commande, Mode=TwoWay}" 
+                        x:Name="_DatePickerCommandeClient" />
+
+                                </Grid.Children>
+                            </Grid>
+
+                            <Grid Grid.Column="0" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Definition des colonnes  -->
+                                <Grid.Children>
+                                    <TabControl Grid.Row="0" Grid.Column="0">
+                                        <TabItem x:Name="_tabItemBudget" Header="Budget de l'affaire" >
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="1"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        Content="Fourniture : "
+                                        x:Name="_LabelFourniture" />
+                                                    <Label 
+                                        Grid.Row="1"
+                                        Grid.Column="7" 
+                                        Content="Sous-traitance :"  
+                                        x:Name="_LabelSousTraitance"/>
+                                                    <Label 
+                                        Grid.Row="1"
+                                        Grid.Column="11"
+                                        Content="Total ventes :"
+                                        x:Name="_LabelMontant"/>
+
+                                                    <Label 
+                                        Grid.Row="3" 
+                                        Grid.Column="1" 
+                                        Content="Achats :" 
+                                        HorizontalAlignment="Right" 
+                                        x:Name="_LabelAchats"/>
+                                                    <TextBox 
+                                        Grid.Row="3" 
+                                        Grid.Column="3" 
+                                        TextAlignment="Right"
+                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                        TextChanged="_TextBoxAchatsFourniture_TextChanged"
+                                        x:Name="_TextBoxAchatsFourniture"
+                                        Text="{Binding Path=Commande1.Prix_Achat_Fourniture, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="3"
+                                        Grid.Column="5" 
+                                        Content="+" 
+                                        x:Name="_LabelEuro2" />
+                                                    <TextBox 
+                                        Grid.Row="3"
+                                        Grid.Column="7" 
+                                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                                        TextAlignment="Right"
+                                                        TextChanged="_TextBoxAchatsSousTraitance_TextChanged"
+                                        x:Name="_TextBoxAchatsSousTraitance" 
+                                        Text="{Binding Path=Commande1.Prix_Achat_SsTraitance, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}" 
+                                                        />
+                                                    <Label 
+                                        Grid.Row="3" 
+                                        Grid.Column="9"
+                                        Content="="
+                                        x:Name="_LabelEuro4"  />
+                                                    <TextBox 
+                                        Grid.Row="3" 
+                                        Grid.Column="11"
+                                                        TextAlignment="Right"
+                                        x:Name="_TextBoxAchatsMontant"
+                                                        TextChanged="_TextBoxAchatsMontant_TextChanged"
+                                        IsEnabled="False"
+                                        Text="{Binding Path=vent, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="3" 
+                                        Grid.Column="13" 
+                                        Content=""
+                                        x:Name="_LabelEuro6" />
+
+                                                    <Label 
+                                        Grid.Row="5"
+                                        Grid.Column="1"
+                                        Content="Ventes :"
+                                        HorizontalAlignment="Right" 
+                                        x:Name="_LabelVentes" />
+                                                    <TextBox 
+                                        Grid.Row="5" 
+                                        Grid.Column="3"
+                                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                                        TextAlignment="Right"
+                                        x:Name="_TextBoxVentesFourniture" 
+                                                        TextChanged="_TextBoxVentesFourniture_TextChanged"
+                                        Text="{Binding Path=Commande1.Prix_Vente_Fourniture, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}" 
+                                                        />
+                                                    <Label 
+                                        Grid.Row="5" 
+                                        Grid.Column="5" 
+                                        Content="+"
+                                        x:Name="_LabelEuro8" />
+                                                    <TextBox 
+                                        Grid.Row="5" 
+                                        Grid.Column="7" 
+                                        x:Name="_TextBoxVentesSousTraitance"
+                                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                                        TextAlignment="Right"
+                                                        TextChanged="_TextBoxVentesSousTraitance_TextChanged"
+                                        Text="{Binding Path=Commande1.Prix_Vente_SsTraitance, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}" 
+                                                        />
+                                                    <Label 
+                                        Grid.Row="5" 
+                                        Grid.Column="9"
+                                        Content="=" 
+                                        Height="25" 
+                                        x:Name="_LabelEuro9" />
+                                                    <TextBox
+                                        Grid.Row="5" 
+                                        Grid.Column="11"
+                                        x:Name="_TextBoxVentesMontant" 
+                                        IsEnabled="False" 
+                                                        TextChanged="_TextBoxVentesMontant_TextChanged"
+                                                        TextAlignment="Right"
+                                        Text="{Binding Path=vent, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="5" 
+                                        Grid.Column="13" 
+                                        Content=""
+                                        x:Name="_LabelEuro7" />
+
+                                                    <Label
+                                        Grid.Row="7"
+                                        Grid.Column="1"
+                                        Content="Marges :"
+                                        HorizontalAlignment="Right" 
+                                        x:Name="_LabelMarges" />
+                                                    <TextBox
+                                        Grid.Row="7" 
+                                        Grid.Column="3"
+                                                        TextAlignment="Right"
+                                        x:Name="_TextBoxMargesFourniture"
+                                        IsEnabled="False"
+                                        Text="{Binding Path=vent, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="7"
+                                        Grid.Column="5" 
+                                        Content="%" 
+                                        x:Name="_LabelPourc3" />
+                                                    <TextBox 
+                                        Grid.Row="7" 
+                                        Grid.Column="7" 
+                                                        TextAlignment="Right"
+                                        x:Name="_TextBoxMargesSousTraitance" 
+                                        IsEnabled="False"
+                                        Text="{Binding Path=vent, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label
+                                        Grid.Row="7"
+                                        Grid.Column="9"
+                                        Content="%" 
+                                        x:Name="_LabelPourc2"  />
+                                                    <TextBox 
+                                        Grid.Row="7"
+                                        Grid.Column="11"
+                                                        TextAlignment="Right"
+                                        x:Name="_TextBoxMargeMontant" IsEnabled="False"
+                                        Text="{Binding Path=Taux_Marge, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="7" 
+                                        Grid.Column="13"
+                                        Content="%" 
+                                        x:Name="_LabelPourc1" />
+
+                                                    <Label
+                                        Grid.Row="9" 
+                                        Grid.Column="3" 
+                                        Content="Nb heures :"
+                                        x:Name="_LabelNbHeures"  />
+                                                    <Label 
+                                        Grid.Row="9"
+                                        Grid.Column="7" 
+                                        Content="Taux horaire :"
+                                        x:Name="_LabelTauxHoraire" />
+                                                    <Label 
+                                        Grid.Row="9" 
+                                        Grid.Column="11"
+                                        Content="Total vente Heures :"
+                                        x:Name="_LabelTotalVenteHeures" />
+
+                                                    <Label 
+                                        Grid.Row="11"
+                                        Grid.Column="1" 
+                                        Content="Main d'oeuvre :"
+                                        HorizontalAlignment="Right"                 
+                                        x:Name="_LabelMainOeuvre" />
+                                                    <TextBox 
+                                        Grid.Row="11" 
+                                        Grid.Column="3"
+                                        x:Name="_TextBoxNbHeures" 
+                                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                                        TextChanged="_TextBoxNbHeures_TextChanged"
+                                                        TextAlignment="Right"
+                                        Text="{Binding Path=Commande1.Qte_Main_Oeuvre, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="11"
+                                        Grid.Column="5"
+                                        Content="h" 
+                                        x:Name="_LabelHeure"
+                                        HorizontalAlignment="Left" />
+                                                    <TextBox 
+                                        Grid.Row="11"
+                                        Grid.Column="7"
+                                        IsEnabled="False"
+                                        x:Name="_TextBoxTauxHoraire"
+                                                        TextAlignment="Right"
+                                        Text="{Binding Path=Commande1.Taux_Horaire, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="11"
+                                        Grid.Column="9" 
+                                        Content="€/h" 
+                                        HorizontalAlignment="Left"
+                                        x:Name="_LabelEuroHeure1"  />
+                                                    <TextBox 
+                                        Grid.Row="11"
+                                        Grid.Column="11"
+                                        x:Name="_TextBoxTotalVenteHeure"
+                                        IsEnabled="True" 
+                                                        TextChanged="_TextBoxTotalVenteHeure_TextChanged"
+                                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                                        TextAlignment="Right"
+                                        Text="{Binding Path=Commande1.Prix_Total_Vente_Heure, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                         />
+                                                    <Label
+                                        Grid.Row="11" 
+                                        Grid.Column="13"
+                                        Content="€" 
+                                        x:Name="_LabelPourc4" />
+
+                                                    <Label 
+                                        Grid.Row="13"
+                                        Grid.Column="3" 
+                                        Content="Montant devis initial :"
+                                        x:Name="_LabelMontantDevisInitial"/>
+                                                    <Label 
+                                        Grid.Row="13"
+                                        Grid.Column="7"
+                                        Content="Remise :" 
+                                        x:Name="_LabelRemise" ></Label>
+                                                    <Label 
+                                        Grid.Row="13" 
+                                        Grid.Column="11" 
+                                        Content="Montant Devis négocié :"
+                                        x:Name="_LabelMontantDevisNegoc"  />
+
+
+                                                    <TextBox 
+                                        Grid.Row="15"
+                                        Grid.Column="3"
+                                        x:Name="_TextBoxMontantDevisInitial"
+                                        TextAlignment="Right"
+                                        TextChanged="_TextBoxMontantDevisInitial_TextChanged"
+                                        KeyUp="_TextBoxVirgule_KeyUp"
+                                        Text="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label
+                                        Grid.Row="15"
+                                        Grid.Column="5"
+                                        Content="€" 
+                                        x:Name="_LabelEuro1"  />
+                                                    <TextBox 
+                                        Grid.Row="15"
+                                        Grid.Column="7" 
+                                        x:Name="_TextBoxRemise"
+                                                        TextAlignment="Right"
+                                        Text="{Binding Path=Taux_Remise, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                        IsEnabled="False"/>
+                                                    <Label
+                                        Grid.Row="15" 
+                                        Grid.Column="9" 
+                                        Content="%" 
+                                        x:Name="_LabelEuro5" />
+                                                    <TextBox 
+                                        Grid.Row="15" 
+                                        Grid.Column="11" 
+                                        TextAlignment="Right"
+                                        x:Name="_TextBoxMontantDevisNegoc"   
+                                        IsEnabled="False"
+                                        TextChanged="_TextBoxMontantDevisNegoc_TextChanged"
+                                        Text="{Binding Path=Montant_Remise, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        />
+                                                    <Label 
+                                        Grid.Row="15" 
+                                        Grid.Column="13"
+                                        Content="€"
+                                        x:Name="_LabelEuro3" />
+                                                    <Label 
+                                        Grid.Row="17"
+                                        Grid.Column="7" 
+                                        Content="Montant de la remise :"
+                                        x:Name="_LabelPrixMontantRemise"/>
+                                                    <TextBox 
+                                        Grid.Row="19"
+                                        Grid.Column="7"
+                                        TextAlignment="Right"
+                                        IsEnabled="False"
+                                        x:Name="_TextBoxMontantRemise" 
+                                        Text="{Binding Path=Remise, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}" />
+                                                    <Label
+                                        Grid.Row="19"
+                                        Grid.Column="9"
+                                        Content="€" />
+                                                </Grid.Children>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Conditions de règlements"  x:Name="_tabItemConditionsReglements">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="0"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="0"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+                                                <ListBox 
+                        x:Name="_ComboBoxActivite" 
+                        Grid.Row="1" 
+                        Grid.Column="1"
+                        Width="Auto"
+                        MaxWidth="400"
+                        MinWidth="250"
+                        Height="250"
+                        MinHeight="250"
+                        MaxHeight="400"
+                        Margin="2" 
+                        DisplayMemberPath="Libelle" 
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:PassageAffaireWindow}}, Path=ListConditionsReglements}"
+                        >
+                                                </ListBox>
+                                                <DataGrid 
+            x:Name="_ComboBoxActiviteOfDevis" 
+            ItemsSource="{Binding Path=Versions_Condition_Reglement}" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            GridLinesVisibility="None"
+            Grid.Column="5"
+            Grid.Row="1"
+            EnableColumnVirtualization="True">
+                                                    <!--  Definition des colomnes du DataGrid  -->
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn 
+                                                    x:Name="_colonnePourcentageCdtRglmt"
+                                                    Header="Pourcentage (%)"  
+                                                    Binding="{Binding Path=Pourcentage, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                            <DataGridTextColumn.CellStyle>
+                                                                <Style>
+                                                                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                    <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                                </Style>
+                                                            </DataGridTextColumn.CellStyle>
+                                                        </DataGridTextColumn>
+                                                        <DataGridTextColumn 
+                    Header="Modalité de règlement" 
+                    Binding="{Binding Path=Commentaire, Mode=TwoWay}"
+                    FontFamily="Comic Sans MS"
+                    x:Name="ColonneCommentaire"
+                    >
+                                                        </DataGridTextColumn>
+
+                                                        <DataGridTextColumn 
+                    Header="Condition de règlement" 
+                    Binding="{Binding Path=Condition_Reglement1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    FontFamily="Comic Sans MS"
+                    >
+                                                        </DataGridTextColumn>
+
+                                                    </DataGrid.Columns>
+                                                    <!--  Fin Definition des colomnes du DataGrid  -->
+                                                </DataGrid>
+                                                <Button Grid.Row="1" Grid.Column="6" ToolTip="Importer du fournisseur" x:Name="_importerConditions" Click="_importerConditions_Click_1">
+                                                    <Image Source="..\Images\icone-importer-small.png" Height="20"></Image>
+                                                </Button>
+
+                                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="100"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Button 
+                        Content="-►"
+                        x:Name="_ButtonVersDroite"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonVersDroite_click"
+                        >
+                                                    </Button>
+
+                                                    <Button 
+                        Content="◄-"
+                        x:Name="_ButtonVersGauche"
+                        Grid.Row="3"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonVersGauche_click"
+                        >
+                                                    </Button>
+
+                                                </Grid>
+
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Commentaires" x:Name="_tabItemCommentaire">
+                                            <Grid Name="grid1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Label 
+                                        Grid.Row="0" 
+                                        Grid.Column="0"
+                                        Content="Commentaire :"
+                                        x:Name="_LabelCommentaire" />
+                                                    <TextBox
+                                        Grid.Row="2" 
+                                        Grid.Column="1" 
+                                        MinHeight="160" 
+                                        TextWrapping="Wrap"
+                                        Text="{Binding Path=Commentaire}"
+                                        x:Name="_TextBoxCommentaire" />
+                                                </Grid.Children>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Suivi" x:Name="_tabItemSuivi">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="Envoyé par fax le : "></TextBlock>
+                                                    <DatePicker  
+                        Grid.Row="1" 
+                        Grid.Column="3" 
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Path=Faxe_Le, Mode=TwoWay}" 
+                        x:Name="_DatePickerFax" />
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="Envoyé par courrier le : "></TextBlock>
+                                                    <DatePicker  
+                        Grid.Row="3" 
+                        Grid.Column="3" 
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Path=Courrier_Le, Mode=TwoWay}" 
+                        x:Name="_DatePickerCourrier" />
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Text="Envoyé par mail le : "></TextBlock>
+                                                    <DatePicker  
+                        Grid.Row="5" 
+                        Grid.Column="3" 
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Path=Mail_Le, Mode=TwoWay}" 
+                        x:Name="_DatePickerMail" />
+                                                    <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Text="Relancé le : "></TextBlock>
+                                                    <DatePicker  
+                        Grid.Row="7" 
+                        Grid.Column="3" 
+                        SelectedDateFormat="Short"
+                        SelectedDateChanged="_DatePickerRelance_SelectedDateChanged"
+                        SelectedDate="{Binding Path=Date_Relance, Mode=TwoWay}" 
+                        x:Name="_DatePickerRelance" />
+                                                    <TextBlock Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Text="Commentaire de relance : "></TextBlock>
+                                                    <TextBox
+                                        Grid.Row="9" 
+                                        Grid.Column="3" 
+                                        MinHeight="160" 
+                                        TextWrapping="Wrap"
+                                        IsEnabled="False"
+                                        Text="{Binding Path=Commentaire_Relance}"
+                                        x:Name="_TextBoxCommentaireRelance" />
+                                                </Grid.Children>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Régies" x:Name="_tabItemRegies">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto" MinWidth="40"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.Children>
+                                                    <DataGrid
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        IsReadOnly="True"
+                                                        MaxHeight="150"
+                                                        AutoGenerateColumns="False"
+                                                        x:Name="_dataGridRegiesGauche">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn 
+                    Header="Numéro de régie" 
+                    Binding="{Binding Path=Numero, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    >
+                                                            </DataGridTextColumn>
+
+                                                            <DataGridTextColumn 
+                    Header="Nombres d'heures" 
+                    Binding="{Binding Path=Heures_Totales, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    >
+                                                            </DataGridTextColumn>
+
+                                                            <DataGridTextColumn
+                    Header="Prix Total fourniture" 
+                    Binding="{Binding Path=Prix_Total, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    >
+                                                                <DataGridTextColumn.CellStyle>
+                                                                    <Style>
+                                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                                    </Style>
+                                                                </DataGridTextColumn.CellStyle>
+                                                            </DataGridTextColumn>
+
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+
+                                                    <Grid Grid.Row="0" Grid.Column="1">
+                                                        <Grid.RowDefinitions>
+                                                            <!--Définitions des lignes de la colonne du mileu du corps-->
+                                                            <RowDefinition Height="33*"></RowDefinition>
+                                                            <RowDefinition Height="40"></RowDefinition>
+                                                            <RowDefinition Height="33*"></RowDefinition>
+                                                            <RowDefinition Height="40"></RowDefinition>
+                                                            <RowDefinition Height="33*"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Grid.Children>
+                                                            <!--Outils de la colonne du milieu du corps-->
+                                                            <Button 
+                                Grid.Row="1" 
+                                MinWidth="50"
+                                Content="->" 
+                                x:Name="_buttonGaucheDroite"
+                                Click="_buttonGaucheDroite_Click">
+                                                            </Button>
+                                                            <Button 
+                                Grid.Row="3" 
+                                Content="&lt;-" 
+                                MinWidth="50"
+                                x:Name="_buttonDroiteGauche"
+                                Click="_buttonDroiteGauche_Click">
+                                                            </Button>
+                                                        </Grid.Children>
+                                                    </Grid>
+
+                                                    <DataGrid
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        IsReadOnly="True"
+                                                        MaxHeight="150"
+                                                        AutoGenerateColumns="False"
+                                                        ItemsSource="{Binding Path=Regie}"
+                                                        x:Name="_dataGridRegiesDroit">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn
+                    Header="Numéro de régie" 
+                    Binding="{Binding Path=Numero, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    >
+                                                            </DataGridTextColumn>
+
+                                                            <DataGridTextColumn
+                    Header="Nombres d'heures" 
+                    Binding="{Binding Path=Heures_Totales, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    >
+                                                            </DataGridTextColumn>
+
+                                                            <DataGridTextColumn
+                    Header="Prix Total fournitures" 
+                    Binding="{Binding Path=Prix_Total, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    >
+                                                                <DataGridTextColumn.CellStyle>
+                                                                    <Style>
+                                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                                    </Style>
+                                                                </DataGridTextColumn.CellStyle>
+                                                            </DataGridTextColumn>
+
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid.Children>
+                                            </Grid>
+                                        </TabItem>
+                                    </TabControl>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+
+
+            <!--  Nouveau Grid pour boutons Ok/Annuler  -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+
+        </Grid.Children>
+    </Grid>
+</Window>

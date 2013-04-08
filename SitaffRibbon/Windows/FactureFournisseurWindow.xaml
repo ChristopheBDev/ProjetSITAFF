@@ -1,0 +1,1505 @@
+﻿<Window x:Class="SitaffRibbon.Windows.FactureFournisseurWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:local2="clr-namespace:SitaffRibbon.Converters"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+        Icon="..\Images\icone-facture-large.png"
+        Title="Facture fournisseur" Height="Auto" Width="Auto" MaxWidth="1200" MaxHeight="1100" SizeToContent="WidthAndHeight" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MinWidth="500" MinHeight="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" MinWidth="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="5" MinWidth="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" MinHeight="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5" MinHeight="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1" x:Name="_firstLineToHideTop">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*" MinWidth="150"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*" MinWidth="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockNumeroFacture"
+                        Text="Numéro Facture : ">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="_textBoxNumeroFacture"
+                        TextChanged="_textBoxNumeroFacture_TextChanged"
+                        Text="{Binding Path=Numero}">
+                    </TextBox>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockDateFacture"
+                        Text="Date Facture : ">
+                    </TextBlock>
+                    <DatePicker 
+            Grid.Column="3"
+            Grid.Row="0"
+            x:Name="_DatePickerDateFacture"
+            SelectedDateChanged="_DatePickerDateFacture_SelectedDateChanged"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Date_Facture, UpdateSourceTrigger=PropertyChanged}"
+             />
+
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Height="23"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockNumeroPieceComptable"
+                        Text="Numéro pièce comptable : ">
+                            </TextBlock>
+
+                            <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockFournisseur"
+                        Text="Fournisseur : ">
+                            </TextBlock>
+                        </Grid.Children>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Children>
+                            <TextBox
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Top"
+                        Height="23"
+                        x:Name="_textBoxNumeroPieceComptable"
+                        TextChanged="_textBoxNumeroPieceComptable_TextChanged"
+                        Text="{Binding Path=Numero_Piece_Comptable}">
+                            </TextBox>
+                            <ComboBox 
+                                            Grid.Row="1" 
+                                            Grid.Column="0"
+                                            x:Name="_comboBoxFournisseur" 
+                                            SelectionChanged="_comboBoxFournisseur_SelectionChanged"
+                                            SelectedItem="{Binding Path=Fournisseur1}"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=listFournisseur}"
+                                            DisplayMemberPath="Entreprise.NomEntrepriseAvecVille">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                        </Grid.Children>
+                    </Grid>
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockCommentaires"
+                        Text="Commentaires : ">
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxCommentaires" 
+                Grid.Row="2" 
+                Grid.Column="3" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                MinHeight="30"       
+                MaxHeight="100"
+                Text="{Binding Path=Commentaire, UpdateSourceTrigger=PropertyChanged}"
+                ></TextBox>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1" x:Name="_secondLineToHideTop">
+                <TabControl x:Name="_tabControlSelections">
+                    <TabItem Header="Selection BL">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto" MinHeight="150" MaxHeight="240"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <TextBlock
+                                            x:Name="_filterAffaire"
+                                            Text="Affaire : "
+                                            Grid.Row="0"
+                                            Grid.Column="0">
+                                        </TextBlock>
+                                        <ComboBox 
+                                            Grid.Row="0" 
+                                            Grid.Column="1"
+                                            x:Name="_comboBoxFilterAffaire" 
+                                            SelectionChanged="_comboBoxFilterAffaire_SelectionChanged"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=listAffaire}"
+                                            DisplayMemberPath="Numero">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
+                                        <Button x:Name="_mettreANullAffaire" Grid.Row="0" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANullAffaire_Click">
+                                            <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                        </Button>
+                                        <Button
+                                        Grid.Row="0"
+                                        Grid.Column="3"
+                                        x:Name="LookAffaire"
+                                        Click="LookAffaire_Click_1"
+                                        ToolTip="Voir"
+                                        >
+                                            <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                                        </Button>
+                                        <TextBlock
+                                            x:Name="_filterCommandeBL"
+                                            Text="Commande : "
+                                            Grid.Row="1"
+                                            Grid.Column="0">
+                                        </TextBlock>
+                                        <ComboBox 
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            x:Name="_comboBoxFilterCommandeBL" 
+                                            SelectionChanged="_comboBoxFilterCommandeBL_SelectionChanged" 
+                                            DisplayMemberPath="ConcatFactureFournisseur">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
+                                        <Button x:Name="_mettreANullCommande" Grid.Row="1" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANullCommande_Click">
+                                            <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                        </Button>
+                                        <Button
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        x:Name="LookCommande"
+                                        Click="LookCommande_Click_1"
+                                        ToolTip="Voir"
+                                        >
+                                            <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                                        </Button>
+                                    </Grid.Children>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <!--Définitions des colonnes du corps de la fenêtre-->
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.Children>
+                                        <!--DataGrid de gauche-->
+                                        <Grid Grid.Row="0" Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="100*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Children>
+                                                <DataGrid 
+                        x:Name="_dataGridBLGauche"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        AutoGenerateColumns="False"
+                        FrozenColumnCount="2"
+                        CanUserAddRows="False"
+                        MinHeight="150"
+                        MaxHeight="150"
+                        CanUserDeleteRows="False">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn 
+                                Width="28*" 
+                                Header="Numéro BL" 
+                                Binding="{Binding Path=bon_livraison.Numero}"
+                                IsReadOnly="True">
+                                                        </DataGridTextColumn>
+                                                        <DataGridTextColumn 
+                                Width="28*" 
+                                Header="Affaire" 
+                                Binding="{Binding Path=affaire.Numero}"
+                                IsReadOnly="True">
+                                                        </DataGridTextColumn>
+                                                        <DataGridTextColumn 
+                                Width="28*" 
+                                Header="Commande" 
+                                Binding="{Binding Path=commande_fournisseur.Numero}"
+                                IsReadOnly="True">
+                                                        </DataGridTextColumn>
+                                                        <DataGridTextColumn 
+                                Width="16*" 
+                                Header="Montant BL" 
+                                Binding="{Binding Path=bon_livraison.Montant}"
+                                IsReadOnly="True">
+                                                        </DataGridTextColumn>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                                <Button x:Name="_newRegie" Grid.Row="1" Grid.Column="0" ToolTip="Ajouter" Click="Button_Click_1">
+                                                    <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <!--Définitions des lignes de la colonne du mileu du corps-->
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.Children>
+                                                <!--Outils de la colonne du milieu du corps-->
+                                                <Button 
+                                Grid.Row="1" 
+                                MinWidth="50"
+                                Content="->" 
+                                x:Name="_buttonGaucheDroiteBL"
+                                Click="_buttonGaucheDroiteBL_Click">
+                                                </Button>
+                                                <Button 
+                                Grid.Row="3" 
+                                Content="&lt;-" 
+                                MinWidth="50"
+                                x:Name="_buttonDroiteGaucheBL"
+                                Click="_buttonDroiteGaucheBL_Click">
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+
+                                        <!--DataGrid de droite-->
+                                        <DataGrid 
+                        Grid.Column="2" 
+                        x:Name="_dataGridDroitBL"
+                        ItemsSource="{Binding Path=Bon_Livraison}"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        MinHeight="150"
+                        MaxHeight="150"
+                        CanUserDeleteRows="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                                Width="100*" 
+                                Header="Numéro BL"
+                                Binding="{Binding Path=Numero}"
+                                IsReadOnly="True">
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Selection Contenus de Commandes">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto" MinHeight="150" MaxHeight="240"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <TextBlock
+                                            x:Name="_filterCommande"
+                                            Text="Commande : "
+                                            Grid.Row="0"
+                                            Grid.Column="0">
+                                        </TextBlock>
+                                        <ComboBox 
+                                            Grid.Row="0" 
+                                            Grid.Column="1"
+                                            x:Name="_comboBoxFilterCommande" 
+                                            SelectionChanged="_comboBoxFilterCommande_SelectionChanged" 
+                                            DisplayMemberPath="ConcatFactureFournisseur">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
+                                        <Button
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        x:Name="LookCommande1"
+                                        Click="LookCommande1_Click_1"
+                                        ToolTip="Voir"
+                                        >
+                                            <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                                        </Button>
+                                    </Grid.Children>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <!--Définitions des colonnes du corps de la fenêtre-->
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.Children>
+                                        <!--DataGrid de gauche-->
+                                        <DataGrid 
+                        x:Name="_dataGridCommandeGauche"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        AutoGenerateColumns="False"
+                        FrozenColumnCount="2"
+                        CanUserAddRows="False"
+                        MinHeight="150"
+                        MaxHeight="150"
+                        CanUserDeleteRows="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                                Width="75*" 
+                                Header="Description" 
+                                Binding="{Binding Path=Designation}"
+                                IsReadOnly="True">
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                                Width="25*" 
+                                Header="Quantité Restante" 
+                                Binding="{Binding Path=QuantiteRestante}"
+                                IsReadOnly="True">
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <!--Définitions des lignes de la colonne du mileu du corps-->
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.Children>
+                                                <!--Outils de la colonne du milieu du corps-->
+                                                <Button 
+                                Grid.Row="1" 
+                                Content="->" 
+                                MinWidth="50"
+                                x:Name="_buttonGaucheDroiteCommande"
+                                Click="_buttonGaucheDroiteCommande_Click">
+                                                </Button>
+                                                <Button 
+                                Grid.Row="3" 
+                                Content="&lt;-" 
+                                MinWidth="50"
+                                x:Name="_buttonDroiteGaucheCommande"
+                                Click="_buttonDroiteGaucheCommande_Click">
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+
+                                        <!--DataGrid de droite-->
+                                        <DataGrid 
+                        Grid.Column="2" 
+                        x:Name="_dataGridDroitCommande" 
+                        ItemsSource="{Binding Path=Facture_Fournisseur_Contenu_Commande_Fournisseur}"
+                        AutoGenerateColumns="False"
+                        FrozenColumnCount="1"
+                        CanUserAddRows="False"
+                        MinHeight="150"
+                        MaxHeight="150"
+                        CanUserDeleteRows="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                                Width="75*" 
+                                Header="Description"
+                                Binding="{Binding Path=Contenu_Commande_Fournisseur1.Designation}"
+                                IsReadOnly="True">
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Accomptes">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" MinHeight="150" MaxHeight="240"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <!--Définitions des colonnes du corps de la fenêtre-->
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.Children>
+                                        <!--DataGrid de gauche-->
+                                        <DataGrid 
+                        x:Name="_dataGridProformaGauche"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        AutoGenerateColumns="False"
+                        FrozenColumnCount="2"
+                        CanUserAddRows="False"
+                        MinHeight="150"
+                        MaxHeight="150"
+                        CanUserDeleteRows="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                    Header="Numéro" 
+                    Binding="{Binding Path=Numero}"                    
+                    IsReadOnly="True" 
+                    Width="6*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Montant" 
+                    Binding="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    IsReadOnly="True" 
+                    Width="10*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <!--Définitions des lignes de la colonne du mileu du corps-->
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="33*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.Children>
+                                                <!--Outils de la colonne du milieu du corps-->
+                                                <Button 
+                                Grid.Row="1" 
+                                Content="->" 
+                                MinWidth="50"
+                                x:Name="_buttonGaucheDroiteProforma"
+                                Click="_buttonGaucheDroiteProforma_Click_1">
+                                                </Button>
+                                                <Button 
+                                Grid.Row="3" 
+                                Content="&lt;-" 
+                                MinWidth="50"
+                                x:Name="_buttonDroiteGaucheProforma"
+                                Click="_buttonDroiteGaucheProforma_Click_1">
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+
+                                        <!--DataGrid de droite-->
+                                        <DataGrid 
+                        Grid.Column="2" 
+                        x:Name="_dataGridDroitProforma" 
+                        ItemsSource="{Binding Path=Facture_Proforma}"
+                        AutoGenerateColumns="False"
+                        FrozenColumnCount="1"
+                        CanUserAddRows="False"
+                        MinHeight="150"
+                        MaxHeight="150"
+                        CanUserDeleteRows="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                    Header="Numéro" 
+                    Binding="{Binding Path=Numero}"                    
+                    IsReadOnly="True" 
+                    Width="6*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Montant" 
+                    Binding="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    IsReadOnly="True" 
+                    Width="10*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <Button
+                        x:Name="_buttonMasquerHaut"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Masquer le haut"
+                        Click="_buttonMasquerHaut_Click">
+                    </Button>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="1">
+                <TabControl>
+                    <TabItem x:Name="_tabItemContenu" Header="Contenu">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Grid Column="0"  Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="100*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Children>
+                                                <TextBlock
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Filtre Plan comptable entreprise mère : ">
+                                                </TextBlock>
+                                                <ComboBox
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    x:Name="_comboBoxFilterEntrepriseMere"                                                     
+                                                    SelectionChanged="_comboBoxFilterEntrepriseMere_SelectionChanged_1"
+                                                    DisplayMemberPath="Nom">                                                    
+                                                </ComboBox>
+                                                <Button x:Name="_mettreANullPlanComptable" Grid.Row="1" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANullPlanComptable_Click_1">
+                                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+                                        <DataGrid 
+            x:Name="_DataGridContenu"                     
+            MinWidth="750"
+            MinHeight="150"
+            ItemsSource="{Binding Path=Facture_Fournisseur_Contenu}"
+            AutoGenerateColumns="False"
+            CanUserDeleteRows="False"
+            Grid.Column="0"
+            Grid.Row="1"                   
+            KeyUp="_dataGrid_KeyUp"
+            >
+
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                    Header="Réf fournisseur" 
+                    Binding="{Binding Path=Reference_Fournisseur, Mode=TwoWay}"                    
+                    Width="Auto"                     
+                    FontFamily="Comic Sans MS"       
+                    >
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Désignation" 
+                    Binding="{Binding Path=Designation, Mode=TwoWay}"                    
+                    Width="Auto"
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Qté commandée" 
+                    Binding="{Binding Path=Qte_Commandee, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"
+                    IsReadOnly="True"                    
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Qté livrée" 
+                    Binding="{Binding Path=Qte_Livree, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"
+                    IsReadOnly="True"  
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Qté facturée" 
+                    Binding="{Binding Path=Qte_Facturee, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+
+                                                <DataGridTextColumn 
+                    Header="P.U cdé HT" 
+                    Binding="{Binding Path=Prix_Unitaire_Commande_HT, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"       
+                    IsReadOnly="True"
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="P.U HT remisé" 
+                    Binding="{Binding Path=Prix_Unitaire_Remise_HT, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"       
+                    IsReadOnly="True"
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="P.U facturé HT" 
+                    Binding="{Binding Path=Prix_Unitaire_Facture_HT, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"     
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"       
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="P.T HT Facturé" 
+                    Binding="{Binding Path=Prix_Total_Facture_HT, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"       
+                    IsReadOnly="True"
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Diff." 
+                    Binding="{Binding Path=Diff, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="Auto"     
+                    IsReadOnly="True"
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridCheckBoxColumn
+                                                Header="Avoir ?"
+                                                Binding="{Binding Path=Avoir}">
+                                                </DataGridCheckBoxColumn>
+
+                                                <DataGridTemplateColumn Header="Imputation PC" Width="Auto">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                    <TextBlock.Text>
+                                                                        <Binding Path="Plan_Comptable_Imputation1">
+                                                                            <Binding.Converter>
+                                                                                <local2:PlanComptableImputationConverter></local2:PlanComptableImputationConverter>
+                                                                            </Binding.Converter>
+                                                                        </Binding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox x:Name="lesPlanComptablesImputation" SelectionChanged="lesPlanComptablesImputation_SelectionChanged" DisplayMemberPath="getConcatenation" SelectedItem="{Binding Path=Plan_Comptable_Imputation1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=listPlanComptableImputation}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn Header="Imputation TVA" Width="Auto">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                    <TextBlock.Text>
+                                                                        <Binding Path="Plan_Comptable_Tva1">
+                                                                            <Binding.Converter>
+                                                                                <local2:PlanComptableTvaConverter></local2:PlanComptableTvaConverter>
+                                                                            </Binding.Converter>
+                                                                        </Binding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox x:Name="lesPlanComptablesTva" SelectionChanged="lesPlanComptablesTva_SelectionChanged" DisplayMemberPath="getConcatenation" SelectedItem="{Binding Path=Plan_Comptable_Tva1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=listPlanComptableTva}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTextColumn 
+                    Header="Provenance" 
+                    Binding="{Binding Path=provenance, Mode=OneWay}"                    
+                    Width="Auto" 
+                    FontFamily="Comic Sans MS"
+                    IsReadOnly="True"
+                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTemplateColumn Header="Affaire" Width="Auto">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                    <TextBlock.Text>
+                                                                        <Binding Path="Affaire1">
+                                                                            <Binding.Converter>
+                                                                                <local2:AffaireNumeroConverter></local2:AffaireNumeroConverter>
+                                                                            </Binding.Converter>
+                                                                        </Binding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox x:Name="lesAffaires" SelectionChanged="lesAffaires_SelectionChanged"  DisplayMemberPath="Numero" SelectedItem="{Binding Path=Affaire1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=listAffaire}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn Header="Commande fournisseur" Width="Auto">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                    <TextBlock.Text>
+                                                                        <Binding Path="Commande_Fournisseur1">
+                                                                            <Binding.Converter>
+                                                                                <local2:CommandeFournisseurNumeroConverter></local2:CommandeFournisseurNumeroConverter>
+                                                                            </Binding.Converter>
+                                                                        </Binding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox x:Name="lesCommandes" SelectionChanged="lesCommandes_SelectionChanged"  DisplayMemberPath="Numero" SelectedItem="{Binding Path=Commande_Fournisseur1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=listCommandeContenu}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                            </DataGrid.Columns>
+                                            <!--  Fin Definition des colomnes du DataGrid  -->
+                                        </DataGrid>
+                                    </Grid.Children>
+                                </Grid>
+                                <Grid Column="1" Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="17*"></RowDefinition>
+                                        <RowDefinition Height="17*"></RowDefinition>
+                                        <RowDefinition Height="17*"></RowDefinition>
+                                        <RowDefinition Height="17*"></RowDefinition>
+                                        <RowDefinition Height="17*"></RowDefinition>
+                                        <RowDefinition Height="17*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <Button
+                        Content="↓ Imputation PC"
+                        x:Name="_ButtonCopierPCIBas"
+                        Grid.Row="0"                    
+                        Grid.Column="0"  
+                        Margin="2" 
+                        Height="40"
+                        MinHeight="20"                                            
+                        Click="_ButtonCopierPCIBas_click"
+                                    >
+                                        </Button>
+                                        <Button
+                        Content="↓ Affaire"
+                        x:Name="_ButtonCopierAffaireBas"
+                        Grid.Row="1"                     
+                        Margin="2" 
+                        Height="40"
+                        MinHeight="20"                                            
+                        Click="_ButtonCopierAffaireBas_Click"
+                                    >
+                                        </Button>
+                                        <Button
+                        Content="↓ Imputation TVA"
+                        x:Name="_ButtonCopierPCTBas"
+                        Grid.Row="2"                     
+                        Margin="2" 
+                        Height="40"
+                        MinHeight="20"                                            
+                        Click="_ButtonCopierPCTBas_click"
+                                    >
+                                        </Button>
+                                        <Button
+                        ToolTip="Calculer"
+                        x:Name="_ButtonCalculer"
+                        Grid.Row="3"                     
+                        Margin="2" 
+                        Height="40"
+                        MinHeight="20"
+                        Click="_ButtonCalculer_Click"
+                                    >
+                                            <Image Source="..\Images\icone-calculatrice-small.png" Height="20"></Image>
+                                        </Button>
+                                        <Button
+                        ToolTip="Supprimer"
+                        x:Name="_ButtonSupprimer"
+                        Grid.Row="4"                     
+                        Margin="2" 
+                        Height="40"
+                        MinHeight="20"
+                        Click="_ButtonSupprimer_Click_1"
+                                    >
+                                            <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                        </Button>
+                                        <Button
+                        ToolTip="Coller"
+                        x:Name="_ButtonColler"
+                        Grid.Row="5"                     
+                        Margin="2" 
+                        MinHeight="20"
+                        Height="40"
+                        Click="_ButtonColler_Click_1"
+                                    >
+                                            <Image Source="..\Images\icone-coller-small.png" Height="20"></Image>
+                                        </Button>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="_tabItemEcheances" Header="Echéances" MaxHeight="170">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="15"></RowDefinition>
+                                <RowDefinition Height="*" MaxHeight="150"></RowDefinition>
+                                <RowDefinition Height="15"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="40*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="60*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto" MinWidth="50"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+                                <ListBox 
+                                    Grid.Column="1" 
+                                    Grid.Row="1" 
+                                    x:Name="_listBoxCondReglementGauche"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureFournisseurWindow}}, Path=list_Condition_Reglement}"
+                                    DisplayMemberPath="Libelle" >
+                                </ListBox>
+                                <Grid Grid.Row="1" Grid.Column="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="80*"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="80*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <Button Grid.Row="1" Content="->" x:Name="_buttonGaucheDroite" MinHeight="40" Click="_buttonGaucheDroite_Click_1"></Button>
+                                        <Button Grid.Row="3" Content="&lt;-" x:Name="_buttonDroiteGauche" MinHeight="40" Click="_buttonDroiteGauche_Click"></Button>
+                                    </Grid.Children>
+                                </Grid>
+                                <DataGrid
+                                        Grid.Row="1"
+                                        Grid.Column="5"
+                                        x:Name="_dataGridFactureFournisseurConditionReglement"
+                                        ItemsSource="{Binding Path=Facture_Fournisseur_Condition_Reglement}"
+                                        CanUserAddRows="False"
+                                        CanUserDeleteRows="False"
+                                        KeyUp="_dataGridFactureFournisseurConditionReglement_KeyUp_1"
+                                        AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn 
+                                                    x:Name="_colonnePourcentageCdtRglmt"
+                                                    Header="Pourcentage (%)"  
+                                                    Binding="{Binding Path=Pourcentage, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                    <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Modalité de réglement" Binding="{Binding Path=Commentaire}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Condition de règlement" Width="Auto" IsReadOnly="True" Binding="{Binding Path=Condition_Reglement1.Libelle}">
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTemplateColumn Header="Date échéance" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker x:Name="_dateEch1" SelectedDate="{Binding Path=Date_Echeance}" HorizontalAlignment="Stretch"></DatePicker>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn.CellEditingTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker x:Name="_dateEch2" SelectedDate="{Binding Path=Date_Echeance}" HorizontalAlignment="Stretch"></DatePicker>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellEditingTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn 
+                                                    x:Name="_colonneTotalConditionReglement"
+                                                    Header="Montant"  
+                                                    Binding="{Binding Path=MontantEcheance, Mode=OneWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                    <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Button x:Name="_calculerEcheances" ToolTip="Calculer" Grid.Row="1" Grid.Column="7" Click="_calculerEcheances_Click_1">
+                                    <Image Source="..\Images\icone-calculatrice-small.png" Height="20"></Image>
+                                </Button>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="_tabItemLitiges" Header="Litiges">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                        Grid.Column="1"
+                                        x:Name="_dataGridLitigeFacture_SansBL"
+                                        ItemsSource="{Binding Path=Litige_Facture_Fournisseur}"
+                                        AutoGenerateColumns="False"
+                                        IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Litige" Width="*" Binding="{Binding Path=Litige1.Libelle}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Path=Description}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid Grid.Column="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <Button Grid.Row="1" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonAjouterLitige" ToolTip="Ajouter" Click="_buttonAjouterLitige_Click">
+                                            <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                        </Button>
+                                        <Button Grid.Row="3" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonModifierLitige" ToolTip="Modifier" Click="_buttonModifierLitige_Click">
+                                            <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                        </Button>
+                                        <Button Grid.Row="5" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonSupprimerLitige" ToolTip="Supprimer" Click="_buttonSupprimerLitige_Click">
+                                            <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                        </Button>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <Button
+                        x:Name="_buttonMasquerBas"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Masquer le bas"
+                        Click="_buttonMasquerBas_Click">
+                    </Button>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="1" x:Name="_partieBasse">
+                <TabControl>
+                    <TabItem x:Name="_tabTotaux" Header="Totaux">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="50*" MinWidth="150"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="50*" MinWidth="150"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockMontantHTTheorique"
+                        Text="Montant HT Théorique : ">
+                                </TextBlock>
+                                <TextBox
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        x:Name="_textBoxMontantHTTheorique"
+                        TextChanged="_textBoxMontant_TextChanged"
+                        KeyUp="_textBox_KeyUp"
+                        Text="{Binding Path=Montant_HT_Theorique, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                                </TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockMontantHT"
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Montant HT : "></TextBlock>
+                                <TextBox
+                        x:Name="_textBoxMontantHT"
+                        Grid.Row="1"
+                        Grid.Column="5"
+                        TextAlignment="Right"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Montant_HT, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"></TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockMontantTVA"
+                        Grid.Row="3"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Montant TVA : "></TextBlock>
+                                <TextBox
+                        x:Name="_textBoxMontantTVA"
+                        Grid.Row="3"
+                        Grid.Column="5"
+                        TextAlignment="Right"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Montant_TVA, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"></TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockMontantTTC"
+                        Grid.Row="5"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Montant TTC : "></TextBlock>
+                                <TextBox
+                        x:Name="_textBoxMontantTTC"
+                        Grid.Row="5"
+                        Grid.Column="5"
+                        IsReadOnly="True"
+                        TextAlignment="Right"
+                        Text="{Binding Path=Montant_TTC, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                                </TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockAccompte"
+                        Grid.Row="7"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Acompte : "></TextBlock>
+
+                                <TextBox
+                        x:Name="_textBoxAccompte"
+                        Grid.Row="7"
+                        Grid.Column="5"
+                        IsReadOnly="True"
+                        TextAlignment="Right"
+                        Text="{Binding Path=Accompte, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"></TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockMontantNetAPayer"
+                        Grid.Row="11"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Net à payer : "></TextBlock>
+                                <TextBox
+                        x:Name="_textBoxMontantNetAPayer"
+                        Grid.Row="11"
+                        Grid.Column="5"
+                        IsReadOnly="True"
+                        TextAlignment="Right"
+                        Text="{Binding Path=NetAPayer, Mode=OneWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                                </TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockDiff"
+                        Grid.Row="13"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Différence : "></TextBlock>
+                                <TextBox
+                        x:Name="_textBoxAvoir"
+                        Grid.Row="13"
+                        Grid.Column="5"
+                        IsReadOnly="True"
+                        TextAlignment="Right"
+                        Text="{Binding Path=Diff, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"></TextBox>
+
+                                <TextBlock
+                        x:Name="_textBlockEcartTva"
+                        Grid.Row="9"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="Boni / Mali : "></TextBlock>
+                                <TextBox
+                        x:Name="_textBoxEcartTva"
+                        TextChanged="_textBoxEcartTva_TextChanged_1"
+                        LostFocus="_textBoxEcartTva_LostFocus_1"
+                        Grid.Row="9"
+                        Grid.Column="5"
+                        TextAlignment="Right"
+                        Text="{Binding Path=EcartTva, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"></TextBox>
+
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="_tabResume" Header="Résumé">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+                                <GroupBox Grid.Column="0" Header="Plan comptable Imputation">
+                                    <DataGrid 
+            x:Name="_dataGridResume1" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            EnableColumnVirtualization="True">
+
+                                        <!--  Definition des colomnes du DataGrid  -->
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn 
+                    Header="Numéro" 
+                    Binding="{Binding Path=planComptableImputation.Numero, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn 
+                    Header="Libelle" 
+                    Binding="{Binding Path=planComptableImputation.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn 
+                    Header="Total" 
+                    Binding="{Binding Path=total, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+
+                                        </DataGrid.Columns>
+                                        <!--  Fin Definition des colomnes du DataGrid  -->
+                                    </DataGrid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="2" Header="Plan comptable TVA">
+                                    <DataGrid 
+            x:Name="_dataGridResume2" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            EnableColumnVirtualization="True">
+
+                                        <!--  Definition des colomnes du DataGrid  -->
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn 
+                    Header="Numéro" 
+                    Binding="{Binding Path=numero, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn 
+                    Header="Libelle" 
+                    Binding="{Binding Path=chaine, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn 
+                    Header="Total" 
+                    Binding="{Binding Path=total, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    Width="*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+
+                                        </DataGrid.Columns>
+                                        <!--  Fin Definition des colomnes du DataGrid  -->
+                                    </DataGrid>
+                                </GroupBox>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

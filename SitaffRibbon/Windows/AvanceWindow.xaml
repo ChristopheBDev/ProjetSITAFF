@@ -1,0 +1,124 @@
+﻿<Window x:Class="SitaffRibbon.Windows.AvanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:AppLocal="clr-namespace:SitaffRibbon"
+        xmlns:localSolution="clr-namespace:SitaffRibbon"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Icon="..\Images\icone-conditionreglement-large.png"
+        Title="Avance sur frais" Height="Auto" Width="Auto" MinWidth="300" MinHeight="150" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" MinWidth="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock 
+                            Grid.Column="0" 
+                            Grid.Row="0"
+                            x:Name="_textBlockSalarie" 
+                            Text="Salarié :">
+                    </TextBlock>
+                    <ComboBox 
+                        Grid.Column="1" 
+                        Grid.Row="0" 
+                        x:Name="_comboBoxSalarie"
+                        SelectedItem="{Binding Path=Salarie1}"
+                        DisplayMemberPath="Personne.fullname"
+                        SelectionChanged="_comboBoxSalarie_SelectionChanged_1"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AvanceWindow}}, Path=listSalarie}"
+                                  >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock 
+                            Grid.Row="2"
+                                            Grid.Column="0" 
+                                            x:Name="_textBlockSomme" 
+                                            Text="Somme :">
+                    </TextBlock>
+                    <TextBox 
+                        Grid.Row="2"
+                                            Grid.Column="1" 
+                                            TextAlignment="Right"
+                                            x:Name="_textBoxSomme"
+                                            KeyUp="_textBoxSomme_KeyUp_1"
+                                            Text="{Binding Path=Somme, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                                            
+                                            LostFocus="_textBoxSomme_LostFocus_1">
+                    </TextBox>
+
+                    <TextBlock 
+                            Grid.Column="0" 
+                            Grid.Row="4" 
+                            x:Name="_textBlockDate_Avance" 
+                            Text="Date :">
+                    </TextBlock>
+                    <DatePicker 
+                            Grid.Column="1" 
+                            Grid.Row="4" 
+                            x:Name="_datePickerDate_Avance" 
+                            SelectedDateChanged="_datePickerDate_Avance_SelectedDateChanged_1"
+                            SelectedDate="{Binding Path=Date_Avance}">
+                    </DatePicker>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_buttonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_buttonAnnuler_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

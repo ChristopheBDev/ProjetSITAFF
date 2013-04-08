@@ -1,0 +1,1173 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ReleveHeureForfaitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:local2="clr-namespace:SitaffRibbon.Converters"
+        Title="Relevé hebdomadaire" Height="Auto" Width="Auto" MaxWidth="1000" MaxHeight="1000" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Icon="..\Images\icone-heures-large.png" Loaded="Window_Loaded" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" MinWidth="5"></ColumnDefinition>
+            <ColumnDefinition Width="96*"></ColumnDefinition>
+            <ColumnDefinition Width="2*" MinWidth="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" MinHeight="5"></RowDefinition>
+            <!-- En tête -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Tab -->
+            <RowDefinition Height="Auto" MinHeight="200"></RowDefinition>
+            <!-- Tableau du total d'heures -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Observation générale -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- boutons ok / annuler -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="2*" MinHeight="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="40*" MinWidth="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10*" MinWidth="10"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="40*" MinWidth="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Responsable chantier : "
+                        x:Name="_textBlockSalarie">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="_comboBoxSalarie"
+                        DisplayMemberPath="Personne.fullname" 
+                        SelectionChanged="_comboBoxSalarie_SelectionChanged"
+                        SelectedItem="{Binding Path=Salarie1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listSalarie}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Text="Numero de semaine : "
+                        x:Name="_textBlockNumero_Semaine">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        IsReadOnly="True"
+                        x:Name="_textBoxNumerosemaine"
+                        Text="{Binding Path=NumeroSemaine}"
+                        TextChanged="_textBoxNumerosemaine_TextChanged">
+                    </TextBox>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="Date début : "
+                        x:Name="_textBlockDate_Debut">
+                    </TextBlock>
+                    <DatePicker  
+                        Grid.Row="2" 
+                        Grid.Column="1" 
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Path=Date_Debut, Mode=TwoWay}" 
+                        SelectedDateChanged="_datePickerDate_Debut_SelectedDateChanged"
+                        x:Name="_datePickerDate_Debut">
+                    </DatePicker>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        Text="Date de fin : "
+                        IsEnabled="False"
+                        x:Name="_textBlockDate_Fin">
+                    </TextBlock>
+                    <DatePicker  
+                        Grid.Row="2" 
+                        Grid.Column="4" 
+                        SelectedDateFormat="Short"
+                        IsEnabled="False"
+                        x:Name="_datePickerDate_Fin">
+                    </DatePicker>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Text="Affaire : "
+                        x:Name="_textBlockAffaire">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        x:Name="_comboBoxAffaire"
+                        DisplayMemberPath="Numero" 
+                        SelectionChanged="_comboBoxAffaire_SelectionChanged"
+                        SelectedItem="{Binding Path=Affaire1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listAffaire}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="3"
+                        Text="Client : "
+                        x:Name="_textBlockClient">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.Column="4"
+                        IsEnabled="False"
+                        x:Name="_comboBoxClient"
+                        DisplayMemberPath="Entreprise.Libelle" 
+                        SelectionChanged="_comboBoxClient_SelectionChanged"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listClient}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Text="Lieu des travaux : "
+                        x:Name="_textBlockLieu">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        IsReadOnly="True"
+                        x:Name="_textBoxLieu">
+                    </TextBox>
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="3"
+                        Text="Chargé d'affaire : "
+                        x:Name="_textBlockChargeAffaire">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="6"
+                        Grid.Column="4"
+                        IsEnabled="False"
+                        x:Name="_comboBoxChargeAffaire"
+                        DisplayMemberPath="Personne.fullname" 
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listCharge}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TabControl>
+                        <TabItem x:Name="_tabItem_HeuresForfait" Header="Heures de forfait">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <DataGrid 
+            x:Name="_DataGridHeureForfait"
+            ItemsSource="{Binding Path=Heure_Forfait}"
+            AutoGenerateColumns="False"
+            FrozenColumnCount="1"
+            Grid.Column="0"
+            MaxHeight="300"
+            Grid.Row="0"
+            CanUserDeleteRows="False"
+            IsReadOnly="False"
+            SelectionChanged="_DataGridHeureForfait_SelectionChanged" 
+            KeyUp="_DataGridHeureForfait_KeyUp_1"
+            RowEditEnding="_DataGridHeureForfait_RowEditEnding">
+
+                                        <!--  Definition des colomnes du DataGrid  -->
+                                        <DataGrid.Columns>
+
+                                            <DataGridTemplateColumn Header="Salarié" Width="15*" MinWidth="150">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Salarie1">
+                                                                        <Binding.Converter>
+                                                                            <local2:SalarieFullnameConverter></local2:SalarieFullnameConverter>
+                                                                        </Binding.Converter>
+                                                                    </Binding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                                <DataGridTemplateColumn.CellEditingTemplate>
+                                                    <DataTemplate>
+                                                        <ComboBox DisplayMemberPath="Personne.fullname" SelectedItem="{Binding Path=Salarie1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listSalarie}">
+                                                            <ComboBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <VirtualizingStackPanel/>
+                                                                </ItemsPanelTemplate>
+                                                            </ComboBox.ItemsPanel>
+                                                        </ComboBox>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellEditingTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTextColumn 
+                    Header="Lundi J" 
+                    Binding="{Binding Path=Heures_Lundi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Mardi J" 
+                    Binding="{Binding Path=Heures_Mardi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                  
+                    MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Mercredi J" 
+                    Binding="{Binding Path=Heures_Mercredi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Jeudi J" 
+                    Binding="{Binding Path=Heures_Jeudi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Vendredi J" 
+                    Binding="{Binding Path=Heures_Vendredi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                   MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Samedi J" 
+                    Binding="{Binding Path=Heures_Samedi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Dimanche J" 
+                    Binding="{Binding Path=Heures_Dimanche_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn 
+                    Header="Lundi N" 
+                    Binding="{Binding Path=Heures_Lundi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Mardi N" 
+                    Binding="{Binding Path=Heures_Mardi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Mercredi N" 
+                    Binding="{Binding Path=Heures_Mercredi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                   
+                     MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Jeudi N" 
+                    Binding="{Binding Path=Heures_Jeudi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Vendredi N" 
+                    Binding="{Binding Path=Heures_Vendredi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                   
+                     MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Samedi N" 
+                    Binding="{Binding Path=Heures_Samedi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                    Header="Dimanche N" 
+                    Binding="{Binding Path=Heures_Dimanche_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+
+                                            <DataGridCheckBoxColumn
+                                                Header="Lundi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Lundi, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+                                            <DataGridCheckBoxColumn
+                                                Header="Mardi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Mardi, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+                                            <DataGridCheckBoxColumn
+                                                Header="Mercredi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Mercredi, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+                                            <DataGridCheckBoxColumn
+                                                Header="Jeudi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Jeudi, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+                                            <DataGridCheckBoxColumn
+                                                Header="Vendredi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Vendredi, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+                                            <DataGridCheckBoxColumn
+                                                Header="Samedi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Samedi, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+                                            <DataGridCheckBoxColumn
+                                                Header="Dimanche Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Dimanche, Mode=TwoWay}"
+                                                >
+                                            </DataGridCheckBoxColumn>
+
+                                        </DataGrid.Columns>
+                                        <!--  Fin Definition des colomnes du DataGrid  -->
+                                    </DataGrid>
+                                    <Grid Grid.Row="0" Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" MinWidth="40"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                            <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                            <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Button
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                ToolTip="Copier"
+                                                x:Name="_button_copierForfait"
+                                                Click="_button_copierForfait_Click">
+                                                <Image Source="..\Images\icone-copier-small.png" Height="20"></Image>
+                                            </Button>
+                                            <Button
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                ToolTip="Coller"
+                                                x:Name="_button_collerForfait"
+                                                Click="_button_collerForfait_Click">
+                                                <Image Source="..\Images\icone-coller-small.png" Height="20"></Image>
+                                            </Button>
+                                            <Button
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                ToolTip="Supprimer"
+                                                x:Name="_button_supprimerForfait"
+                                                Click="_button_supprimerForfait_Click_1">
+                                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="_tabItem_HeuresRegie" Header="Heures de régie">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80*" MinHeight="250"></RowDefinition>
+                                    <RowDefinition Height="10"></RowDefinition>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <DataGrid 
+            x:Name="_DataGridHeureRegie"
+            ItemsSource="{Binding Path=Heure_Regie}"
+            AutoGenerateColumns="False"
+            FrozenColumnCount="1"
+            Grid.Column="0"
+            Grid.Row="0"
+                                                CanUserDeleteRows="False"
+            KeyUp="_DataGridHeureRegie_KeyUp_1"
+            SelectionChanged="_DataGridHeureRegie_SelectionChanged"  RowEditEnding="_DataGridHeureRegie_RowEditEnding">
+
+                                                <!--  Definition des colomnes du DataGrid  -->
+                                                <DataGrid.Columns>
+
+                                                    <DataGridTemplateColumn Header="Salarié" Width="15*" MinWidth="150">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Grid>
+                                                                    <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                        <TextBlock.Text>
+                                                                            <Binding Path="Salarie1">
+                                                                                <Binding.Converter>
+                                                                                    <local2:SalarieFullnameConverter></local2:SalarieFullnameConverter>
+                                                                                </Binding.Converter>
+                                                                            </Binding>
+                                                                        </TextBlock.Text>
+                                                                    </TextBlock>
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox DisplayMemberPath="Personne.fullname" SelectedItem="{Binding Path=Salarie1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listSalarie}">
+                                                                    <ComboBox.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ComboBox.ItemsPanel>
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTextColumn 
+                    Header="Lundi J" 
+                    Binding="{Binding Path=Heures_Lundi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                  
+                    MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Mardi J" 
+                    Binding="{Binding Path=Heures_Mardi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                 
+                    MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Mercredi J" 
+                    Binding="{Binding Path=Heures_Mercredi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                   
+                    MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Jeudi J" 
+                    Binding="{Binding Path=Heures_Jeudi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Vendredi J" 
+                    Binding="{Binding Path=Heures_Vendredi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                   MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Samedi J" 
+                    Binding="{Binding Path=Heures_Samedi_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Dimanche J" 
+                    Binding="{Binding Path=Heures_Dimanche_Jour, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                    MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+
+                                                    <DataGridTextColumn 
+                    Header="Lundi N" 
+                    Binding="{Binding Path=Heures_Lundi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Mardi N" 
+                    Binding="{Binding Path=Heures_Mardi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Mercredi N" 
+                    Binding="{Binding Path=Heures_Mercredi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                   
+                     MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Jeudi N" 
+                    Binding="{Binding Path=Heures_Jeudi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Vendredi N" 
+                    Binding="{Binding Path=Heures_Vendredi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Samedi N" 
+                    Binding="{Binding Path=Heures_Samedi_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}" 
+                                                MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn 
+                    Header="Dimanche N" 
+                    Binding="{Binding Path=Heures_Dimanche_Nuit, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                    
+                     MinWidth="80"
+                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+
+                                                    <DataGridCheckBoxColumn
+                                                Header="Lundi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Lundi, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+                                                    <DataGridCheckBoxColumn
+                                                Header="Mardi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Mardi, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+                                                    <DataGridCheckBoxColumn
+                                                Header="Mercredi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Mercredi, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+                                                    <DataGridCheckBoxColumn
+                                                Header="Jeudi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Jeudi, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+                                                    <DataGridCheckBoxColumn
+                                                Header="Vendredi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Vendredi, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+                                                    <DataGridCheckBoxColumn
+                                                Header="Samedi Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Samedi, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+                                                    <DataGridCheckBoxColumn
+                                                Header="Dimanche Véh"
+                                                MinWidth="80"
+                                                Binding="{Binding Path=Vehicule_Dimanche, Mode=TwoWay}"
+                                                >
+                                                    </DataGridCheckBoxColumn>
+
+                                                </DataGrid.Columns>
+                                                <!--  Fin Definition des colomnes du DataGrid  -->
+                                            </DataGrid>
+                                            <Grid Grid.Row="0" Grid.Column="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" MinWidth="40"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                                    <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                                    <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Button
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                ToolTip="Copier"
+                                                x:Name="_button_copierRegie"
+                                                Click="_button_copierRegie_Click">
+                                                        <Image Source="..\Images\icone-copier-small.png" Height="20"></Image>
+                                                    </Button>
+                                                    <Button
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                ToolTip="Coller"
+                                                x:Name="_button_collerRegie"
+                                                Click="_button_collerRegie_Click">
+                                                        <Image Source="..\Images\icone-coller-small.png" Height="20"></Image>
+                                                    </Button>
+                                                    <Button
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                ToolTip="Supprimer"
+                                                x:Name="_button_supprimerRegie"
+                                                Click="_button_supprimerRegie_Click_1">
+                                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                    </Button>
+                                                </Grid.Children>
+                                            </Grid>
+                                        </Grid.Children>
+                                    </Grid>
+                                    <Grid Grid.Row="2" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                            <ColumnDefinition Width="20*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="100*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Children>
+                                                <ListBox 
+                        x:Name="_ListBoxBonsRegie" 
+                        Grid.Row="0" 
+                        Grid.Column="0"
+                        Height="150"
+                        MinHeight="150"
+                        MaxHeight="200"
+                        DisplayMemberPath="Numero" 
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listRegie}"
+                        >
+                                                </ListBox>
+                                                <Button x:Name="_newRegie" Grid.Row="1" Grid.Column="0" ToolTip="Ajouter" Click="Button_Click_1">
+                                                    <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+                                        <DataGrid 
+                                    x:Name="_DataGridRegie" 
+                                    ItemsSource="{Binding Path=Travail_Sur_Regie}" 
+                                    AutoGenerateColumns="False" 
+                                    CanUserAddRows="False" 
+                                    CanUserDeleteRows="false"
+                                    FrozenColumnCount="2"
+                                            KeyUp="_DataGridRegie_KeyUp_1"
+                                    Grid.Column="4"
+                                    Grid.Row="0"
+                                    EnableColumnVirtualization="True">
+
+                                            <!--  Definition des colomnes du DataGrid  -->
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                                            Header="Numéro de régie" 
+                                            Binding="{Binding Path=Regie1.Numero, Mode=OneWay}"                    
+                                            IsReadOnly="True" 
+                                            Width="70*" 
+                                            >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                                <DataGridTextColumn 
+                                            Header="Quantité" 
+                                            Binding="{Binding Path=Nombre_Heures, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                       
+                                            Width="30*" 
+                                            x:Name="ColonneNombreHeures"
+                                            >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+
+                                            </DataGrid.Columns>
+                                            <!--  Fin Definition des colomnes du DataGrid  -->
+                                        </DataGrid>
+
+                                        <Grid
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20*"></RowDefinition>
+                                                <RowDefinition Height="20*"></RowDefinition>
+                                                <RowDefinition Height="20*"></RowDefinition>
+                                                <RowDefinition Height="20*"></RowDefinition>
+                                                <RowDefinition Height="20*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Children>
+                                                <Button 
+                                        Content="-►"
+                                        x:Name="_ButtonVersDroiteRegie"
+                                        Grid.Row="1"                    
+                                        Grid.Column="1"  
+                                        Margin="10" 
+                                        Height="30"
+                                        Click="_ButtonVersDroiteRegie_Click"
+                                        >
+                                                </Button>
+
+                                                <Button 
+                                        Content="◄-"
+                                        x:Name="_ButtonVersGaucheRegie"
+                                        Grid.Row="3"                    
+                                        Grid.Column="1"  
+                                        Margin="10" 
+                                        Height="30"
+                                        Click="_ButtonVersGaucheRegie_Click"
+                                        >
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="_tabItem_BouteillesGaz" Header="Bouteilles de gaz">
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <ListBox 
+                        x:Name="_ListBoxBouteillesGaz" 
+                        Grid.Row="0" 
+                        Grid.Column="0"
+                        Height="150"
+                        MinHeight="150"
+                        MaxHeight="200"
+                        DisplayMemberPath="Libelle" 
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReleveHeureForfaitWindow}}, Path=listBouteillesGaz}"
+                        >
+                                </ListBox>
+                                <DataGrid 
+                                    KeyUp="_DataGridBouteillesGaz_KeyUp_1"
+                                    x:Name="_DataGridBouteillesGaz" 
+                                    ItemsSource="{Binding Path=Releve_Heure_Forfait_Bouteille_Gaz}" 
+                                    AutoGenerateColumns="False" 
+                                    CanUserAddRows="False" 
+                                    CanUserDeleteRows="false"
+                                    FrozenColumnCount="2"
+                                    Grid.Column="4"
+                                    Grid.Row="0"
+                                    EnableColumnVirtualization="True">
+
+                                    <!--  Definition des colomnes du DataGrid  -->
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn 
+                                            Header="Bouteille de gaz" 
+                                            Binding="{Binding Path=Bouteille_Gaz1.Libelle, Mode=OneWay}"                    
+                                            IsReadOnly="True" 
+                                            Width="80*" 
+                                            >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn 
+                                            Header="Quantité" 
+                                            Binding="{Binding Path=Quantite, Mode=TwoWay, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"                 
+                                            Width="20*" 
+                                            x:Name="ColonneQuantite"
+                                            >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                    <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+                                    <!--  Fin Definition des colomnes du DataGrid  -->
+                                </DataGrid>
+
+                                <Grid
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20*"></RowDefinition>
+                                        <RowDefinition Height="20*"></RowDefinition>
+                                        <RowDefinition Height="20*"></RowDefinition>
+                                        <RowDefinition Height="20*"></RowDefinition>
+                                        <RowDefinition Height="20*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                                        Content="-►"
+                                        x:Name="_ButtonVersDroiteBouteillesGaz"
+                                        Grid.Row="1"                    
+                                        Grid.Column="1"  
+                                        Margin="10" 
+                                        Height="40"
+                                        Click="_ButtonVersDroiteBouteillesGaz_Click"
+                                        >
+                                    </Button>
+
+                                    <Button 
+                                        Content="◄-"
+                                        x:Name="_ButtonVersGaucheBouteillesGaz"
+                                        Grid.Row="3"                    
+                                        Grid.Column="1"  
+                                        Margin="10" 
+                                        Height="40"
+                                        Click="_ButtonVersGaucheBouteillesGaz_Click"
+                                        >
+                                    </Button>
+
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10"
+                        Text="Total Régie">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10"
+                        Text="Total Forfait">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Text="Nombre total d'heures : ">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        TextAlignment="Center"
+                        x:Name="_textBoxTotal_Regie"
+                        IsReadOnly="True"
+                        >
+                    </TextBox>
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        TextAlignment="Center"
+                        x:Name="_textBoxTotal_Forfait"
+                        IsReadOnly="True"
+                        >
+                    </TextBox>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto" MinHeight="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Observation : "
+                        x:Name="_textBlockObservation">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        MinHeight="50"
+                        x:Name="_textBoxObservation"
+                        TextWrapping="WrapWithOverflow"
+                        LostFocus="_textBoxObservation_LostFocus"
+                        Text="{Binding Path=Observation}">
+                    </TextBox>
+                </Grid.Children>
+            </Grid>
+            <!--  Nouveau Grid pour boutons Ok/Annuler  -->
+            <Grid Grid.Row="5" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

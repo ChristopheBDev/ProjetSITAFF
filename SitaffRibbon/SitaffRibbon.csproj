@@ -1,0 +1,1944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{80599F64-9897-415B-B565-0EA5816942BA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SitaffRibbon</RootNamespace>
+    <AssemblyName>SitaffRibbon</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\stockageNAS\sitaff\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>fr-FR</TargetCulture>
+    <ProductName>SITaff</ProductName>
+    <PublisherName>Alexandre Chaudet</PublisherName>
+    <SuiteName>SITaff</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>121</ApplicationRevision>
+    <ApplicationVersion>2.1.3.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\icone-programme.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>3FDA338C9A76F29CDF270D02EBE04293EED85FEE</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SitaffRibbon_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SautinSoft.RtfToHtml">
+      <HintPath>C:\Program Files\WPF Toolkit\v3.5.50211.1\SautinSoft.RtfToHtml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\WPF Toolkit\v3.5.50211.1\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RibbonControlsLibrary" />
+    <Reference Include="Microsoft.Windows.Shell" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\Program Files\WPF Toolkit\v3.5.50211.1\WPFToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit.Extended, Version=1.7.4644.13122, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\WPF Toolkit\v3.5.50211.1\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Affaire.cs" />
+    <Compile Include="AssociationBL.cs" />
+    <Compile Include="Bon_Livraison.cs" />
+    <Compile Include="Bon_Livraison_Contenu_Commande.cs" />
+    <Compile Include="Bon_Livraison_Contenu_Commande_Supplementaire.cs" />
+    <Compile Include="Classes\AfficherMasquer.cs" />
+    <Compile Include="Classes\CopierColler.cs" />
+    <Compile Include="Classes\DimensionnementFenetre.cs" />
+    <Compile Include="Classes\DossierAffaire.cs" />
+    <Compile Include="Classes\Mail.cs" />
+    <Compile Include="Classes\MailViaOutlook.cs" />
+    <Compile Include="Classes\MenuClicDroit.cs" />
+    <Compile Include="Classes\ParametresRapports.cs" />
+    <Compile Include="Classes\Personnalisation.cs" />
+    <Compile Include="Classes\ReglageDecimales.cs" />
+    <Compile Include="Classes\Securite.cs" />
+    <Compile Include="Classes\Trackball.cs" />
+    <Compile Include="Classes\Verifications.cs" />
+    <Compile Include="Classes\WaveGrid.cs" />
+    <Compile Include="Commande.cs" />
+    <Compile Include="Commande_Fournisseur.cs" />
+    <Compile Include="Conge.cs" />
+    <Compile Include="Contenu_Commande_Fournisseur.cs" />
+    <Compile Include="Contenu_Facture.cs" />
+    <Compile Include="Converters\AffaireNumeroConverter.cs" />
+    <Compile Include="Converters\ArticleFactureConverter.cs" />
+    <Compile Include="Converters\AvancementAffaireConverter.cs" />
+    <Compile Include="Converters\CommandeEntierementFactureeConverter.cs" />
+    <Compile Include="Converters\CommandeEntierementLivreeConverter.cs" />
+    <Compile Include="Converters\CommandeFournisseurNumeroConverter.cs" />
+    <Compile Include="Converters\CouleurCommandeEntierementFactureeConverter.cs" />
+    <Compile Include="Converters\CouleurCommandeEntierementLivreeConverter.cs" />
+    <Compile Include="Converters\CouleurConge.cs" />
+    <Compile Include="Converters\CouleurFactureResteARegler.cs" />
+    <Compile Include="Converters\EntrepriseLibelleConverter.cs" />
+    <Compile Include="Converters\PlanComptableImputationConverter.cs" />
+    <Compile Include="Converters\PlanComptableTvaConverter.cs" />
+    <Compile Include="Converters\RegieNumeroConverter.cs" />
+    <Compile Include="Converters\SalarieFullnameConverter.cs" />
+    <Compile Include="Converters\Tache_AtelierLibelleConverter.cs" />
+    <Compile Include="Converters\TypeFraisLibelleConverter.cs" />
+    <Compile Include="DAO.cs" />
+    <Compile Include="Devis.cs" />
+    <Compile Include="DownloadFileURL.xaml.cs">
+      <DependentUpon>DownloadFileURL.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Entreprise.cs" />
+    <Compile Include="Entreprise_RIB.cs" />
+    <Compile Include="EnvoyerMail.xaml.cs">
+      <DependentUpon>EnvoyerMail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorMessageBox.xaml.cs">
+      <DependentUpon>ErrorMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EtatDeConge.cs" />
+    <Compile Include="EtatDeRegie.cs" />
+    <Compile Include="EtatDevis.cs" />
+    <Compile Include="Facture.cs" />
+    <Compile Include="Facture_Fournisseur.cs" />
+    <Compile Include="Facture_Fournisseur_Condition_Reglement.cs" />
+    <Compile Include="Facture_Fournisseur_Contenu.cs" />
+    <Compile Include="Heure_Forfait.cs" />
+    <Compile Include="Heure_Regie.cs" />
+    <Compile Include="ImportPourRetourChantier.cs" />
+    <Compile Include="ItemOuiNon.cs" />
+    <Compile Include="ItemShop.cs" />
+    <Compile Include="LogOnWindow.xaml.cs">
+      <DependentUpon>LogOnWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MatriceBL.cs" />
+    <Compile Include="Niveau_Securite.cs" />
+    <Compile Include="PCDao.cs" />
+    <Compile Include="Personne.cs" />
+    <Compile Include="Plan_Comptable_Imputation.cs" />
+    <Compile Include="Plan_Comptable_Tva.cs" />
+    <Compile Include="RecapFacture.cs" />
+    <Compile Include="RecapFactureTva.cs" />
+    <Compile Include="RecapHeureAtelier.cs" />
+    <Compile Include="RecapTravauxAtelier.cs" />
+    <Compile Include="Regie.cs" />
+    <Compile Include="Reglement_Client_Facture.cs" />
+    <Compile Include="Releve_Heure_Atelier.cs" />
+    <Compile Include="ReportingWindow.xaml.cs">
+      <DependentUpon>ReportingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SitaffModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SitaffModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TypeDeSalarie.cs" />
+    <Compile Include="UserControls\CubeTournantControl.xaml.cs">
+      <DependentUpon>CubeTournantControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GoutteEauControl.xaml.cs">
+      <DependentUpon>GoutteEauControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeAffaireControl.xaml.cs">
+      <DependentUpon>ListeAffaireControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeAppelOffresControl.xaml.cs">
+      <DependentUpon>ListeAppelOffresControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeAvanceControl.xaml.cs">
+      <DependentUpon>ListeAvanceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeBonLivraisonControl.xaml.cs">
+      <DependentUpon>ListeBonLivraisonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeCommandeFournisseurControl.xaml.cs">
+      <DependentUpon>ListeCommandeFournisseurControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeCongesControl.xaml.cs">
+      <DependentUpon>ListeCongesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeContactsControl.xaml.cs">
+      <DependentUpon>ListeContactsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeDaillyControl.xaml.cs">
+      <DependentUpon>ListeDaillyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeDAOControl.xaml.cs">
+      <DependentUpon>ListeDAOControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeDevisControl.xaml.cs">
+      <DependentUpon>ListeDevisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeEntreprisesControl.xaml.cs">
+      <DependentUpon>ListeEntreprisesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeFactureControl.xaml.cs">
+      <DependentUpon>ListeFactureControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeFactureFournisseurControl.xaml.cs">
+      <DependentUpon>ListeFactureFournisseurControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeFactureProformaControl.xaml.cs">
+      <DependentUpon>ListeFactureProformaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeFraisControl.xaml.cs">
+      <DependentUpon>ListeFraisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeOrdreMissionControl.xaml.cs">
+      <DependentUpon>ListeOrdreMissionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeProformaClientControl.xaml.cs">
+      <DependentUpon>ListeProformaClientControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeRegieControl.xaml.cs">
+      <DependentUpon>ListeRegieControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeReglementClientControl.xaml.cs">
+      <DependentUpon>ListeReglementClientControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeReleveHeureForfaitControl.xaml.cs">
+      <DependentUpon>ListeReleveHeureForfaitControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeReservationSalleControl.xaml.cs">
+      <DependentUpon>ListeReservationSalleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeResumeCommandeFournisseurControl.xaml.cs">
+      <DependentUpon>ListeResumeCommandeFournisseurControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeResumeCongesControl.xaml.cs">
+      <DependentUpon>ListeResumeCongesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeResumeDevisControl.xaml.cs">
+      <DependentUpon>ListeResumeDevisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeRetourChantierControl.xaml.cs">
+      <DependentUpon>ListeRetourChantierControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeReveleHeureAtelierControl.xaml.cs">
+      <DependentUpon>ListeReveleHeureAtelierControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeSalarieControl.xaml.cs">
+      <DependentUpon>ListeSalarieControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListeSortieAtelierControl.xaml.cs">
+      <DependentUpon>ListeSortieAtelierControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VideControl.xaml.cs">
+      <DependentUpon>VideControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Versions.cs" />
+    <Compile Include="Ville.cs" />
+    <Compile Include="Windows\AffaireWindow.xaml.cs">
+      <DependentUpon>AffaireWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AjoutHeuresDAO.xaml.cs">
+      <DependentUpon>AjoutHeuresDAO.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AppelOffreWindow.xaml.cs">
+      <DependentUpon>AppelOffreWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AvanceWindow.xaml.cs">
+      <DependentUpon>AvanceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\BonLivraisonWindow.xaml.cs">
+      <DependentUpon>BonLivraisonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChefChantierWindow.xaml.cs">
+      <DependentUpon>ChefChantierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChoixPrixFactureWindow.xaml.cs">
+      <DependentUpon>ChoixPrixFactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChoixTypeCommandeWindow.xaml.cs">
+      <DependentUpon>ChoixTypeCommandeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CommandeOrdreMissionWindow.xaml.cs">
+      <DependentUpon>CommandeOrdreMissionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CommandeWindow.xaml.cs">
+      <DependentUpon>CommandeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CompetenceWindow.xaml.cs">
+      <DependentUpon>CompetenceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CongeWindow.xaml.cs">
+      <DependentUpon>CongeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ContactWindow.xaml.cs">
+      <DependentUpon>ContactWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CreationDevisWindow.xaml.cs">
+      <DependentUpon>CreationDevisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DaillyFactureWindow.xaml.cs">
+      <DependentUpon>DaillyFactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DaillyWindow.xaml.cs">
+      <DependentUpon>DaillyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DAOWindow.xaml.cs">
+      <DependentUpon>DAOWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DepartementWindow.xaml.cs">
+      <DependentUpon>DepartementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DevisAjoutVersionWindow.xaml.cs">
+      <DependentUpon>DevisAjoutVersionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DevisChoixContactWindow.xaml.cs">
+      <DependentUpon>DevisChoixContactWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DiplomeWindow.xaml.cs">
+      <DependentUpon>DiplomeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DocumentWindow.xaml.cs">
+      <DependentUpon>DocumentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EntrepriseCleComptableWindow.xaml.cs">
+      <DependentUpon>EntrepriseCleComptableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EntrepriseRIBWindow.xaml.cs">
+      <DependentUpon>EntrepriseRIBWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EntrepriseWindow.xaml.cs">
+      <DependentUpon>EntrepriseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FactureProformaWindow.xaml.cs">
+      <DependentUpon>FactureProformaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FactureWindow.xaml.cs">
+      <DependentUpon>FactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FactureFournisseurWindow.xaml.cs">
+      <DependentUpon>FactureFournisseurWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FicheFraisWindow.xaml.cs">
+      <DependentUpon>FicheFraisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FormationWindow.xaml.cs">
+      <DependentUpon>FormationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FraisWindow.xaml.cs">
+      <DependentUpon>FraisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FusionnerAffaireWindow.xaml.cs">
+      <DependentUpon>FusionnerAffaireWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HabilitationWindow.xaml.cs">
+      <DependentUpon>HabilitationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ImportCommandeWindow.xaml.cs">
+      <DependentUpon>ImportCommandeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ImportRetourChantier.xaml.cs">
+      <DependentUpon>ImportRetourChantier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LitigeFactureClientWindow.xaml.cs">
+      <DependentUpon>LitigeFactureClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LitigeFactureWindow.xaml.cs">
+      <DependentUpon>LitigeFactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MotDePasseWindow.xaml.cs">
+      <DependentUpon>MotDePasseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NumeroIntraCoWindow.xaml.cs">
+      <DependentUpon>NumeroIntraCoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\OrdreMissionWindow.xaml.cs">
+      <DependentUpon>OrdreMissionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresMain.xaml.cs">
+      <DependentUpon>ParametresMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreActiviteControl.xaml.cs">
+      <DependentUpon>ParametreActiviteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreArticleFactureControl.xaml.cs">
+      <DependentUpon>ParametreArticleFactureControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreBanqueControl.xaml.cs">
+      <DependentUpon>ParametreBanqueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreBesoinReservationSalleControl.xaml.cs">
+      <DependentUpon>ParametreBesoinReservationSalleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreChapitreClauseControl.xaml.cs">
+      <DependentUpon>ParametreChapitreClauseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreCiviliteControl.xaml.cs">
+      <DependentUpon>ParametreCiviliteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreConditionReglementControl.xaml.cs">
+      <DependentUpon>ParametreConditionReglementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreContactFonctionControl.xaml.cs">
+      <DependentUpon>ParametreContactFonctionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreContactServiceControl.xaml.cs">
+      <DependentUpon>ParametreContactServiceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreContratControl.xaml.cs">
+      <DependentUpon>ParametreContratControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreDepartementControl.xaml.cs">
+      <DependentUpon>ParametreDepartementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreDeviseControl.xaml.cs">
+      <DependentUpon>ParametreDeviseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreDiplomeControl.xaml.cs">
+      <DependentUpon>ParametreDiplomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreDistanceVilleControl.xaml.cs">
+      <DependentUpon>ParametreDistanceVilleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreDocTypeSalarieControl.xaml.cs">
+      <DependentUpon>ParametreDocTypeSalarieControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreDomaineControl.xaml.cs">
+      <DependentUpon>ParametreDomaineControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreEntrepriseMereControl.xaml.cs">
+      <DependentUpon>ParametreEntrepriseMereControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreEtatDevisControl.xaml.cs">
+      <DependentUpon>ParametreEtatDevisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreEvenementRemboursementControl.xaml.cs">
+      <DependentUpon>ParametreEvenementRemboursementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreExerciceControl.xaml.cs">
+      <DependentUpon>ParametreExerciceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreFormationControl.xaml.cs">
+      <DependentUpon>ParametreFormationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreGroupeControl.xaml.cs">
+      <DependentUpon>ParametreGroupeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreHabilitationControl.xaml.cs">
+      <DependentUpon>ParametreHabilitationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreJourFerieControl.xaml.cs">
+      <DependentUpon>ParametreJourFerieControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreLitigeControl.xaml.cs">
+      <DependentUpon>ParametreLitigeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreModeFacturationControl.xaml.cs">
+      <DependentUpon>ParametreModeFacturationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreMotifDemandeCongeControl.xaml.cs">
+      <DependentUpon>ParametreMotifDemandeCongeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreMotifMissionControl.xaml.cs">
+      <DependentUpon>ParametreMotifMissionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreMotifRefusCongeControl.xaml.cs">
+      <DependentUpon>ParametreMotifRefusCongeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreMoyenReglementControl.xaml.cs">
+      <DependentUpon>ParametreMoyenReglementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreNiveauSecuriteControl.xaml.cs">
+      <DependentUpon>ParametreNiveauSecuriteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreOutillageControl.xaml.cs">
+      <DependentUpon>ParametreOutillageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametrePaysControl.xaml.cs">
+      <DependentUpon>ParametrePaysControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametrePermisControl.xaml.cs">
+      <DependentUpon>ParametrePermisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametrePieceAdministrativeControl.xaml.cs">
+      <DependentUpon>ParametrePieceAdministrativeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametrePlanComptableImputationControl.xaml.cs">
+      <DependentUpon>ParametrePlanComptableImputationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametrePlanComptableTvaControl.xaml.cs">
+      <DependentUpon>ParametrePlanComptableTvaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreQualificationControl.xaml.cs">
+      <DependentUpon>ParametreQualificationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreRegionControl.xaml.cs">
+      <DependentUpon>ParametreRegionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreSalleControl.xaml.cs">
+      <DependentUpon>ParametreSalleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreStatutControl.xaml.cs">
+      <DependentUpon>ParametreStatutControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTacheAtelierControl.xaml.cs">
+      <DependentUpon>ParametreTacheAtelierControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTauxHoraireControl.xaml.cs">
+      <DependentUpon>ParametreTauxHoraireControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTvaControl.xaml.cs">
+      <DependentUpon>ParametreTvaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTypeCommandeControl.xaml.cs">
+      <DependentUpon>ParametreTypeCommandeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTypeDevisControl.xaml.cs">
+      <DependentUpon>ParametreTypeDevisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTypeEntrepriseControl.xaml.cs">
+      <DependentUpon>ParametreTypeEntrepriseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTypeFraisControl.xaml.cs">
+      <DependentUpon>ParametreTypeFraisControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTypeReceptionControl.xaml.cs">
+      <DependentUpon>ParametreTypeReceptionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreTypeRemboursementControl.xaml.cs">
+      <DependentUpon>ParametreTypeRemboursementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreUtilisateurControl.xaml.cs">
+      <DependentUpon>ParametreUtilisateurControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreVersionTypeControl.xaml.cs">
+      <DependentUpon>ParametreVersionTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresUserControls\ParametreVilleControl.xaml.cs">
+      <DependentUpon>ParametreVilleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ActiviteWindow.xaml.cs">
+      <DependentUpon>ActiviteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ArticleFactureWindow.xaml.cs">
+      <DependentUpon>ArticleFactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\BanqueWindow.xaml.cs">
+      <DependentUpon>BanqueWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\BesoinReservationSalleWindow.xaml.cs">
+      <DependentUpon>BesoinReservationSalleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ChapitreClauseWindow.xaml.cs">
+      <DependentUpon>ChapitreClauseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\CiviliteWindow.xaml.cs">
+      <DependentUpon>CiviliteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ConditionReglementWindow.xaml.cs">
+      <DependentUpon>ConditionReglementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ContactFonctionWindow.xaml.cs">
+      <DependentUpon>ContactFonctionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ContactServiceWindow.xaml.cs">
+      <DependentUpon>ContactServiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ContratWindow.xaml.cs">
+      <DependentUpon>ContratWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\DepartementWindowParametre.xaml.cs">
+      <DependentUpon>DepartementWindowParametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\DeviseWindow.xaml.cs">
+      <DependentUpon>DeviseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\DiplomeWindowParametre.xaml.cs">
+      <DependentUpon>DiplomeWindowParametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\DistanceVilleWindow.xaml.cs">
+      <DependentUpon>DistanceVilleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\DocTypeSalarieWindow.xaml.cs">
+      <DependentUpon>DocTypeSalarieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\DomaineWindow.xaml.cs">
+      <DependentUpon>DomaineWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\EntrepriseMereWindow.xaml.cs">
+      <DependentUpon>EntrepriseMereWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\EtatDevisWindow.xaml.cs">
+      <DependentUpon>EtatDevisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\EvenementRemboursementWindow.xaml.cs">
+      <DependentUpon>EvenementRemboursementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ExerciceWindow.xaml.cs">
+      <DependentUpon>ExerciceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\FormationWindowParametre.xaml.cs">
+      <DependentUpon>FormationWindowParametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\GroupeWindow.xaml.cs">
+      <DependentUpon>GroupeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\HabilitationWindowParametre.xaml.cs">
+      <DependentUpon>HabilitationWindowParametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\JourFerieWindow.xaml.cs">
+      <DependentUpon>JourFerieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\LitigeWindow.xaml.cs">
+      <DependentUpon>LitigeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\ModeFacturationWindow.xaml.cs">
+      <DependentUpon>ModeFacturationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\MotifDemandeCongeWindow.xaml.cs">
+      <DependentUpon>MotifDemandeCongeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\MotifMissionWindow.xaml.cs">
+      <DependentUpon>MotifMissionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\MotifRefusCongeWindow.xaml.cs">
+      <DependentUpon>MotifRefusCongeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\MoyenReglementWindow.xaml.cs">
+      <DependentUpon>MoyenReglementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\NiveauSecuriteWindow.xaml.cs">
+      <DependentUpon>NiveauSecuriteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\OutillageWindow.xaml.cs">
+      <DependentUpon>OutillageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\PaysWindow.xaml.cs">
+      <DependentUpon>PaysWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\PermisWindowParametre.xaml.cs">
+      <DependentUpon>PermisWindowParametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\PieceAdministrativeWindow.xaml.cs">
+      <DependentUpon>PieceAdministrativeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\PlanComptableImputationWindow.xaml.cs">
+      <DependentUpon>PlanComptableImputationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\PlanComptableTvaWindow.xaml.cs">
+      <DependentUpon>PlanComptableTvaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\QualificationWindowParametre.xaml.cs">
+      <DependentUpon>QualificationWindowParametre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\RegionWindow.xaml.cs">
+      <DependentUpon>RegionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\SalleWindow.xaml.cs">
+      <DependentUpon>SalleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\StatutWindow.xaml.cs">
+      <DependentUpon>StatutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TacheAtelierWindow.xaml.cs">
+      <DependentUpon>TacheAtelierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TauxHoraireWindow.xaml.cs">
+      <DependentUpon>TauxHoraireWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TvaWindow.xaml.cs">
+      <DependentUpon>TvaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TypeCommandeWindow.xaml.cs">
+      <DependentUpon>TypeCommandeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TypeDevisWindow.xaml.cs">
+      <DependentUpon>TypeDevisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TypeEntrepriseWindow.xaml.cs">
+      <DependentUpon>TypeEntrepriseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TypeFraisWindow.xaml.cs">
+      <DependentUpon>TypeFraisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TypeReceptionWindow.xaml.cs">
+      <DependentUpon>TypeReceptionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\TypeRemboursementWindow.xaml.cs">
+      <DependentUpon>TypeRemboursementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\UtilisateurWindow.xaml.cs">
+      <DependentUpon>UtilisateurWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\VersionTypeWindow.xaml.cs">
+      <DependentUpon>VersionTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ParametresWindows\VilleWindow.xaml.cs">
+      <DependentUpon>VilleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PassageAffaireWindow.xaml.cs">
+      <DependentUpon>PassageAffaireWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PermisWindow.xaml.cs">
+      <DependentUpon>PermisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PersonnalisationWindow.xaml.cs">
+      <DependentUpon>PersonnalisationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProformaClientWindow.xaml.cs">
+      <DependentUpon>ProformaClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\QualificationWindow.xaml.cs">
+      <DependentUpon>QualificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RegieWindow.xaml.cs">
+      <DependentUpon>RegieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReglementClientWindow.xaml.cs">
+      <DependentUpon>ReglementClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RelanceFactureWindow.xaml.cs">
+      <DependentUpon>RelanceFactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReleveHeureAtelierWindow.xaml.cs">
+      <DependentUpon>ReleveHeureAtelierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReleveHeureForfaitWindow.xaml.cs">
+      <DependentUpon>ReleveHeureForfaitWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RepondeurCongeWindow.xaml.cs">
+      <DependentUpon>RepondeurCongeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReservationSalleSelectionClientWindow.xaml.cs">
+      <DependentUpon>ReservationSalleSelectionClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReservationSalleSelectionFournisseurWindow.xaml.cs">
+      <DependentUpon>ReservationSalleSelectionFournisseurWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReservationSalleSelectionSalarieWindow.xaml.cs">
+      <DependentUpon>ReservationSalleSelectionSalarieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReservationSalleWindow.xaml.cs">
+      <DependentUpon>ReservationSalleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RetourChantierWindow.xaml.cs">
+      <DependentUpon>RetourChantierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SalarieWindow.xaml.cs">
+      <DependentUpon>SalarieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectionDevisWindow.xaml.cs">
+      <DependentUpon>SelectionDevisWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectionStockDiversBLWindow.xaml.cs">
+      <DependentUpon>SelectionStockDiversBLWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectionTypeBL.xaml.cs">
+      <DependentUpon>SelectionTypeBL.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ShopCommandeWindow.xaml.cs">
+      <DependentUpon>ShopCommandeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SortieAtelierWindow.xaml.cs">
+      <DependentUpon>SortieAtelierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypeDocTechniqueWindow.xaml.cs">
+      <DependentUpon>TypeDocTechniqueWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypeOrdreMissionWindow.xaml.cs">
+      <DependentUpon>TypeOrdreMissionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\VisiteMedicaleWindow.xaml.cs">
+      <DependentUpon>VisiteMedicaleWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="DownloadFileURL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnvoyerMail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogOnWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ReportingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Splash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CubeTournantControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\GoutteEauControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ListeAffaireControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeAppelOffresControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeAvanceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeBonLivraisonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeCommandeFournisseurControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeCongesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeContactsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeDaillyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeDAOControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeDevisControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeEntreprisesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeFactureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeFactureFournisseurControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeFactureProformaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeFraisControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeOrdreMissionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeProformaClientControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeRegieControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeReglementClientControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeReleveHeureForfaitControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeReservationSalleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeResumeCommandeFournisseurControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeResumeCongesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeResumeDevisControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeRetourChantierControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeReveleHeureAtelierControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeSalarieControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListeSortieAtelierControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\VideControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AffaireWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AjoutHeuresDAO.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AppelOffreWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AvanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\BonLivraisonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ChefChantierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ChoixPrixFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ChoixTypeCommandeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CommandeOrdreMissionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CommandeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\CompetenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CongeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ContactWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CreationDevisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DaillyFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DaillyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DAOWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DepartementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DevisAjoutVersionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DevisChoixContactWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DiplomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DocumentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EntrepriseCleComptableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EntrepriseRIBWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EntrepriseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FactureProformaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FactureFournisseurWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FicheFraisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FormationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FraisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FusionnerAffaireWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HabilitationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ImportCommandeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ImportRetourChantier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LitigeFactureClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LitigeFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Loading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MotDePasseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NumeroIntraCoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\OrdreMissionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreActiviteControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreArticleFactureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreBanqueControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreBesoinReservationSalleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreChapitreClauseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreCiviliteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreConditionReglementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreContactFonctionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreContactServiceControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreContratControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreDepartementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreDeviseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreDiplomeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreDistanceVilleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreDocTypeSalarieControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreDomaineControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreEntrepriseMereControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreEtatDevisControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreEvenementRemboursementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreExerciceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreFormationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreGroupeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreHabilitationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreJourFerieControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreLitigeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreModeFacturationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreMotifDemandeCongeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreMotifMissionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreMotifRefusCongeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreMoyenReglementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreNiveauSecuriteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreOutillageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametrePaysControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametrePermisControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametrePieceAdministrativeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametrePlanComptableImputationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametrePlanComptableTvaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreQualificationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreRegionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreSalleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreStatutControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTacheAtelierControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTauxHoraireControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTvaControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTypeCommandeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTypeDevisControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTypeEntrepriseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTypeFraisControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTypeReceptionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreTypeRemboursementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreUtilisateurControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreVersionTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresUserControls\ParametreVilleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ActiviteWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ArticleFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\BanqueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\BesoinReservationSalleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ChapitreClauseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\CiviliteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ConditionReglementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ContactFonctionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ContactServiceWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ContratWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\DepartementWindowParametre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\DeviseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\DiplomeWindowParametre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\DistanceVilleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\DocTypeSalarieWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\DomaineWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\EntrepriseMereWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\EtatDevisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\EvenementRemboursementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ExerciceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\FormationWindowParametre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\GroupeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\HabilitationWindowParametre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\JourFerieWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\LitigeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\ModeFacturationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\MotifDemandeCongeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\MotifMissionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\MotifRefusCongeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\MoyenReglementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\NiveauSecuriteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\OutillageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\PaysWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\PermisWindowParametre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\PieceAdministrativeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\PlanComptableImputationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\PlanComptableTvaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\QualificationWindowParametre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\RegionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\SalleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\StatutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TacheAtelierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TauxHoraireWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TvaWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TypeCommandeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TypeDevisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TypeEntrepriseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TypeFraisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TypeReceptionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ParametresWindows\TypeRemboursementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\UtilisateurWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\VersionTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ParametresWindows\VilleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\PassageAffaireWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PermisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PersonnalisationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProformaClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\QualificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RegieWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReglementClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RelanceFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReleveHeureAtelierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReleveHeureForfaitWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RepondeurCongeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReservationSalleSelectionClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReservationSalleSelectionFournisseurWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReservationSalleSelectionSalarieWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReservationSalleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RetourChantierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SalarieWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SelectionDevisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SelectionStockDiversBLWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SelectionTypeBL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ShopCommandeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SortieAtelierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TypeDocTechniqueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TypeOrdreMissionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\VisiteMedicaleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="Images\ButtonRichTextBox\ParagraphDecreaseIndentation.png" />
+    <Resource Include="Images\ButtonRichTextBox\ParagraphIncreaseIndentation.png" />
+    <Resource Include="Images\ButtonRichTextBox\ParagraphCenterJustify.png" />
+    <Resource Include="Images\ButtonRichTextBox\ParagraphFullJustify.png" />
+    <Resource Include="Images\ButtonRichTextBox\ParagraphLeftJustify.png" />
+    <Resource Include="Images\ButtonRichTextBox\ParagraphRightJustify.png" />
+    <Resource Include="Images\ButtonRichTextBox\CharacterGrowFont.png" />
+    <Resource Include="Images\ButtonRichTextBox\CharacterShrinkFont.png" />
+    <Resource Include="Images\ButtonRichTextBox\ListBullets.png" />
+    <Resource Include="Images\ButtonRichTextBox\ListNumbering.png" />
+    <Resource Include="Images\ButtonRichTextBox\EditRedo.png" />
+    <Resource Include="Images\ButtonRichTextBox\EditUndo.png" />
+    <Resource Include="Images\ButtonRichTextBox\EditCopy.png" />
+    <Resource Include="Images\ButtonRichTextBox\EditPaste.png" />
+    <Resource Include="Images\ButtonRichTextBox\EditCut.png" />
+    <Resource Include="Images\icone-moyenreglement-large.png" />
+    <Resource Include="Images\icone-visitemedicale-large.png" />
+    <Resource Include="Images\icone-motifmission-large.png" />
+    <Resource Include="Images\icone-evenementremboursement-large.png" />
+    <Resource Include="Images\icone-distance-large.png" />
+    <Resource Include="Images\icone-pieceadministrative-large.png" />
+    <Resource Include="Images\icone-releveatelier-large.png" />
+    <Resource Include="Images\icone-resasalle-large.png" />
+    <Resource Include="Images\icone-sortieatelier-large.png" />
+    <Resource Include="Images\icone-typeremboursement-large.png" />
+    <Resource Include="Images\icone-analyse-large.png" />
+    <Resource Include="Images\icone-importer-small.png" />
+    <Resource Include="Images\icone-calculatrice-small.png" />
+    <Resource Include="Images\icone-copier-small.png" />
+    <Resource Include="Images\icone-coller-small.png" />
+    <Resource Include="Images\icone-null-small.png" />
+    <Resource Include="Images\icone-refusconge-large.png" />
+    <Resource Include="Images\icone-demandeconge-large.png" />
+    <Resource Include="Images\icone-comptable-large.png" />
+    <Resource Include="Images\icone-tva-large.png" />
+    <Resource Include="Images\icone-etatdevis-large.png" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Help\aide.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\sitaff2011Entities.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EntityDeploy Include="SitaffModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SitaffModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LargeIcon.png" />
+    <Resource Include="Images\SmallIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-entreprise-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-programme.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ajouter-icone-small.png" />
+    <Resource Include="Images\icone-fermer-large.png" />
+    <Resource Include="Images\icone-fermer-small.png" />
+    <Resource Include="Images\icone-modifier-small.png" />
+    <Resource Include="Images\icone-reglages-large.png" />
+    <Resource Include="Images\icone-supprimer-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-programme-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-afficher-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-civilites-large.png" />
+    <Resource Include="Images\icone-civilites-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-facture-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-consultation-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-affaire-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-appeloffres-large.png" />
+    <Resource Include="Images\icone-bonlivraison-large.png" />
+    <Resource Include="Images\icone-devis-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-maintenance-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-commande-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-contact-large.png" />
+    <Resource Include="Images\icone-departement-large.png" />
+    <Resource Include="Images\icone-diplome-large.png" />
+    <Resource Include="Images\icone-heures-large.png" />
+    <Resource Include="Images\icone-pays-large.png" />
+    <Resource Include="Images\icone-permis-large.png" />
+    <Resource Include="Images\icone-region-large.png" />
+    <Resource Include="Images\icone-ville-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-salaries-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-exercice-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-rendements-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-formation-large.png" />
+    <Resource Include="Images\icone-qualification-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-habilitation-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-contrat-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-document-large.png" />
+    <Resource Include="Images\icone-fonction-large.png" />
+    <Resource Include="Images\icone-service-large.png" />
+    <Resource Include="Images\icone-status-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-ordremission-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-ensemble-large.png" />
+    <Resource Include="Images\icone-regie-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-utilisateur-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-niveausecurite-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-activite-large.png" />
+    <Resource Include="Images\icone-chapitreclause-large.png" />
+    <Resource Include="Images\icone-conditionreglement-large.png" />
+    <Resource Include="Images\icone-devise-large.png" />
+    <Resource Include="Images\icone-domaine-large.png" />
+    <Resource Include="Images\icone-entreprisemere-large.png" />
+    <Resource Include="Images\icone-groupe-large.png" />
+    <Resource Include="Images\icone-litige-large.png" />
+    <Resource Include="Images\icone-modefacturation-large.png" />
+    <Resource Include="Images\icone-tauxhoraire-large.png" />
+    <Resource Include="Images\icone-typeentreprise-large.png" />
+    <Resource Include="Images\icone-typereception-large.png" />
+    <Resource Include="Images\icone-zonearisque-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ContextMenus\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-dao-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-cadenas-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\error.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-banque-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-outillage-large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-voir-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icone-aide-large.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

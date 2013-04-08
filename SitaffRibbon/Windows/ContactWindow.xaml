@@ -1,0 +1,1288 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ContactWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:local="clr-namespace:SitaffRibbon.Windows"
+            Title="Contact" Width="Auto" Height="Auto" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" Icon="..\Images\icone-contact-large.png" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <TabControl Grid.Row="1" Grid.Column="1">
+                <TabItem x:Name="_tab_Coordonnees" Header="Coordonnées">
+
+                    <Grid Name="_GridCoordonnes">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="90*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--  Fin Definition des colonnes  -->
+                        <!--  Definition des lignes  -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="0"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--  Fin Definition des lignes  -->
+                        <!--  Contenu du Grid  -->
+                        <Grid.Children>
+
+                            <!-- Contact.Civlité -->
+                            <TextBlock 
+                x:Name="_TextBlockContactCivilité"
+                Text="Civilité*"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+                            
+                            <Grid Grid.Row="1" Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <ComboBox 
+                x:Name="_ComboBoxContactCivilité" 
+                Grid.Column="0" 
+                Margin="2"
+                SelectedItem="{Binding Path=Civilite1}" 
+                DisplayMemberPath="Libelle_Long" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=CivilityList}"
+                                SelectionChanged="_ComboBoxContactCivilité_SelectionChanged"
+                >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Button
+                                        Grid.Column="1"
+                                        x:Name="NewCivilite"
+                                        Click="NewCivilite_Click"    
+                                        ToolTip="Ajouter"
+                                        >
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+                                    <Button
+                                        Grid.Column="2"
+                                        x:Name="LookCivilite"
+                                        Click="LookCivilite_Click"
+                                        ToolTip="Voir"
+                                        >
+                                        <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                                    </Button>
+                                </Grid.Children>
+                            </Grid>                            
+
+                            <!-- Fin Contact.Civlité -->
+
+                            <!-- Contact.Nom -->
+
+                            <TextBlock 
+                x:Name="_TextBlockContactNom"
+                Text="Nom*"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactNom" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Nom, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactNom_TextChanged" LostFocus="_TextBoxContactNom_LostFocus">
+                            </TextBox>
+
+                            <!-- Fin Contact.Nom -->
+
+                            <!-- Contact.Nom_Jeune_Fille -->
+
+                            <TextBlock 
+                x:Name="_TextBlockContactNomJeuneFille"
+                Text="Nom de jeune fille"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactNomJeuneFille" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Nom_Jeune_Fille, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactNomJeuneFille_TextChanged" LostFocus="_TextBoxContactNomJeuneFille_LostFocus"
+                ></TextBox>
+
+                            <!-- Fin Contact.Nom_Jeune_Fille -->
+
+                            <!-- Contact.Prenom -->
+
+                            <TextBlock 
+                x:Name="_TextBlockContactPrenom"
+                Text="Prénom"
+                Grid.Row="7" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactPrenom" 
+                Grid.Row="7" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Prenom, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactPrenom_TextChanged">
+                            </TextBox>
+
+                            <!-- Fin Contact.Prenom -->
+
+                            <!-- Contact.Initiales -->
+
+                            <TextBlock 
+                x:Name="_TextBlockContactInitiales"
+                Text="Initiales"
+                Grid.Row="9" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                                Visibility="Collapsed"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactInitiales" 
+                Grid.Row="9" 
+                Grid.Column="2" 
+                                Visibility="Collapsed"
+                Margin="2" 
+                Text="{Binding Path=Initiales, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactInitiales_TextChanged" >
+                            </TextBox>
+
+                            <!-- Fin Contact.Initiales -->
+
+                            <!-- Contact.Commentaires-->
+
+                            <TextBlock 
+                x:Name="_TextBlockContactCommentaires"
+                Text="Commentaires"
+                Grid.Row="11" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactCommentaires" 
+                Grid.Row="11" 
+                Grid.Column="2" 
+                Margin="2"
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Commentaire, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactCommentaires_TextChanged">
+                            </TextBox>
+
+                            <!-- Fin Contact.Commentaires-->
+                            <!-- Fin du contenu du grid -->
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+
+                <TabItem x:Name="_tab_Correspondance" Header="Correspondance">
+
+                    <TabControl Grid.Row="0" Grid.Column="0">
+
+                        <TabItem x:Name="_tab_Correspondance_Profesionnelle"  Header="Professionnelle">
+                            <Grid Name="_GridCorrespondance">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--  Fin Definition des colonnes  -->
+                                <!--  Definition des lignes  -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Fin Definition des lignes  -->
+                                <!--  Contenu du Grid  -->
+                                <Grid.Children>
+
+                                    <!-- Contact.Tel_Port_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactTelPortPro"
+                Text="Téléphone portable"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactTelPortPro" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Port_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactTelPortPro_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Tel_Port_Pro -->
+
+                                    <!-- Contact.Tel_Fixe_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactTelFixePro"
+                Text="Téléphone fixe"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactTelFixePro" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Fixe_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactTelFixePro_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Tel_Fixe_Pro -->
+
+                                    <!-- Contact.Email_Pro -->
+                                    <TextBlock 
+                x:Name="_TextBlockContactEmailPro"
+                Text="E-mail"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+                                    <Grid Grid.Row="3" Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <TextBox 
+                x:Name="_TextBoxContactEmailPro" 
+                Grid.Column="0" 
+                Margin="2" 
+                Text="{Binding Path=EMail_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactEmailPro_TextChanged">
+                                            </TextBox>
+
+                                            <Button
+                                        Grid.Column="1"
+                                        x:Name="sendMail"
+                                        Click="sendMail_Click"
+                                        Content="Envoyer Mail"
+                                        ></Button>
+                                        </Grid.Children>
+                                    </Grid>
+
+                                    <!-- Fin Contact.Email_Pro -->
+
+                                    <!-- Contact.Fax_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactFaxPro"
+                Text="Fax"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactFaxPro" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Fax_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactFaxPro_TextChanged" >
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Fax_Pro -->
+                                    <!-- Fin contenu du grid -->
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem x:Name="_tab_Correspondance_Personnelle"   Header="Personnelle">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--  Fin Definition des colonnes  -->
+                                <!--  Definition des lignes  -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Fin Definition des lignes  -->
+                                <!--  Contenu du Grid  -->
+                                <Grid.Children>
+
+                                    <!-- Contact.Tel_Port -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactTelPortPerso"
+                Text="Téléphone portable"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactTelPortPerso" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Port, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactTelPortPerso_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Tel_Port -->
+
+                                    <!-- Contact.Tel_Fixe -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactTelFixePerso"
+                Text="Téléphone fixe"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactTelFixePerso" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Fixe, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactTelFixePerso_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Tel_Fixe -->
+
+                                    <!-- Contact.EMail -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactEmailPerso"
+                Text="E-mail"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <Grid Grid.Row="3" Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <TextBox 
+                x:Name="_TextBoxContactEmailPerso" 
+                Grid.Column="0" 
+                Margin="2" 
+                Text="{Binding Path=EMail, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactEmailPerso_TextChanged">
+                                            </TextBox>
+
+                                            <Button
+                                        Grid.Column="1"
+                                        x:Name="sendMailPerso"
+                                        Click="sendMailPerso_Click"
+                                        Content="Envoyer Mail"
+                                        ></Button>
+                                        </Grid.Children>
+                                    </Grid>
+
+                                    <!-- Fin Contact.EMail -->
+
+                                    <!-- Contact.Fax -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactFaxPerso"
+                Text="Fax"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactFaxPerso" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Fax, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactFaxPerso_TextChanged">
+                                    </TextBox>                                                                        
+
+                                    <!-- Fin Contact.Fax -->
+                                    
+                                    <!-- Fin contenu du grid -->
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+
+                    </TabControl>
+
+                </TabItem>
+
+                <TabItem x:Name="_tab_Entreprise" Header="Entreprise">
+
+                    <Grid Name="_GridEntreprise">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="90*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--  Fin Definition des colonnes  -->
+                        <!--  Definition des lignes  -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--  Fin Definition des lignes  -->
+                        <!--  Contenu du Grid  -->
+                        <Grid.Children>
+
+                            <TextBlock 
+                x:Name="_TextBlockContactEntreprise"
+                Text="Entreprise (*)"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <ComboBox 
+                x:Name="_ComboBoxContactEntreprise"
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Entreprise1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=EntrepriseList}"
+                SelectionChanged="_ComboBoxContactEntreprise_SelectionChanged"
+                >
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+
+                            <Button
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        x:Name="NewEntreprise"
+                                        Click="NewEntreprise_Click"
+                                ToolTip="Ajouter"
+                                        >
+                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                        Grid.Row="1"
+                                        Grid.Column="4"
+                                        x:Name="LookEntreprise"
+                                        Click="LookEntreprise_Click"
+                                ToolTip="Voir"
+                                        >
+                                <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                            </Button>
+
+                            <!--<TextBlock 
+                x:Name="_TextBlockContactEntrepriseAgence"
+                Text="Agence"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <ComboBox 
+                x:Name="_ComboBoxContactEntrepriseAgence"
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Agence1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=AgenceList}"
+                                SelectionChanged="_ComboBoxContactEntrepriseAgence_SelectionChanged"
+                >
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+
+                            <Button
+                                        Grid.Row="3"
+                                        Grid.Column="3"
+                                        x:Name="NewAgence"
+                                        Click="NewAgence_Click"
+                                        Content="Nouveau"
+                                        ></Button>
+                            <Button
+                                        Grid.Row="3"
+                                        Grid.Column="4"
+                                        x:Name="LookAgence"
+                                        Click="LookAgence_Click"
+                                        Content="Voir"
+                                        ></Button>-->
+                            
+                            <TextBlock 
+                x:Name="_TextBlockContactEntrepriseFonction"
+                Text="Fonction"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <ComboBox 
+                x:Name="_ComboBoxContactEntrepriseFonction"
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Contact.Contact_Fonction1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=CFonctionList}"
+                >
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+
+                            <Button
+                                        Grid.Row="3"
+                                        Grid.Column="3"
+                                        x:Name="NewFonction"
+                                        Click="NewFonction_Click"
+                                ToolTip="Ajouter"
+                                        >
+                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                        Grid.Row="3"
+                                        Grid.Column="4"
+                                        x:Name="LookFonction"
+                                        Click="LookFonction_Click"
+                                ToolTip="Voir"
+                                        >
+                                <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                            </Button>
+
+                            <Button
+                                        Grid.Column="6"
+                                        Grid.Row="3"
+                                        x:Name="NullFonction"
+                                        Click="NullFonction_Click_1"   
+                                        ToolTip="Mettre à null"
+                                        >
+                                <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                            </Button>
+
+                            <TextBlock 
+                x:Name="_TextBlockContactEntrepriseService"
+                Text="Service"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <ComboBox 
+                x:Name="_ComboBoxContactEntrepriseService"
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Contact.Contact_Service1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=CServiceList}"
+                >
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+
+                            <Button
+                                        Grid.Row="5"
+                                        Grid.Column="3"
+                                        x:Name="NewService"
+                                        Click="NewService_Click"
+                                ToolTip="Ajouter"
+                                        >
+                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                        Grid.Row="5"
+                                        Grid.Column="4"
+                                        x:Name="LookService"
+                                        Click="LookService_Click"
+                                ToolTip="Voir"
+                                        >
+                                <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                            </Button>
+
+                            <Button
+                                        Grid.Column="6"
+                                        Grid.Row="5"
+                                        x:Name="NullService"
+                                        Click="NullService_Click_1"   
+                                        ToolTip="Mettre à null"
+                                        >
+                                <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                            </Button>
+                        </Grid.Children>
+                    </Grid>
+
+                </TabItem>
+
+
+
+                <TabItem x:Name="_tab_Divers" Header="Divers">
+
+                    <Grid Name="_GridDivers">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--  Fin Definition des colonnes  -->
+                        <!--  Definition des lignes  -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--  Fin Definition des lignes  -->
+                        <!--  Contenu du Grid  -->
+                        <Grid.Children>
+
+                            <!-- Contact.CentresInterets-->
+                            <TextBlock 
+                x:Name="_TextBlockContactCentresInterets"
+                Text="Centres d'intérêts"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactCentresInterets" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2"
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Centre_Interet, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactCentresInterets_TextChanged">
+                            </TextBox>
+
+                            <!-- Fin Contact.CentresInterets-->
+
+                            <!-- Contact.Cadeaux-->
+
+                            <CheckBox
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                IsChecked="{Binding Path=Contact.Cadeau}" x:Name="_CheckBoxCadeau" Click="_CheckBoxCadeau_Click">
+                            </CheckBox>
+
+                            <TextBlock 
+                x:Name="_TextBlockContactCadeaux"
+                Text="Cadeaux"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactCadeaux" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2"
+                TextWrapping="Wrap"
+                Text="{Binding Path=Contact.Cadeau_Libelle, UpdateSourceTrigger=PropertyChanged}" LostFocus="_TextBoxContactCadeaux_LostFocus">
+                            </TextBox>
+
+                            <!-- Fin Contact.Cadeaux-->
+
+                            <!-- Contact.Amis-->
+                            <TextBlock 
+                x:Name="_TextBlockContactAmis"
+                Text="Amis"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxContactAmis" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2"
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Contact.Amis, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactAmis_TextChanged" >
+                            </TextBox>
+
+                            <!-- Fin Contact.Amis-->
+
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Localisation" x:Name="_tab_localisation" >
+
+                    <TabControl Grid.Row="0" Grid.Column="0">
+
+                        <TabItem Header="Personnelle">
+                            <Grid Name="_GridLocalisation">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="200" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--  Fin Definition des colonnes  -->
+                                <!--  Definition des lignes  -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Fin Definition des lignes  -->
+                                <!--  Contenu du Grid  -->
+                                <Grid.Children>
+
+                                    <!-- Contact.Adresse -->
+                                    <TextBlock 
+                x:Name="_TextBlockContactAdressePerso"
+                Text="Adresse"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactAdressePerso" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Rue, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactAdressePerso_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Adresse -->
+
+                                    <!-- Conatct.Complement_Adresse -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactAdresseCompPerso"
+                Text="Adresse complémentaire"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactAdresseCompPerso" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactAdresseCompPerso_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Conatct.Complement_Adresse -->
+
+                                    <!-- Contact.Ville -->
+                                    <TextBlock 
+                x:Name="_TextBlockContactVillePerso"
+                Text="Ville"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+                                    <ComboBox 
+                x:Name="_ComboBoxContactVillePerso"
+                Text="Saisissez 3 caractères minimum"
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Adresse1.Ville}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=VilleList}"
+                SelectionChanged="_ComboBoxContactVillePerso_SelectionChanged" GotFocus="_ComboBoxContactVillePerso_GotFocus"
+                >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <!-- Fin Contact.Ville -->
+
+                                    <!-- Contact.Code_Postal -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactCodePostalPerso"
+                Text="Code Postal"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactCodePostalPerso" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Ville1.Code_Postal, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactCodePostalPerso_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Code_Postal -->
+
+                                    <!-- Contact.Pays -->
+
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactPaysPerso"
+                Text="Pays"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <ComboBox 
+                x:Name="_ComboBoxContactPaysPerso"
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Adresse1.Pays1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=PaysList}"
+                SelectionChanged="_ComboBoxCoordonneesPaysPerso_SelectionChanged"
+                >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <!-- Contact.Pays -->
+                                    <!-- Fin contenu du grid -->
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Professionnelle">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="200" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--  Fin Definition des colonnes  -->
+                                <!--  Definition des lignes  -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Fin Definition des lignes  -->
+                                <!--  Contenu du Grid  -->
+                                <Grid.Children>
+
+                                    <!-- Contact.Adresse_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactAdressePro"
+                Text="Adresse"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactAdressePro" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Rue, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactAdressePro_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Adresse_Pro -->
+
+                                    <!-- Contact.Complement_Adresse_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactAdresseCompPro"
+                Text="Adresse complémentaire"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactAdresseCompPro" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactAdresseCompPro_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Contact.Complement_Adresse_Pro -->
+
+                                    <!-- Contact.Ville_Pro -->
+                                    <TextBlock 
+                x:Name="_TextBlockContactVillePro"
+                Text="Ville"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+                                    <ComboBox 
+                x:Name="_ComboBoxContactVillePro"
+                Text="Saisissez 3 caractères minimum"
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Adresse2.Ville1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=VilleList}"
+                SelectionChanged="_ComboBoxContactVillePro_SelectionChanged" GotFocus="_ComboBoxContactVillePro_GotFocus"
+                >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <!-- Fin Contact.Ville_Pro -->
+
+                                    <!-- Contact.Code_Postal_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactCodePostalPro"
+                Text="Code Postal"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactCodePostalPro" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Ville1.Code_Postal, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxContactCodePostalPro_TextChanged">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Code_Postal_Pro -->
+
+                                    <!-- Contact.Pays_Pro -->
+
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactPaysPro"
+                Text="Pays"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <ComboBox 
+                x:Name="_ComboBoxContactPaysPro"
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Adresse2.Pays1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ContactWindow}}, Path=PaysList}"
+                SelectionChanged="_ComboBoxCoordonneesPays_SelectionChanged"
+                >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <!-- Fin Contact.Pays_Pro -->
+
+                                    <!-- Fin contenu du grid -->
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Adresse de l'entreprise">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="200" MinWidth="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--  Fin Definition des colonnes  -->
+                                <!--  Definition des lignes  -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--  Fin Definition des lignes  -->
+                                <!--  Contenu du Grid  -->
+                                <Grid.Children>
+
+                                    <!-- Contact.Adresse_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactAdresse"
+                Text="Adresse"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactAdresse" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2"
+                IsReadOnly="True"
+                Text="{Binding Path=Entreprise1.Adresse1.Rue, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Adresse_Pro -->
+
+                                    <!-- Contact.Complement_Adresse_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactAdresseComp"
+                Text="Adresse complémentaire"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactAdresseComp" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2"
+                IsReadOnly="True"
+                Text="{Binding Path=Entreprise1.Adresse1.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+
+                                    <!-- Contact.Complement_Adresse_Pro -->
+
+                                    <!-- Contact.Ville_Pro -->
+                                    <TextBlock 
+                x:Name="_TextBlockContactVille"
+                Text="Ville"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+                                    <TextBox 
+                x:Name="_TextBoxContactVille" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2"
+                IsReadOnly="True"                        
+                Text="{Binding Path=Entreprise1.Adresse1.Ville1.Libelle, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Ville_Pro -->
+
+                                    <!-- Contact.Code_Postal_Pro -->
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactCodePostal"
+                Text="Code Postal"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactCodePostal" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                IsReadOnly="True"
+                Text="{Binding Path=Entreprise1.Adresse1.Ville1.Code_Postal, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Code_Postal_Pro -->
+
+                                    <!-- Contact.Pays_Pro -->
+
+
+                                    <TextBlock 
+                x:Name="_TextBlockContactPays"
+                Text="Pays"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox 
+                x:Name="_TextBoxContactPays" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                IsReadOnly="True"
+                Text="{Binding Path=Entreprise1.Adresse1.Ville1.Pays1.Libelle, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+
+                                    <!-- Fin Contact.Pays_Pro -->
+
+                                    <!-- Fin contenu du grid -->
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+
+                    </TabControl>
+
+                </TabItem>
+
+            </TabControl>
+            <!--  Nouveau Grid pour boutons Ok/Annuler  -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" Click="_ButtonOk_Click">
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsCancel="True" Click="_ButtonCancel_Click">
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

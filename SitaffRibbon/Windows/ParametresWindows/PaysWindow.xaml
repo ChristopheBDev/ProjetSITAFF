@@ -1,0 +1,180 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ParametresWindows.PaysWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="..\..\Images\icone-pays-large.png"
+        Title="Pays" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="200"/>
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <TextBlock 
+            Name="textBlock1"
+            Text="Code :"
+            Grid.Row="2" 
+                    Grid.Column="1"
+            />
+
+                <TextBlock 
+            Name="textBlock2"
+            Text="Monnaie :"
+            Grid.Row="3" 
+                    Grid.Column="1"
+            />
+
+                <TextBlock
+            Name="textBlock3" 
+            Text="Nom :"
+            Grid.Row="1"
+                    Grid.Column="1"
+            />
+
+                <TextBlock 
+            Name="textBlock4" 
+            Text="Monnaie Division :" 
+            Grid.Row="4" 
+                    Grid.Column="1"
+            />
+
+                <TextBlock
+            Name="textBlock5" 
+            Text="Attribution :"
+            Grid.Row="5"
+                    Grid.Column="1"
+            />
+
+                <TextBlock
+            Name="textBlock6"
+            Text="Code Téléphonique :"
+            Grid.Row="6" 
+                    Grid.Column="1"
+            />
+
+                <TextBlock
+            Name="textBlock7" 
+            Text="Libelle National :" 
+            Grid.Row="7" 
+                    Grid.Column="1"
+            />
+
+
+
+                <TextBox 
+            Name="_TextBoxNom"
+            Grid.Column="2" 
+            Grid.Row="1" 
+            TextChanged="_TextBoxNom_TextChanged"
+            Text="{Binding Path=Libelle, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+                <TextBox 
+            Name="_TextBoxCode"
+            Grid.Column="2" 
+            Grid.Row="2"
+            TextChanged="_TextBoxCode_TextChanged" 
+            Text="{Binding Path=Code, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+                <TextBox 
+            Name="_TextBoxMonnaie" 
+            Grid.Column="2" 
+            Grid.Row="3"
+            TextChanged="_TextBoxMonnaie_TextChanged"
+            Text="{Binding Path=Monnaie, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+                <TextBox
+            Name="_TextBoxMonnaieDivision" 
+            Grid.Column="2"
+            Grid.Row="4" 
+            TextChanged="_TextBoxMonnaieDivision_TextChanged"
+            Text="{Binding Path=Monnaie_Division, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+                <TextBox
+            Name="_TextBoxAttribution" 
+            Grid.Column="2"
+            Grid.Row="5" 
+            TextChanged="_TextBoxAttribution_TextChanged" 
+            Text="{Binding Path=Attribution, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+                <TextBox
+            Name="_TextBoxCodeTelephonique"
+            Grid.Column="2" 
+            Grid.Row="6" 
+            TextChanged="_TextBoxCodeTelephonique_TextChanged"
+            Text="{Binding Path=Code_Telephonique, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+                <TextBox 
+            Name="_TextBoxLibelleNational" 
+            Grid.Column="2"
+            Grid.Row="7" 
+            TextChanged="_TextBoxLibelleNational_TextChanged" 
+            Text="{Binding Path=Libelle_Nationalite, UpdateSourceTrigger=PropertyChanged}"
+            />
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                    <!--  Définition des colonnes  -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--  Fin Définition des colonnes  -->
+                    <!--  Contenu du Grid2  -->
+                    <Grid.Children>
+                        <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                        </Button>
+                        <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                        </Button>
+                    </Grid.Children>
+                    <!--  Fin Contenu du Grid2  -->
+                </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

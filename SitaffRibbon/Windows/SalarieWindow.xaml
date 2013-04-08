@@ -1,0 +1,3443 @@
+﻿<Window x:Class="SitaffRibbon.Windows.SalarieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Title="Salarie" Height="Auto" Width="Auto" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" MinHeight="200" MinWidth="800" Icon="..\Images\icone-salaries-large.png" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <TabControl Grid.Row="1" Grid.Column="0">
+
+                <TabItem Header="Informations générales" x:Name="_tabInformationsGenerales">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <GroupBox x:Name="_groupBoxCoordonnees" Header="Coordonnées" Grid.Column="0" Grid.Row="0">
+                                <TabControl>
+
+                                    <TabItem x:Name="_tabCoordonneesIdentite" Header="Identité">
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--  Fin Definition des colonnes  -->
+                                            <!--  Definition des lignes  -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <!--  Fin Definition des lignes  -->
+                                            <!--  Contenu du Grid  -->
+                                            <Grid.Children>
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieCivilité"
+                Text="Civilité :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <ComboBox 
+                x:Name="_ComboBoxSalarieCivilite" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2"
+                SelectedItem="{Binding Path=Civilite1}" 
+                DisplayMemberPath="Libelle_Long" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=ListCivilite}"
+                SelectionChanged="_ComboBoxSalarieCivilite_SelectionChanged"
+                >
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieNom"
+                Text="Nom :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieNom" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Nom, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieNom_TextChanged" LostFocus="_TextBoxSalarieNom_LostFocus"
+                >
+
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieNomJeuneFille"
+                Text="Nom de jeune fille :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieNomJeuneFille" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Nom_Jeune_Fille, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieNomJeuneFille_TextChanged" LostFocus="_TextBoxSalarieNomJeuneFille_LostFocus"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalariePrenom"
+                Text="Prénom :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalariePrenom" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Prenom, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalariePrenom_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieInitiales"
+                Text="Initiales :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieInitiales" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Initiales, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieInitiales_TextChanged"
+                >
+                                                </TextBox>
+
+                                                <!-- -->
+
+                                                <!-- -->
+                                            </Grid.Children>
+                                        </Grid>
+
+                                    </TabItem>
+                                    <TabItem x:Name="_tabCoordonneesIdentiteSociale" Header="Identité sociale">
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--  Fin Definition des colonnes  -->
+                                            <!--  Definition des lignes  -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <!--  Fin Definition des lignes  -->
+                                            <!--  Contenu du Grid  -->
+                                            <Grid.Children>
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieDateNaissance"
+                Text="Date de naissance :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <DatePicker 
+            Grid.Column="2"
+            Grid.Row="1"
+            x:Name="_DatePickerSalarieDateNaissance"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Date_Naissance, UpdateSourceTrigger=PropertyChanged}"
+             />
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieLieuNaissance"
+                Text="Lieu de naissance :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieLieuNaissance" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Lieu_Naissance, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieLieuNaissance_TextChanged"
+                >
+                                                </TextBox>
+
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieNumeroSecuriteSociale"
+                Text="Numéro de sécurité sociale :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieNumeroSecuriteSociale" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Num_Securite_Sociale, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieNumeroSecuriteSociale_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieNumeroPasseport"
+                Text="Numéro de passeport :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieNumeroPasseport" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Num_Passeport, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieNumeroPasseport_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieDateValiditePasseport"
+                Text="Date validité passeport :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <DatePicker 
+            Grid.Column="2"
+            Grid.Row="5"
+            x:Name="_DatePickerSalarieDateValiditePasseport"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Date_Validite_Passeport, UpdateSourceTrigger=PropertyChanged}"
+             />
+                                                <!-- -->
+
+                                            </Grid.Children>
+                                        </Grid>
+
+                                    </TabItem>
+
+                                </TabControl>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxCorrespondance" Header="Correspondance" Grid.Column="2" Grid.Row="0">
+                                <TabControl>
+                                    <TabItem x:Name="_tabCorrespondanceProfessionnelle" Header="Professionnelle">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--  Fin Definition des colonnes  -->
+                                            <!--  Definition des lignes  -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <!--  Fin Definition des lignes  -->
+                                            <!--  Contenu du Grid  -->
+                                            <Grid.Children>
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieTelephoneportablePro"
+                Text="Téléphone portable :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieTelephoneportablePro" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Port_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTelephoneportablePro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieTelephonefixePro"
+                Text="Téléphone fixe :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieTelephonefixePro" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Fixe_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTelephonefixePro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieEmailPro"
+                Text="E-mail :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieEmailPro" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=EMail_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieEmailPro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieFaxPro"
+                Text="Fax :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieFaxPro" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Fax_Pro, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTelephonefaxPro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                            </Grid.Children>
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem x:Name="_tabCorrespondancePersonnelle" Header="Personnelle">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--  Fin Definition des colonnes  -->
+                                            <!--  Definition des lignes  -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <!--  Fin Definition des lignes  -->
+                                            <!--  Contenu du Grid  -->
+                                            <Grid.Children>
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieTelephoneportablePerso"
+                Text="Téléphone portable :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieTelephoneportablePerso" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Port, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTelephoneportablePerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieTelephonefixePerso"
+                Text="Téléphone fixe :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieTelephonefixePerso" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Tel_Fixe, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTelephonefixePerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieEmailPerso"
+                Text="E-mail :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieEmailPerso" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=EMail, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieEmailPerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieFaxPerso"
+                Text="Fax :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieFaxPerso" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Fax, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTelephonefaxPerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+                                            </Grid.Children>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxLocalisation" Header="Localisation" Grid.Column="0" Grid.Row="1">
+                                <TabControl>
+                                    <TabItem x:Name="_tabLocalisationPersonnelle" Header="Personnelle">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--  Fin Definition des colonnes  -->
+                                            <!--  Definition des lignes  -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <!--  Fin Definition des lignes  -->
+                                            <!--  Contenu du Grid  -->
+                                            <Grid.Children>
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieAdressePerso"
+                Text="Adresse :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieAdressePerso" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Rue, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieAdressePerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieAdresseComplementairePerso"
+                Text="Adresse complémentaire :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieAdresseComplementairePerso" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieAdresseComplementairePerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieVillePerso"
+                Text="Ville :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <!--<TextBox 
+                x:Name="_TextBoxSalarieVillePerso" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Ville1.Libelle, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieVillePerso_TextChanged"
+                >
+                                                </TextBox>-->
+                                                <ComboBox 
+                x:Name="_ComboBoxSalarieVillePerso" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                                                    Margin="2"
+                SelectedItem="{Binding Path=Adresse1.Ville1}" 
+                DisplayMemberPath="fullVille" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=VilleListPerso}"
+                SelectionChanged="_ComboBoxCoordonneesVille_SelectionChanged" GotFocus="_ComboBoxCoordonneesVille_GotFocus"
+                >
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieCodePostalPerso"
+                Text="Code postal :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieCodePostalPerso" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextChanged="_TextBoxSalarieCodePostalPerso_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalariePaysPerso"
+                Text="Pays :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <!--<TextBox 
+                x:Name="_TextBoxSalariePaysPerso" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Ville1.Pays1.Libelle, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalariePaysPerso_TextChanged"
+                >
+                                                </TextBox>-->
+                                                <ComboBox 
+                x:Name="_ComboBoxSalariePaysPerso" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                DisplayMemberPath="Libelle" 
+                SelectionChanged="_ComboBoxCoordonneesPays_SelectionChanged"
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=PaysListPerso}"
+                                >
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <!-- -->
+                                            </Grid.Children>
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem x:Name="_tabLocalisationProfessionnelle" Header="Professionnelle">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--  Fin Definition des colonnes  -->
+                                            <!--  Definition des lignes  -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="5*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <!--  Fin Definition des lignes  -->
+                                            <!--  Contenu du Grid  -->
+                                            <Grid.Children>
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieAdressePro"
+                Text="Adresse :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieAdressePro" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Rue, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieAdressePro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieAdresseComplementairePro"
+                Text="Adresse complémentaire :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieAdresseComplementairePro" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieAdresseComplementairePro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieVillePro"
+                Text="Ville :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+                                                <ComboBox 
+                x:Name="_ComboBoxSalarieVillePro" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                                                    Margin="2"
+                SelectedItem="{Binding Path=Adresse2.Ville1}" 
+                DisplayMemberPath="fullVille" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=VilleListPro}"
+                SelectionChanged="_ComboBoxSalarieVillePro_SelectionChanged"  GotFocus="_ComboBoxSalarieVillePro_GotFocus"
+                >
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+
+                                                <!--<TextBox 
+                x:Name="_TextBoxSalarieVillePro" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Ville1.Libelle, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieVillePro_TextChanged"
+                >
+                                                </TextBox>-->
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalarieCodePostalPro"
+                Text="Code postal :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <TextBox 
+                x:Name="_TextBoxSalarieCodePostalPro" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextChanged="_TextBoxSalarieCodePostalPro_TextChanged"
+                >
+                                                </TextBox>
+                                                <!-- -->
+
+                                                <!-- -->
+                                                <TextBlock 
+                x:Name="_TextBlockSalariePaysPro"
+                Text="Pays :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                                </TextBlock>
+
+                                                <!--<TextBox 
+                x:Name="_TextBoxSalariePaysPro" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse2.Ville1.Pays1.Libelle, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalariePaysPro_TextChanged"
+                >
+                                                </TextBox>-->
+                                                <ComboBox 
+                x:Name="_ComboBoxSalariePaysPro" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                DisplayMemberPath="Libelle" 
+                SelectionChanged="_ComboBoxSalariePaysPro_SelectionChanged"
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=PaysListPro}"
+                                >
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <!-- -->
+                                            </Grid.Children>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxEmploiOccupe" Header="Emploi occupé" Grid.Column="2" Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridEmploiOccupe"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Qualification}"
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Libelle de la qualification" 
+                                                            Width="Auto" 
+                                                            Binding="{Binding Path=Libelle, Mode=OneWay}"
+                                                                    />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonEmploiNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonEmploiNouveau_Click"
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonEmploiSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonEmploiSupprimer_Click"
+                        
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxEntreprise" Header="Entreprise" Grid.Column="0" Grid.Row="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <!--  Fin Definition des colonnes  -->
+                                    <!--  Definition des lignes  -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <!--  Fin Definition des lignes  -->
+                                    <!--  Contenu du Grid  -->
+                                    <Grid.Children>
+
+                                        
+                                        <TextBlock 
+                x:Name="_TextBlockSalarieEntreprise"
+                Text="Entreprise :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                        </TextBlock>
+
+                                        <ComboBox 
+                x:Name="_ComboBoxSalarieEntreprise" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2"
+                SelectedItem="{Binding Path=Entreprise1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=ListEntreprise}"
+                SelectionChanged="_ComboBoxSalarieEntreprise_SelectionChanged"
+                >
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
+<TextBlock 
+                x:Name="_TextBlockSalarieContrat"
+                Text="Contrat :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                        </TextBlock>
+
+                                        <ComboBox 
+                x:Name="_ComboBoxSalarieContrat" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2"
+                SelectedItem="{Binding Path=Salarie.Contrat1}"
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=ListContrats}"
+                SelectionChanged="_ComboBoxSalarieContrat_SelectionChanged"
+                >
+                                        <ComboBox.ItemsPanel><ItemsPanelTemplate><VirtualizingStackPanel/></ItemsPanelTemplate></ComboBox.ItemsPanel></ComboBox>
+
+                                        <!-- -->
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Informations complémentaires" Grid.Column="2" Grid.Row="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <!--  Fin Definition des colonnes  -->
+                                    <!--  Definition des lignes  -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <!--  Fin Definition des lignes  -->
+                                    <!--  Contenu du Grid  -->
+                                    <Grid.Children>
+
+                                        <!-- -->
+                                        <TextBlock 
+                x:Name="_TextBlockSalarieCommentaires"
+                Text="Commentaires :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                        </TextBlock>
+
+                                        <TextBox 
+                x:Name="_TextBoxSalarieCommentaires" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Commentaire, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieCommentaires_TextChanged"
+                >
+                                        </TextBox>
+                                        <!-- -->
+
+                                        <!-- -->
+                                        <TextBlock 
+                x:Name="_TextBlockSalarieCentresInterets"
+                Text="Centres d'intérêts :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                        </TextBlock>
+
+                                        <TextBox 
+                x:Name="_TextBoxSalarieCentresInterets" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Centre_Interet, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieCentresInterets_TextChanged"
+                >
+                                        </TextBox>
+                                        <!-- -->
+
+                                        <!-- -->
+                                        <TextBlock 
+                x:Name="_TextBlockSalarieDistanceAtelier"
+                Text="Distance atelier :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                        </TextBlock>
+
+                                        <TextBox 
+                x:Name="_TextBoxSalarieDistanceAtelier" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Distance_Atelier, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieDistanceAtelier_TextChanged"
+                >
+                                        </TextBox>
+                                        <!-- -->
+
+                                        <!-- -->
+                                        <TextBlock 
+                x:Name="_TextBlockSalarieTempsRouteAtelier"
+                Text="Temps route atelier :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                                        </TextBlock>
+
+                                        <TextBox 
+                x:Name="_TextBoxSalarieTempsRouteAtelier" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Temps_Route_Atelier, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieTempsRouteAtelier_TextChanged"
+                >
+                                        </TextBox>
+                                        <!-- -->
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+
+                        </Grid.Children>
+                    </Grid>
+
+                </TabItem>
+
+                <TabItem x:Name="_tabCompetences" Header="Compétences">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <GroupBox x:Name="_groupBoxFormations" Header="Formations" Grid.Column="0" Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridFormations"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Salarie_Formation}"
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Formations" 
+                                                                    Binding="{Binding Path=Formation1.Libelle, Mode=OneWay}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <DataGridTextColumn Header="Date d'obtention" 
+                                                                    Binding="{Binding Path=Date_Obtention, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <DataGridTextColumn Header="Date de validité" 
+                                                                    Binding="{Binding Path=Date_Validite, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                IsReadOnly="True"
+                                                            />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonFormationsNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonFormationNouveau_Click"
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonFormationsSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonFormationSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxHabilitations" Header="Habilitations" Grid.Column="2" Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridHabilitations"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Salarie_Habilitation}"
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Habilitations" 
+                                                                    Binding="{Binding Path=Habilitation1.Libelle, Mode=OneWay}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <DataGridTextColumn Header="Date d'obtention" 
+                                                                    Binding="{Binding Path=Date_Obtention, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <DataGridTextColumn Header="Date de validité" 
+                                                                    Binding="{Binding Path=Date_Validite, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                IsReadOnly="True"
+                                                            />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonHabilitationsNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonHabilitationNouveau_Click"
+                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonHabilitationsSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonHabilitationSupprimer_Click"
+                        
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxPermis"  Header="Permis" Grid.Column="0" Grid.Row="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridPermis"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Salarie_Permis}"
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Permis" 
+                                                                Binding="{Binding Path=Permis1.Libelle, Mode=OneWay}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <DataGridTextColumn Header="Date d'obtention" 
+                                                                Binding="{Binding Path=Date_Obtention, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <DataGridTextColumn Header="Date de validité" 
+                                                                Binding="{Binding Path=Date_Validite, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                IsReadOnly="True"
+                                                            />
+                                                <!--<DataGridTextColumn Header="Date de validité" 
+                                                                Binding="{Binding Path=Date_Validite, Mode=OneWay}"
+                                                            />-->
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonPermisNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonPermisNouveau_Click"
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonPermisSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonPermisSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox x:Name="_groupBoxDiplomes"  Header="Diplômes" Grid.Column="2" Grid.Row="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridDiplomes"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Diplome}"
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Libelle du diplôme" 
+                                                            Width="Auto" 
+                                                            IsReadOnly="True"
+                                                            Binding="{Binding Path=Libelle, Mode=OneWay}"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonDiplomesNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonDiplomesNouveau_Click"
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonDiplomesSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonDiplomesSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+
+                <TabItem x:Name="_tabVetementsTravail" Header="Vêtements de travail">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition Width="15*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="40*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="20*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="15*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--  Fin Definition des colonnes  -->
+                        <!--  Definition des lignes  -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--  Fin Definition des lignes  -->
+                        <!--  Contenu du Grid  -->
+                        <Grid.Children>
+
+                            <TextBlock 
+                x:Name="_TextBlockSalarieDateAttribution"
+                Text="Date d'attribution"
+                Grid.Row="1" 
+                Grid.Column="2" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBlock 
+                x:Name="_TextBlockSalarieTaille"
+                Text="Taille"
+                Grid.Row="1" 
+                Grid.Column="3" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBlock 
+                x:Name="_TextBlockSalarieQuantite"
+                Text="Quantité"
+                Grid.Row="1" 
+                Grid.Column="4" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieVeste"
+                Text="Veste :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="2"
+            x:Name="_DatePickerSalarieVeste"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Veste_Date_Attribution, UpdateSourceTrigger=PropertyChanged}" 
+            SelectedDateChanged="_DatePickerSalarieVeste_SelectedDateChanged" />
+
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieVesteTaille" 
+                Grid.Row="2" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Veste_Taille}"
+                TextChanged="_ComboBoxSalarieVesteTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieVesteQuantite" 
+                Grid.Row="2" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Veste_Qte, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieVesteQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalariePantalon"
+                Text="Pantalon :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="3"
+            x:Name="_DatePickerSalariePantalon"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Pantalon_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalariePantalon_SelectedDateChanged" 
+             />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalariePantalonTaille" 
+                Grid.Row="3" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Pantalon_Taille}" 
+                                TextChanged="_ComboBoxSalariePantalonTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalariePantalonQuantite" 
+                Grid.Row="3" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Pantalon_Qte, UpdateSourceTrigger=PropertyChanged}"  TextChanged="_TextBoxSalariePantalonQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieBlouse"
+                Text="Blouse :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="4"
+            x:Name="_DatePickerSalarieBlouse"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Blouse_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalarieBlouse_SelectedDateChanged" />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieBlouseTaille" 
+                Grid.Row="4" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Blouse_Taille}" 
+                                TextChanged="_ComboBoxSalarieBlouseTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieBlouseQuantite" 
+                Grid.Row="4" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Blouse_Qte, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieBlouseQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieCombinaison"
+                Text="Combinaison :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="5"
+            x:Name="_DatePickerSalarieCombinaison"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Combinaison_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalarieCombinaison_SelectedDateChanged" 
+             />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieCombinaisonTaille" 
+                Grid.Row="5" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Combinaison_Taille}" 
+                                TextChanged="_ComboBoxSalarieCombinaisonTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieCombinaisonQuantite" 
+                Grid.Row="5" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Combinaison_Qte, UpdateSourceTrigger=PropertyChanged}"  TextChanged="_TextBoxSalarieCombinaisonQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieTeeShirts"
+                Text="Tee shirts :"
+                Grid.Row="6" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="6"
+            x:Name="_DatePickerSalarieTeeShirts"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.TShirt_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalarieTeeShirts_SelectedDateChanged" 
+             />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieTeeShirtsTaille" 
+                Grid.Row="6" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.TShirt_Taille}" 
+                                TextChanged="_ComboBoxSalarieTeeShirtsTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieTeeShirtsQuantite" 
+                Grid.Row="6" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.TShirt_Qte, UpdateSourceTrigger=PropertyChanged}"  TextChanged="_TextBoxSalarieTeeShirtsQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalariePolaire"
+                Text="Polaire :"
+                Grid.Row="7" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="7"
+            x:Name="_DatePickerSalariePolaire"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Polaire_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalariePolaire_SelectedDateChanged" 
+             />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalariePolaireTaille" 
+                Grid.Row="7" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Polaire_Taille}" 
+                                TextChanged="_ComboBoxSalariePolaireTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalariePolaireQuantite" 
+                Grid.Row="7" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Polaire_Qte, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalariePolaireQuantite_TextChanged" 
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieBlouson"
+                Text="Blouson :"
+                Grid.Row="8" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="8"
+            x:Name="_DatePickerSalarieBlouson"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Blouson_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalarieBlouson_SelectedDateChanged" 
+            />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieBlousonTaille" 
+                Grid.Row="8" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Blouson_Taille}" 
+                                TextChanged="_ComboBoxSalarieBlousonTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieBlousonQuantite" 
+                Grid.Row="8" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Blouson_Qte, UpdateSourceTrigger=PropertyChanged}"  TextChanged="_TextBoxSalarieBlousonQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieChaussure"
+                Text="Chaussure :"
+                Grid.Row="9" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="9"
+            x:Name="_DatePickerSalarieChaussure"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Chaussure_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalarieChaussure_SelectedDateChanged" />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieChaussureTaille" 
+                Grid.Row="9" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Chaussure_Taille}" 
+                                TextChanged="_ComboBoxSalarieChaussureTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieChaussureQuantite" 
+                Grid.Row="9" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Chaussure_Qte, UpdateSourceTrigger=PropertyChanged}"  TextChanged="_TextBoxSalarieChaussureQuantite_TextChanged"
+                ></TextBox>
+                            <!-- -->
+                            <TextBlock 
+                x:Name="_TextBlockSalarieBotte"
+                Text="Botte :"
+                Grid.Row="10" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="10"
+            x:Name="_DatePickerSalarieBotte"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Botte_Date_Attribution, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDateChanged="_DatePickerSalarieBotte_SelectedDateChanged" 
+             />
+
+                            <TextBox 
+                x:Name="_ComboBoxSalarieBotteTaille" 
+                Grid.Row="10" 
+                Grid.Column="3" 
+                Margin="2"
+                Text="{Binding Path=Salarie.Botte_Taille}" 
+                                TextChanged="_ComboBoxSalarieBotteTaille_TextChanged"
+                >
+                            </TextBox>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieBotteQuantite" 
+                Grid.Row="10" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Botte_Qte, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieBotteQuantite_TextChanged"  
+                ></TextBox>
+                            <!-- -->
+                        </Grid.Children>
+                    </Grid>
+
+                </TabItem>
+
+                <TabItem x:Name="_tabInformationsProfessionnelles" Header="Informations professionnelles">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="100*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock x:Name="textBlockIsChantier"
+                                               Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="Personnel de chantier "
+                                               ></TextBlock>
+                                    <CheckBox
+                                        x:Name="checkBoxIsChantier"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        ToolTip="Personne que l'on retrouvera sur les feuilles relevé"
+                                        IsChecked="{Binding Path=Salarie.Chantier}"
+                                        ></CheckBox>
+                                    <TextBlock x:Name="textBlockIsChargeAffaire"
+                                               Grid.Row="2"
+                                               Grid.Column="0"
+                                               Text="Personnel chargé d'affaire "
+                                               ></TextBlock>
+                                    <CheckBox
+                                        x:Name="checkBoxIsChargeAffaire"
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        ToolTip="Personne que l'on retrouvera sur les devis"
+                                        IsChecked="{Binding Path=Salarie.Charge_Affaire}"
+                                        ></CheckBox>
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockSeuilCommande"
+                                        Text="Seuil maximum :">
+                                    </TextBlock>
+                                    <TextBox
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        TextChanged="_TextBoxSeuilCommande_TextChanged"
+                                        KeyUp="_textBoxSeuilCommande_KeyUp_1"
+                                        x:Name="_textBoxSeuilCommande"
+                                        Text="{Binding Path=Salarie.SeuilCommande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center">
+                                    </TextBox>
+                                </Grid.Children>
+                            </Grid>
+                            <TabControl Grid.Row="1" Grid.Column="0">
+
+                                <TabItem x:Name="_tabSalarieInterne" Header="Salarié interne">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="20*" MinWidth="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="70*" MinWidth="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <!--  Fin Definition des colonnes  -->
+                                        <!--  Definition des lignes  -->
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5*"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <!--  Fin Definition des lignes  -->
+                                        <!--  Contenu du Grid  -->
+                                        <Grid.Children>
+
+                                            <CheckBox Margin="50, 0, 0, 0" x:Name="checkBox_SalarieInterne" Click="checkBox_SalarieInterne_Click"></CheckBox>
+
+                                            <TextBlock 
+                x:Name="_TextBlockSalarieInterneDateEntree"
+                Text="Date d'entrée :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                            </TextBlock>
+
+                                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="1"
+            x:Name="_DatePickerSalarieInterneDateEntree"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Salarie_Interne.Date_Entree}"
+            SelectedDateChanged="_DatePickerSalarieInterneDateEntree_SelectedDateChanged"/>
+
+                                            <TextBlock 
+                x:Name="_TextBlockSalarieInterneEntrepriseMere"
+                Text="Entreprise Mère : "
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                            </TextBlock>
+
+                                            <ComboBox 
+                x:Name="_ComboBoxSalarieInterneEntrepriseMere" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2"
+                SelectedItem="{Binding Path=Salarie.Salarie_Interne.Entreprise_Mere1}" 
+                DisplayMemberPath="Nom" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=listEntreprise_Mere}"
+                SelectionChanged="_ComboBoxSalarieInterneEntrepriseMere_SelectionChanged"
+                >
+                                                <ComboBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel/>
+                                                    </ItemsPanelTemplate>
+                                                </ComboBox.ItemsPanel>
+                                            </ComboBox>
+
+                                            <TextBlock 
+                x:Name="_TextBlockSalarieInterneDateSortie"
+                Text="Date de sortie :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                            </TextBlock>
+
+                                            <DatePicker 
+            Grid.Column="2"
+            Grid.Row="3"
+            x:Name="_DatePickerSalarieInterneDateSortie"
+            SelectedDateFormat="Short"
+            SelectedDate="{Binding Path=Salarie.Salarie_Interne.Date_Sortie}"
+            SelectedDateChanged="_DatePickerSalarieInterneDateSortie_SelectedDateChanged"/>
+
+                                            <TextBlock 
+                x:Name="_TextBlockSalarieInterneMatriculeSociete"
+                Text="Matricule devis :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                            </TextBlock>
+
+                                            <TextBox 
+                x:Name="_TextBoxSalarieInterneMatriculeSociete" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Salarie_Interne.Matricule_Interne}" LostFocus="_TextBoxSalarieInterneMatriculeSociete_LostFocus">
+                                            </TextBox>
+
+                                            <TextBlock 
+                x:Name="_TextBlockSalarieNumeroInterne"
+                Text="Numéro interne salarié :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                            </TextBlock>
+
+                                            <TextBox 
+                x:Name="_TextBoxSalarieNumeroInterne" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Matricule_Devis}" LostFocus="_TextBoxSalarieNumeroInterne_LostFocus" >
+                                            </TextBox>
+
+                                            <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="1"
+                                        x:Name="_textBlockSalarieInterneVehicule"
+                                        Text="Véhicule de fonction : ">
+                                            </TextBlock>
+
+                                            <Grid Grid.Row="6" Grid.Column="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+
+                                                    <CheckBox
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        x:Name="_checkBoxSalarieInterneVehiculeOui">
+                                                    </CheckBox>
+                                                </Grid.Children>
+                                            </Grid>
+
+                                            <GroupBox Header="Visite Médicale" Grid.Column="2" Grid.Row="7">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <DataGrid
+                                  x:Name="_dataGridVisiteMedicaleInterne"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Salarie.Salarie_Interne.Visite_Medicale}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn Header="Date de visite médicale" 
+                                                                            Binding="{Binding Path=Date_Visite, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                                <DataGridTextColumn Header="Lieu de visite médicale" 
+                                                                            Binding="{Binding Path=Adresse1.Ville1.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                                <DataGridTextColumn Header="Observation" 
+                                                                            Binding="{Binding Path=Observation}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonInterneVisiteMedicaleNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterneVisiteMedicaleNouveau_Click"
+                                                        
+                        >
+                                                            </Button>
+
+                                                            <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonInterneVisiteMedicaleModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterneVisiteMedicaleModifier_Click"
+                                                        
+                        >
+                                                            </Button>
+
+                                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonInterneVisiteMedicaleSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterneVisiteMedicaleSupprimer_Click"
+                        >
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </GroupBox>
+
+                                        </Grid.Children>
+
+                                    </Grid>
+
+
+
+                                </TabItem>
+
+                                <TabItem x:Name="_tabSalarieInterimaire" Header="Intérimaire">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"></ColumnDefinition>
+                                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <CheckBox Margin="50, 0, 0, 0" x:Name="checkBox_SalarieInterimaire" Click="checkBox_SalarieInterimaire_Click"></CheckBox>
+                                            <GroupBox Header="Compétences" Grid.Column="0" Grid.Row="1">
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <DataGrid
+                                  x:Name="_dataGridCompetencesInterimaire"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Salarie.Interimaire.Interimaire_Competence}"
+                                                    AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn Header="Compétences" 
+                                                                            Binding="{Binding Path=Competence1.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                                <DataGridTextColumn Header="Commentaire" 
+                                                                            Binding="{Binding Path=Commentaire}"
+                                                                            IsReadOnly="False"
+                                                                                />
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonCompetencesInterimaireNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterimaireCompetenceNouveau_Click"
+                                                        
+                        >
+                                                            </Button>
+
+                                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonCompetencesInterimaireSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterimaireCompetenceSupprimer_Click"
+                        >
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </GroupBox>
+
+                                            <GroupBox Header="Mobilité" Grid.Column="2" Grid.Row="1">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <Grid Grid.Row="0" Grid.Column="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.Children>
+                                                                <DataGrid
+                                  x:Name="_dataGridMobiliteInterimaire"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Interimaire.Departement}"
+                                  >
+                                                                    <DataGrid.Columns>
+                                                                        <DataGridTextColumn Header="Région" 
+                                                                                IsReadOnly="True"
+                                                                                Binding="{Binding Path=Libelle}"/>
+                                                                    </DataGrid.Columns>
+                                                                </DataGrid>
+                                                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                    </Grid.RowDefinitions>
+
+                                                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonMobiliteInterimaireNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterimaireMobiliteNouveau_Click"
+                        
+                        >
+                                                                    </Button>
+
+                                                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonMobiliteInterimaireSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonInterimaireMobiliteSupprimer_Click"
+                        
+                        >
+                                                                    </Button>
+                                                                </Grid>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                        <Grid Grid.Row="2" Grid.Column="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.Children>
+                                                                <TextBlock
+                                                            x:Name="_textBlockInterimaireMobiliteCommentaire"
+                                                            Text="Commentaire : "
+                                                            Grid.Row="0" Grid.Column="0">
+                                                                </TextBlock>
+                                                                <TextBox 
+                x:Name="_TextBoxInterimaireMobiliteCommentaire" 
+                Grid.Row="0" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Interimaire.Mobilite_Commentaire, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxInterimaireMobiliteCommentaire_TextChanged"
+                ></TextBox>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+
+                                            </GroupBox>
+
+                                            <GroupBox Header="Polyvalence" Grid.Column="0" Grid.Row="2" Visibility="Hidden">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockPolyvalenceCommentairesInterimaire"
+                Text="Commentaires :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxPolyvalenceCommentairesInterimaire" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Sous_Traitant.Commentaire, UpdateSourceTrigger=PropertyChanged}" 
+                ></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+
+                                            </GroupBox>
+
+                                            <GroupBox Header="Expérience" Grid.Column="2" Grid.Row="2">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+
+
+                                                        <TextBlock 
+                x:Name="_TextBlockExperienceCommentairesInterimaire"
+                Text="Commentaires :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxExperienceCommentairesInterimaire" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Interimaire.Experience, UpdateSourceTrigger=PropertyChanged}" TextChanged="Verif_TextBoxExperienceCommentairesInterimaire_TextChanged"
+                ></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+
+                                            </GroupBox>
+
+                                            <GroupBox Header="Notation" Grid.Column="0" Grid.Row="3">
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="90*" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                        <!-- Mise à 0 de la hauteur de la ligne "Note"-->
+                                                        <RowDefinition Height="0"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockNotationInterimaire"
+                Text="Notation :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <ComboBox 
+                x:Name="_ComboBoxNotationInterimaire" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Entreprise}" 
+                DisplayMemberPath="Interimaire.Notation" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AppelOffreWindow}}, Path=entrepriseList}">
+                                                            <ComboBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <VirtualizingStackPanel/>
+                                                                </ItemsPanelTemplate>
+                                                            </ComboBox.ItemsPanel>
+                                                        </ComboBox>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockNotationCommentairesInterimaire"
+                Text="Commentaires :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxNotationCommentairesInterimaire" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Interimaire.Notation_Commentaire, UpdateSourceTrigger=PropertyChanged}" TextChanged="Verif_TextBoxNotationCommentairesInterimaire_TextChanged"
+                ></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </GroupBox>
+
+                                            <GroupBox Header="Coefficient" Grid.Column="2" Grid.Row="3">
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockAgenceInterim"
+                Text="Agence : "
+                Grid.Row="1" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <ComboBox 
+                x:Name="_ComboBoxAgenceInterim" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Margin="2"
+                SelectedItem="{Binding Path=Salarie.Interimaire.Agence_Interimaire1}" 
+                DisplayMemberPath="Fournisseur.Entreprise.Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=ListAgences}"
+                >
+                                                            <ComboBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <VirtualizingStackPanel/>
+                                                                </ItemsPanelTemplate>
+                                                            </ComboBox.ItemsPanel>
+                                                        </ComboBox>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockCoefficientDelegationInterimaire"
+                Text="Coéfficient de délégation : "
+                Grid.Row="1" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxCoefficientDelegationInterimaire" 
+                Grid.Row="1" 
+                Grid.Column="4" 
+                Margin="2" 
+                IsEnabled="False"
+                ></TextBox>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockCoefficientGestionInterimaire"
+                Text="Coéfficient de gestion : "
+                Grid.Row="2" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxCoefficientGestionInterimaire" 
+                Grid.Row="2" 
+                Grid.Column="4" 
+                Margin="2" 
+                IsEnabled="False"
+                ></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </GroupBox>
+                                        </Grid.Children>
+                                    </Grid>
+
+                                </TabItem>
+
+                                <TabItem x:Name="_tabSalarieTiers" Header="Tiers">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"></ColumnDefinition>
+                                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <CheckBox Margin="50, 0, 0, 0" x:Name="checkBox_SalarieTiers" Click="checkBox_SalarieTiers_Click"></CheckBox>
+                                            <GroupBox Header="Compétences" Grid.Column="0" Grid.Row="1">
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <DataGrid
+                                  x:Name="_dataGridCompetencesTiers"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Salarie.Tiers.Tiers_Competence}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn Header="Compétences" 
+                                                                            Binding="{Binding Path=Competence1.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                                <DataGridTextColumn Header="Commentaire" 
+                                                                            Binding="{Binding Path=Commentaire}"
+                                                                            IsReadOnly="False"
+                                                                                />
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonCompetencesTiersNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonTiersCompetenceNouveau_Click"
+                        >
+                                                            </Button>
+
+                                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonCompetencesTiersSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonTiersCompetenceSupprimer_Click" 
+                        >
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </GroupBox>
+
+                                            <GroupBox Header="Mobilité" Grid.Column="2" Grid.Row="1">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <Grid Grid.Row="0" Grid.Column="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.Children>
+                                                                <DataGrid
+                                  x:Name="_dataGridMobiliteTiers"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Tiers.Departement}"
+                                  >
+                                                                    <DataGrid.Columns>
+                                                                        <DataGridTextColumn Header="Région" 
+                                                                                IsReadOnly="True"
+                                                                                Binding="{Binding Path=Libelle}"/>
+                                                                    </DataGrid.Columns>
+                                                                </DataGrid>
+                                                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                                    </Grid.RowDefinitions>
+
+                                                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonMobiliteTiersNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonTiersMobiliteNouveau_Click"
+                        
+                        >
+                                                                    </Button>
+
+                                                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonMobiliteTiersSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonTiersMobiliteSupprimer_Click"
+                        
+                        >
+                                                                    </Button>
+                                                                </Grid>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                        <Grid Grid.Row="2" Grid.Column="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.Children>
+                                                                <TextBlock
+                                                            x:Name="_textBlockTiersMobiliteCommentaire"
+                                                            Text="Commentaire : "
+                                                            Grid.Row="0" Grid.Column="0">
+                                                                </TextBlock>
+                                                                <TextBox 
+                x:Name="_TextBoxTiersMobiliteCommentaire" 
+                Grid.Row="0" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Tiers.Mobilite_Commentaire, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxTiersMobiliteCommentaire_TextChanged"
+                ></TextBox>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+
+                                            </GroupBox>
+
+                                            <GroupBox Header="Polyvalence" Grid.Column="0" Grid.Row="2" Visibility="Hidden">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockPolyvalenceCommentairesTiers"
+                Text="Commentaires :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxPolyvalenceCommentairesTiers" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Nature_Travaux, UpdateSourceTrigger=PropertyChanged}" 
+                ></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+
+                                            </GroupBox>
+
+                                            <GroupBox Header="Expérience" Grid.Column="2" Grid.Row="2">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="90*" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+
+
+                                                        <TextBlock 
+                x:Name="_TextBlockExperienceCommentairesTiers"
+                Text="Commentaires :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxExperienceCommentairesTiers" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Tiers.Experience, UpdateSourceTrigger=PropertyChanged}" TextChanged="Verif_TextBoxExperienceCommentairesTiers_TextChanged"
+                ></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+
+                                            </GroupBox>
+
+                                            <GroupBox Header="Notation" Grid.Column="0" Grid.Row="2">
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="90*" MinWidth="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <!--  Fin Definition des colonnes  -->
+                                                    <!--  Definition des lignes  -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <!-- Mise à 0 de la hauteur de la ligne "note"-->
+                                                        <RowDefinition Height="0"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <!--  Fin Definition des lignes  -->
+                                                    <!--  Contenu du Grid  -->
+                                                    <Grid.Children>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockNotationTiers"
+                Text="Notation :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <ComboBox 
+                x:Name="_ComboBoxNotationTiers" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                SelectedItem="{Binding Path=Entreprise}" 
+                DisplayMemberPath="Salarie.Tiers.Notation" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AppelOffreWindow}}, Path=entrepriseList}">
+                                                            <ComboBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <VirtualizingStackPanel/>
+                                                                </ItemsPanelTemplate>
+                                                            </ComboBox.ItemsPanel>
+                                                        </ComboBox>
+
+                                                        <TextBlock 
+                x:Name="_TextBlockNotationCommentairesTiers"
+                Text="Commentaires :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                                        </TextBlock>
+
+                                                        <TextBox 
+                x:Name="_TextBoxNotationCommentairesTiers" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Text="{Binding Path=Salarie.Tiers.Notation_Commentaire, UpdateSourceTrigger=PropertyChanged}" 
+                TextChanged="Verif_TextBoxNotationCommentairesTiers_TextChanged"></TextBox>
+
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </GroupBox>
+
+                                        </Grid.Children>
+                                    </Grid>
+
+                                </TabItem>
+
+                            </TabControl>
+                        </Grid.Children>
+                    </Grid>
+                    
+
+                </TabItem>
+
+                <TabItem x:Name="_tabComptabilite" Header="Comptabilité">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--  Fin Definition des colonnes  -->
+                        <!--  Definition des lignes  -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--  Fin Definition des lignes  -->
+                        <!--  Contenu du Grid  -->
+                        <Grid.Children>
+
+                            <TextBlock 
+                x:Name="_TextBlockSalarieTauxHoraire"
+                Text="Taux horaire : "
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Margin="2"
+                VerticalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox 
+                x:Name="_TextBoxSalarieTauxHoraire" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Taux_Horaire}" TextChanged="_TextBoxSalarieTauxHoraire_TextChanged" 
+                ></TextBox>
+
+                            <!-- Salarie Info_RIB -->
+
+                            <TextBlock
+                Text="Informations RIB :"
+                x:Name="_TextBlockInfoRIB" 
+                Grid.Row="3" 
+                Grid.Column="1" 
+                Margin="2" 
+                HorizontalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <!-- Salarie.Banque_Etablissement_Numero -->
+
+                            <TextBlock
+                Text="Etablissement"
+                x:Name="_TextBlockEtablissement" 
+                Grid.Row="4" 
+                Grid.Column="3" 
+                Margin="2" 
+                HorizontalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox
+                x:Name="_TextBoxEtablissement" 
+                Grid.Row="5" 
+                Grid.Column="3" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Banque_Etablissement_Numero, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxEtablissement_TextChanged"
+                >
+                            </TextBox>
+
+                            <!-- Fin Salarie.Banque_Etablissement_Numero -->
+
+                            <!-- Salarie.Banque_Guichet_Numero -->
+
+                            <TextBlock
+                Text="Guichet"
+                x:Name="_TextBlockGuichet" 
+                Grid.Row="4" 
+                Grid.Column="4" 
+                Margin="2" 
+                HorizontalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox
+                x:Name="_TextBoxGuichet" 
+                Grid.Row="5" 
+                Grid.Column="4" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Banque_Guichet_Numero, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxGuichet_TextChanged"
+                >
+                            </TextBox>
+
+                            <!-- Fin Salarie.Banque_Guichet_Numero -->
+
+                            <!-- Salarie.Banque_Compte_Numero -->
+
+                            <TextBlock
+                Text="Compte"
+                x:Name="_TextBlockCompte" 
+                Grid.Row="4" 
+                Grid.Column="5" 
+                Margin="2" 
+                HorizontalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox
+                x:Name="_TextBoxCompte" 
+                Grid.Row="5" 
+                Grid.Column="5" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Banque_Compte_Numero, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxCompte_TextChanged"
+                >
+                            </TextBox>
+
+                            <!-- Fin Salarie.Banque_Compte_Numero -->
+
+                            <!-- Salarie.Banque_Cle_Rib_Numero -->
+
+                            <TextBlock
+                Text="Clé"
+                x:Name="_TextBlockClé" 
+                Grid.Row="4" 
+                Grid.Column="6" 
+                Margin="2" 
+                HorizontalAlignment="Center"
+                >
+                            </TextBlock>
+
+                            <TextBox
+                x:Name="_TextBoxClé" 
+                Grid.Row="5" 
+                Grid.Column="6" 
+                Margin="2" 
+                Text="{Binding Path=Salarie.Banque_Cle_Rib_Numero, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxClé_TextChanged"
+                >
+                            </TextBox>
+
+                            <!-- Fin Salarie.Banque_Cle_Rib_Numero -->
+
+                            <!-- Fin Salarie Info_RIB -->
+
+                        </Grid.Children>
+                    </Grid>
+
+                </TabItem>
+
+                <TabItem x:Name="_tabOutillage" Header="Outillage">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="100*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+
+                                    <TextBlock 
+                x:Name="_TextBlockIdentificateurOutillage"
+                Text=" Identificateur d'outillage : "
+                Grid.Row="0" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                                    </TextBlock>
+
+                                    <TextBox x:Name="_TextBoxIdentificateurOutillage"
+                             Grid.Row="0" 
+                             Grid.Column="1"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                             Text="{Binding Path=Salarie.Couleur, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBox>
+
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="0"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <ListBox 
+                        x:Name="_listBoxOutillage" 
+                        Grid.Row="1" 
+                        Grid.Column="1"
+                        MinHeight="400"
+                        MaxHeight="500"
+                        Width="300"
+                        MaxWidth="350"
+                        Margin="2" 
+                        DisplayMemberPath="Libelle" 
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SalarieWindow}}, Path=listOutillage}"
+                        >
+                                </ListBox>
+
+
+                                <DataGrid 
+            x:Name="_DataGridSalarie_Outillage" 
+            ItemsSource="{Binding Path=Salarie.Salarie_Outillage}" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            FrozenColumnCount="2"
+            Width="400"
+            MaxWidth="450"
+            Grid.Column="5"
+            Grid.Row="1"
+            EnableColumnVirtualization="True">
+
+                                    <!--  Definition des colomnes du DataGrid  -->
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn 
+                    Header="Outillage libellé" 
+                    Binding="{Binding Path=Outillage1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="80*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn 
+                    Header="Quantité" 
+                    Binding="{Binding Path=Quantite, Mode=TwoWay}"                    
+                    Width="20*" 
+                    FontFamily="Comic Sans MS"
+                    x:Name="ColonneQte"
+                    >
+                                        </DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+                                    <!--  Fin Definition des colomnes du DataGrid  -->
+                                </DataGrid>
+
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="100"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                        Content="-►"
+                        x:Name="_ButtonVersDroite"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Width="60"
+                        Height="40"
+                        Click="_ButtonVersDroite_click"
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="◄-"
+                        x:Name="_ButtonVersGauche"
+                        Grid.Row="3"           
+                        Width="60"
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonVersGauche_click"
+                        >
+                                    </Button>
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+                    
+                </TabItem>
+
+                <TabItem x:Name="_tabRepondeursConge" Header="Répondeurs congés">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="*" MaxWidth="750"></ColumnDefinition>
+                            <ColumnDefinition Width="15"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <DataGrid
+                                  x:Name="_dataGridRepondeurConge"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Salarie.Salarie_Repondeur}"
+                                  >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Salarié" 
+                                                            Width="100*" 
+                                                            Binding="{Binding Path=Salarie2.Personne.fullname, Mode=OneWay}"
+                                                                    />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonNouveauRepondeur"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonRepondeurNouveau_Click"
+                        >
+                                </Button>
+
+                                <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonSupprimerRepondeur"
+                        Grid.Row="3"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonRepondeurSupprimer_Click"
+                        
+                        >
+                                </Button>
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+
+                </TabItem>
+
+                <TabItem Header="Documents" Visibility="Collapsed" IsEnabled="False">
+
+                </TabItem>
+
+            </TabControl>
+            <Grid Grid.Column="0" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <Button Grid.Column="1" Grid.Row="1" x:Name="_buttonOk" Click="_ButtonOk_Click" Content="Ok"></Button>
+                    <Button Grid.Column="3" Grid.Row="1" x:Name="_buttonAnnuler" Click="_buttonAnnuler_Click"  Content="Annuler"></Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

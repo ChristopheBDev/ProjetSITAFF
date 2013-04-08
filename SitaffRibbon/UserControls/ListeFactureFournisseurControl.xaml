@@ -1,0 +1,500 @@
+﻿<UserControl x:Class="SitaffRibbon.UserControls.ListeFactureFournisseurControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+             xmlns:local="clr-namespace:SitaffRibbon.UserControls"             
+             xmlns:AppLocal="clr-namespace:SitaffRibbon"
+             xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             FontFamily="Comic Sans MS" 
+             Loaded="UserControl_Loaded">
+    <UserControl.CommandBindings>
+        <CommandBinding x:Name="_CommandFiltrage" Command="{x:Static AppLocal:App.Filtrage}" Executed="_CommandFiltrage_Executed"  CanExecute="_CommandFiltrage_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandPlus" Command="{x:Static AppLocal:App.Plus}" Executed="_CommandPlus_Executed"  CanExecute="_CommandPlus_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandMoins" Command="{x:Static AppLocal:App.Moins}" Executed="_CommandMoins_Executed"  CanExecute="_CommandMoins_CanExecute"></CommandBinding>
+    </UserControl.CommandBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <!--  Début de construction de la zone de filtrage  -->
+            <Grid Grid.Row="0" Grid.Column="0" Visibility="Visible" x:Name="_filterZone" Background="#FFDFE9F5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <TextBlock  Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Filtrer/Rechercher Par (Ctrl + F) :"
+                               >
+                            </TextBlock>
+                            <Button     
+                                Content="Afficher les filtres"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Height="21"
+                                HorizontalAlignment="Center"
+                                x:Name="_ButtonMasqueFiltre"
+                                Width="Auto"
+                                Click="button1_Click"
+                                ToolTip="Pour afficher ou masquer les filtres (CTRL + F)"
+                                />
+                            <TextBlock  Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="_textBlockTaillePolice"
+                                Text="Taille police :     "
+                               >
+                            </TextBlock>
+                            <Button     
+                                Content=" + "
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Height="21"
+                                HorizontalAlignment="Center"
+                                x:Name="_ButtonPlusPolice"
+                                Width="Auto"
+                                Click="_ButtonPlusPolice_Click"
+                                ToolTip="Augmente la taille de la police"
+                                />
+                            <Button     
+                                Content=" - "
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Height="21"
+                                HorizontalAlignment="Center"
+                                x:Name="_ButtonMoinsPolice"
+                                Width="Auto"
+                                Click="_ButtonMoinsPolice_Click"
+                                ToolTip="Diminue la taille de la police"
+                                />
+                        </Grid.Children>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33*"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <TextBlock  Grid.Row="1"
+                                Grid.Column="1"
+                                Text="Numéro de facture : "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <TextBox   
+                                x:Name="_filterContainNumeroFacture"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                >
+                            </TextBox>
+
+                            <TextBlock  Grid.Row="1"
+                                Grid.Column="4"
+                                Text="Numéro de pièce comptable : "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <TextBox   
+                                x:Name="_filterContainNumeroPieceComptable"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                >
+                            </TextBox>
+
+                            <TextBlock  Grid.Row="1"
+                                Grid.Column="7"
+                                Text="Date de facture : "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <DatePicker   x:Name="_filterContainDateFacture"
+                                Grid.Row="1"
+                                Grid.Column="8"
+                                KeyUp="_filter_KeyUp"
+                                >
+                            </DatePicker>
+
+                            <TextBlock  Grid.Row="3"
+                                Grid.Column="1"
+                                Text="Fournisseur : "
+                                        HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <Controls:AutoCompleteBox Grid.Row="3" Grid.Column="2" x:Name="_filterContainFournisseur" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+                            
+                            <TextBlock  Grid.Row="3"
+                                Grid.Column="4"
+                                Text="Montant HT : "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <TextBox    x:Name="_filterContainMontantHT"
+                                Grid.Row="3"
+                                Grid.Column="5"
+                                TextAlignment="Right"
+                                KeyUp="_filterContainMontant_KeyUp_1"
+                                >
+                            </TextBox>
+
+                            <TextBlock  Grid.Row="3"
+                                Grid.Column="7"
+                                Text="Montant TTC : "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <TextBox    x:Name="_filterContainMontantTTC"
+                                Grid.Row="3"
+                                Grid.Column="8"
+                                TextAlignment="Right"
+                                KeyUp="_filterContainMontant_KeyUp_1"
+                                >
+                            </TextBox>
+
+                            <TextBlock  Grid.Row="5"
+                                Grid.Column="1"
+                                Text="Avoir ? "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <Grid Grid.Row="5" Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <ComboBox   x:Name="_filterContainAvoir"
+                                Grid.Column="0"
+                                DisplayMemberPath="chaine" 
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeFactureFournisseurControl}}, Path=listItemOuiNon}"
+                                >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Button
+                                        Grid.Column="1"
+                                        x:Name="NullToutLivre"
+                                        Click="NullToutLivre_Click_1"   
+                                        ToolTip="Mettre à null"
+                                        >
+                                        <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid.Children>                                
+                            </Grid>
+                            <TextBlock  Grid.Row="5"
+                                Grid.Column="4"
+                                Text="A partir du : "
+                                        HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <DatePicker   x:Name="_filterContainDateDebutFacture"
+                                Grid.Row="5"
+                                Grid.Column="5"
+                                KeyUp="_filter_KeyUp"
+                                >
+                            </DatePicker>
+
+                            <TextBlock  Grid.Row="5"
+                                Grid.Column="7"
+                                Text="Jusqu'au : "
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                >
+                            </TextBlock>
+                            <DatePicker   x:Name="_filterContainDateFinFacture"
+                                Grid.Row="5"
+                                Grid.Column="8"
+                                KeyUp="_filter_KeyUp"
+                                >
+                            </DatePicker>
+                        </Grid.Children>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Button     Content="Remise à Zéro"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                Name="_buttonRaz"
+                                MinWidth="100"
+                                Width="Auto"
+                                Click="_buttonRaz_Click"
+                    />
+                            <Button     Content="Filtrer"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="_buttonFiltrer"
+                                MinWidth="100" 
+                                Width="Auto"
+                                Click="_buttonFiltrer_Click" 
+                                IsDefault="True"
+                    />
+                        </Grid.Children>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+            <!--  Fin de construction de la zone de filtrage  -->
+
+            <!--  Début de construction du DataGrid  -->
+            <DataGrid 
+            x:Name="_DataGridMain" 
+            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeFactureFournisseurControl}}, Path=listFactures}" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            Grid.Column="0"
+            Grid.Row="1"            
+            EnableColumnVirtualization="True"
+            VirtualizingStackPanel.IsVirtualizing="True"
+            VirtualizingStackPanel.VirtualizationMode="Recycling"
+            IsReadOnly="True"
+            AlternationCount="2"                            
+            AlternatingRowBackground="#FFE9EDF4"
+            RowBackground="White"
+            GridLinesVisibility="Vertical">
+
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <!--  Style par défaut des lignes  -->
+                        <Style.Setters>
+                            <Setter Property="ToolTip" Value="Pour trier sur plusieurs colonnes, maintenir le touche 'Maj' enfoncée."></Setter>
+                            <Setter Property="SeparatorVisibility" Value="Visible"></Setter>
+                            <Setter Property="SeparatorBrush" Value="LightGray"></Setter>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+                            <Setter Property="MinHeight" Value="40"></Setter>
+                            <Setter Property="Height" Value="40"></Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" Value="#FF4F81BD"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                        <Grid Background="#FF4F81BD">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" 
+                              Grid.ColumnSpan="2" />
+                                            <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
+                                            <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
+                            Grid.Column="1" Width="8" Height="6" Fill="White" Margin="5,0,5,0" 
+                            VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+                                            <Rectangle Width="1" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+
+                                            <Rectangle Width="1" Margin="0,0,1,0" 
+                                 HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+                                            <Thumb x:Name="PART_LeftHeaderGripper" Width="1" HorizontalAlignment="Left"/>
+                                            <Thumb x:Name="PART_RightHeaderGripper" Width="1" HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="SortDirection" Value="Ascending">
+                                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                                <Setter TargetName="SortArrow" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="180" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="SortDirection" Value="Descending">
+                                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                        <!--  Fin Style par défaut des lignes  -->
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="_DataGridMain_PreviewMouseDoubleClick" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <!--  Definition des colomnes du DataGrid  -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Header="Numéro de Facture" 
+                        x:Name="_ColonneNumeroFacture"
+                        Binding="{Binding Path=Numero, Mode=OneWay}"                    
+                        IsReadOnly="True"
+                        >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Numéro pièce comptable"
+                        x:Name="_ColonneNumeroComptable"
+                        Binding="{Binding Path=Numero_Piece_Comptable}"
+                        IsReadOnly="True"
+                        >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Date" 
+                        x:Name="_ColonneDate"
+                        Binding="{Binding Path=Date_Facture, StringFormat=\{0:dd/MM/yyyy\}}"
+                        IsReadOnly="True"
+                        >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Fournisseur" 
+                        x:Name="_ColonneFournisseur"
+                        Binding="{Binding Path=Fournisseur1.Entreprise.Libelle, Mode=OneWay}"                    
+                        IsReadOnly="True"
+                        >
+                    </DataGridTextColumn>
+                    
+                    <DataGridTextColumn 
+                        Header="Montant HT" 
+                        x:Name="_ColonneMontantHT"
+                        Binding="{Binding Path=Montant_HT, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        IsReadOnly="True"
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Montant TVA"
+                        x:Name="_ColonneMontantTVA"
+                        Binding="{Binding Path=Montant_TVA, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        IsReadOnly="True"
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Montant TTC" 
+                        x:Name="_ColonneMontantTTC"
+                        Binding="{Binding Path=Montant_TTC, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        IsReadOnly="True"
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Différence" 
+                        x:Name="_ColonneDifference"
+                        Binding="{Binding Path=Diff, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        IsReadOnly="True"
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Avoir ?" 
+                        x:Name="_ColonneAvoir"
+                        Binding="{Binding Path=YATIlUnAvoir, Mode=OneWay}"                    
+                        IsReadOnly="True"
+                        >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                        Header="Accompte" 
+                        x:Name="_ColonneAccompte"
+                        Binding="{Binding Path=Accompte, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        IsReadOnly="True"
+                        >
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                </DataGrid.Columns>
+                <!--  Fin Definition des colomnes du DataGrid  -->
+            </DataGrid>
+            <!--  Fin de construction du DataGrid  -->
+        </Grid.Children>
+    </Grid>
+</UserControl>

@@ -1,0 +1,1430 @@
+﻿<Window x:Class="SitaffRibbon.Windows.AffaireWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Title="Affaire" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Icon="..\Images\icone-affaire-large.png" Loaded="Window_Loaded" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock 
+                x:Name="_TextBlockNumeroAffaire"
+                Text="Numero d'affaire : "
+                Grid.Row="0" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxNumeroAffaire" 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                TextAlignment="Right"
+                Margin="2" 
+                TextChanged="_TextBoxNumeroAffaire_TextChanged"
+                Text="{Binding Path=Numero}" 
+                >
+                    </TextBox>
+
+                    <TextBlock 
+                x:Name="_TextBlockEntrepriseMere"
+                Text="Entreprise Mère : "
+                Grid.Row="1" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Children>
+                            <ComboBox 
+                x:Name="_ComboBoxEntrepriseMere" 
+                        Margin="2" 
+                SelectedItem="{Binding Path=Entreprise_Mere1}" 
+                DisplayMemberPath="Nom" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AffaireWindow}}, Path=listEntreprise_Mere}"
+                SelectionChanged="_ComboBoxEntrepriseMere_SelectionChanged"
+                >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                            <Button
+                                        Grid.Column="1"
+                                        x:Name="NewEntrepriseMere"
+                                        Click="NewEntrepriseMere_Click"                                                                                
+                                        >
+                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                        Grid.Column="2"
+                                        x:Name="LookEntrepriseMere"
+                                        Click="LookEntrepriseMere_Click"
+                                        >
+                                <Image Source="..\Images\icone-voir-small.png" Height="20"></Image>
+                            </Button>
+                        </Grid.Children>
+                    </Grid>
+
+                    <TextBlock 
+                x:Name="_TextBlockChargeAffaire"
+                Text="Chargé d'Affaire : "
+                Grid.Row="2" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Children>
+                            <ComboBox x:Name="_ComboBoxChargeAffaire"
+                              Margin="2" 
+                             Width="Auto"
+                             MinWidth="100"
+                             SelectedItem="{Binding Path=Salarie}"
+                             DisplayMemberPath="Personne.fullname"
+                             ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AffaireWindow}}, Path=Charge_Affaire}"
+                  SelectionChanged="_ComboBoxChargeAffaire_SelectionChanged"
+                    >
+
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+
+                            <Button
+                                        Grid.Column="1"
+                                        x:Name="NewChargeAffaire"
+                                        Click="NewChargeAffaire_Click"                                                                                
+                                        >
+                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                            </Button>
+                            <Button
+                                        Grid.Column="2"
+                                        x:Name="LookChargeAffaire"
+                                        Click="LookChargeAffaire_Click"
+                                        >
+                                <Image Source="..\Images\icone-voir-small.png" Height="20"></Image>
+                            </Button>
+                        </Grid.Children>
+                    </Grid>
+                    <TextBlock 
+                x:Name="_TextBlockDateAcceptation"
+                Text="Date début de chantier : "
+                Grid.Row="0" 
+                Grid.Column="2" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <DatePicker 
+            Grid.Column="3"
+            Grid.Row="0"
+            Margin="2"
+            Name="_DatePickerDateAcceptation" 
+            SelectedDate="{Binding Path=Date_Acceptation, UpdateSourceTrigger=PropertyChanged}"
+            SelectedDateFormat="Short"
+            Text="Sélectionner une date"
+            SelectedDateChanged="_DatePickerDateDebut_SelectedDateChanged" />
+
+                    <TextBlock 
+                x:Name="_TextBlockDate_Fin_Effective"
+                Text="Date de fin effective : "
+                Grid.Row="1" 
+                Grid.Column="2" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <DatePicker 
+            Grid.Column="3"
+            Grid.Row="1"
+            Margin="2"
+            Name="_DatePickerDate_Fin_Effective" 
+            SelectedDate="{Binding Path=Date_Fin_Effective, UpdateSourceTrigger=PropertyChanged}"
+            SelectedDateFormat="Short"
+            Text="Sélectionner une date"
+            SelectedDateChanged="_DatePickerDate_Fin_Effective_SelectedDateChanged" />
+
+                    <TextBlock 
+                x:Name="_TextBlockAvancementReel"
+                Text="Avancement réél : "
+                Grid.Row="2" 
+                Grid.Column="2" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <ComboBox Margin="2" x:Name="_comboBoxAvancementReel" Grid.Row="2" Grid.Column="3" SelectedItem="{Binding Path=Avancement_Reel}">
+                        <system:Int32>0</system:Int32>
+                        <system:Int32>1</system:Int32>
+                        <system:Int32>2</system:Int32>
+                        <system:Int32>3</system:Int32>
+                        <system:Int32>4</system:Int32>
+                        <system:Int32>5</system:Int32>
+                        <system:Int32>6</system:Int32>
+                        <system:Int32>7</system:Int32>
+                        <system:Int32>8</system:Int32>
+                        <system:Int32>9</system:Int32>
+                        <system:Int32>10</system:Int32>
+                        <system:Int32>11</system:Int32>
+                        <system:Int32>12</system:Int32>
+                        <system:Int32>13</system:Int32>
+                        <system:Int32>14</system:Int32>
+                        <system:Int32>15</system:Int32>
+                        <system:Int32>16</system:Int32>
+                        <system:Int32>17</system:Int32>
+                        <system:Int32>18</system:Int32>
+                        <system:Int32>19</system:Int32>
+                        <system:Int32>20</system:Int32>
+                        <system:Int32>21</system:Int32>
+                        <system:Int32>22</system:Int32>
+                        <system:Int32>23</system:Int32>
+                        <system:Int32>24</system:Int32>
+                        <system:Int32>25</system:Int32>
+                        <system:Int32>26</system:Int32>
+                        <system:Int32>27</system:Int32>
+                        <system:Int32>28</system:Int32>
+                        <system:Int32>29</system:Int32>
+                        <system:Int32>30</system:Int32>
+                        <system:Int32>31</system:Int32>
+                        <system:Int32>32</system:Int32>
+                        <system:Int32>33</system:Int32>
+                        <system:Int32>34</system:Int32>
+                        <system:Int32>35</system:Int32>
+                        <system:Int32>36</system:Int32>
+                        <system:Int32>37</system:Int32>
+                        <system:Int32>38</system:Int32>
+                        <system:Int32>39</system:Int32>
+                        <system:Int32>40</system:Int32>
+                        <system:Int32>41</system:Int32>
+                        <system:Int32>42</system:Int32>
+                        <system:Int32>43</system:Int32>
+                        <system:Int32>44</system:Int32>
+                        <system:Int32>45</system:Int32>
+                        <system:Int32>46</system:Int32>
+                        <system:Int32>47</system:Int32>
+                        <system:Int32>48</system:Int32>
+                        <system:Int32>49</system:Int32>
+                        <system:Int32>50</system:Int32>
+                        <system:Int32>51</system:Int32>
+                        <system:Int32>52</system:Int32>
+                        <system:Int32>53</system:Int32>
+                        <system:Int32>54</system:Int32>
+                        <system:Int32>55</system:Int32>
+                        <system:Int32>56</system:Int32>
+                        <system:Int32>57</system:Int32>
+                        <system:Int32>58</system:Int32>
+                        <system:Int32>59</system:Int32>
+                        <system:Int32>60</system:Int32>
+                        <system:Int32>61</system:Int32>
+                        <system:Int32>62</system:Int32>
+                        <system:Int32>63</system:Int32>
+                        <system:Int32>64</system:Int32>
+                        <system:Int32>65</system:Int32>
+                        <system:Int32>66</system:Int32>
+                        <system:Int32>67</system:Int32>
+                        <system:Int32>68</system:Int32>
+                        <system:Int32>69</system:Int32>
+                        <system:Int32>70</system:Int32>
+                        <system:Int32>71</system:Int32>
+                        <system:Int32>72</system:Int32>
+                        <system:Int32>73</system:Int32>
+                        <system:Int32>74</system:Int32>
+                        <system:Int32>75</system:Int32>
+                        <system:Int32>76</system:Int32>
+                        <system:Int32>77</system:Int32>
+                        <system:Int32>78</system:Int32>
+                        <system:Int32>79</system:Int32>
+                        <system:Int32>80</system:Int32>
+                        <system:Int32>81</system:Int32>
+                        <system:Int32>82</system:Int32>
+                        <system:Int32>83</system:Int32>
+                        <system:Int32>84</system:Int32>
+                        <system:Int32>85</system:Int32>
+                        <system:Int32>86</system:Int32>
+                        <system:Int32>87</system:Int32>
+                        <system:Int32>88</system:Int32>
+                        <system:Int32>89</system:Int32>
+                        <system:Int32>90</system:Int32>
+                        <system:Int32>91</system:Int32>
+                        <system:Int32>92</system:Int32>
+                        <system:Int32>93</system:Int32>
+                        <system:Int32>94</system:Int32>
+                        <system:Int32>95</system:Int32>
+                        <system:Int32>96</system:Int32>
+                        <system:Int32>97</system:Int32>
+                        <system:Int32>98</system:Int32>
+                        <system:Int32>99</system:Int32>
+                        <system:Int32>100</system:Int32>
+                    </ComboBox>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <TabControl>
+                    <TabItem x:Name="_tabVersions" Header="Versions">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridVersions"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Versions}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Devis" 
+                                                                            Binding="{Binding Path=Devis1.Numero, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Numéro" 
+                                                                            Binding="{Binding Path=Numero, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Commentaires" 
+                                                                            Binding="{Binding Path=Commentaire}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Montant négocié" 
+                                                                            Binding="{Binding Path=Montant_Remise, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                                            IsReadOnly="True"
+                                                            
+                                                                                >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Header="Client" 
+                                                                            Binding="{Binding Path=Devis1.Client2.Entreprise.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Type de version" 
+                                                                            Binding="{Binding Path=Version_Type1.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date de création" 
+                                                                            Binding="{Binding Path=Date_Creation, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Etat de la version" 
+                                                                            Binding="{Binding Path=EtatDuDevisVersion}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireVersionsNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireVersionsNouveau_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireVersionsModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireVersionsModifier_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireVersionsSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireVersionsSupprimer_Click"
+                        >
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="_tabFactures" Header="Factures">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridFacture"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Facture}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Numéro Facture" 
+                                                                            Binding="{Binding Path=Numero, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Numéro Affaire" 
+                                                                            Binding="{Binding Path=Affaire1.Numero}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Numéro Commande" 
+                                                                            Binding="{Binding Path=Commande1.Numero_Commande}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date Facture" 
+                                                                            Binding="{Binding Path=Date_Facture, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date Echéance" 
+                                                                            Binding="{Binding Path=Date_Echeance, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Montant H.T" 
+                                                                            Binding="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                                            IsReadOnly="True"
+                                                                                >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Conditions de règlement" 
+                                                                            Binding="{Binding Path=Condition_Reglement1.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireFactureNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireFactureNouveau_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireFactureModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireFactureModifier_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireFactureSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireFactureSupprimer_Click"
+                        >
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="_tabCommandes" Header="Commandes">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridCommande"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Commande_Fournisseur}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  MaxHeight="180"
+                                  >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Numéro de commande" 
+                                                                            Binding="{Binding Path=Numero, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Numéro de l'Affaire" 
+                                                                            Binding="{Binding Path=Affaire1.Numero}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Fournisseur" 
+                                                                            Binding="{Binding Path=Fournisseur1.Entreprise.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Donneur d'ordre" 
+                                                                            Binding="{Binding Path=Salarie1.Personne.fullname}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Montant" 
+                                                                            Binding="{Binding Path=Total_Commande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                                            IsReadOnly="True"
+                                                                                >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Montant ramené à" 
+                                                                            Binding="{Binding Path=Total_Ramene_A, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                                            IsReadOnly="True"
+                                                                                >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Nature de la commande" 
+                                                                            Binding="{Binding Path=Nature}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireCommandeNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireCommandeNouveau_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireCommandeModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireCommandeModifier_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireCommandeSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireCommandeSupprimer_Click"
+                        >
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="_tabDonneesTechnique" Header="Données Technique">
+                        <TabControl>
+
+                            <TabItem x:Name="_tabDAO" Header="DAO">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridDAO"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=DAO}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="P / C" 
+                                                                            Binding="{Binding Path=getType, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Numéro DAO" 
+                                                                            Binding="{Binding Path=getNumero}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Affaire" 
+                                                                            Binding="{Binding Path=Affaire1.Numero}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Devis" 
+                                                                            Binding="{Binding Path=Devis1.Numero}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Client" 
+                                                                            Binding="{Binding Path=Client1.Entreprise.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Demandeur" 
+                                                                            Binding="{Binding Path=Salarie.Personne.fullname}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Désignation du dessin" 
+                                                                            Binding="{Binding Path=Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Date de création" 
+                                                                            Binding="{Binding Path=Date_Creation, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Créé par" 
+                                                                            Binding="{Binding Path=Utilisateur.Salarie_Interne1.Salarie.Personne.fullname}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Heures passées" 
+                                                                            Binding="{Binding Path=Heures_Passees}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                                <DataGridTextColumn Header="Commentaire" 
+                                                                            Binding="{Binding Path=Commentaire}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireDAONouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireDAONouveau_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireDAOModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireDAOModifier_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireDOASupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireDAOSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem x:Name="_tabDocTechnique" Header="Document Technique">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridDocumentTechnique"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Affaire_Type_Commande}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Libelle" 
+                                                                            Binding="{Binding Path=Type_Commande1.Libelle, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                            Width="*"
+                                                                    MaxWidth="150"
+                                                                                />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireDocumentTechniqueNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireDocumentTechniqueNouveau_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireDocumentTechniqueModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireDocumentTechniqueModifier_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireDocumentTechniqueSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireDocumentTechniqueSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                            </TabItem>
+
+                        </TabControl>
+                    </TabItem>
+                    <TabItem x:Name="_tabRegie" Header="Régie">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridRegie"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Regie}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Numéro de régie" 
+                                                                            Binding="{Binding Path=Numero, Mode=OneWay}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Affaire" 
+                                                                            Binding="{Binding Path=Affaire1.Numero}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Client" 
+                                                                            Binding="{Binding Path=Client1.Entreprise.Libelle}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Etat de la régie" 
+                                                                            Binding="{Binding Path=etatRegie}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Nombres d'heures" 
+                                                                            Binding="{Binding Path=Jeures_Totales}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date debut" 
+                                                                            Binding="{Binding Path=Date_Debut, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date fin" 
+                                                                            Binding="{Binding Path=Date_Fin, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireRegieNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireRegieNouveau_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireRegieModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireRegieModifier_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireRegieSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireRegieSupprimer_Click"
+                        >
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="_tabChefChantier" Header="Chefs chantier">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridChefChantier"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Affaire_Chef_Chantier}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  
+                                  >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Chef chantier" 
+                                                                            Binding="{Binding Path=Salarie1.Personne.fullname}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date début" 
+                                                                            Binding="{Binding Path=Date_Debut, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                        <DataGridTextColumn Header="Date fin" 
+                                                                            Binding="{Binding Path=Date_Fin, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                            IsReadOnly="True"
+                                                                                />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireChefChantierNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireChefChantierNouveau_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireChefChantierModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireChefChantierModifier_Click"
+                                                        
+                        >
+                                    </Button>
+
+                                    <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireChefChantierSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireChefChantierSupprimer_Click"
+                        >
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+
+                    </TabItem>
+
+                    <TabItem x:Name="_tabHeures" Header="Heures">
+
+                        <TabControl>
+
+                            <TabItem x:Name="_tabAtelier" Header="Atelier">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridAtelier"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Heure_Atelier}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  IsReadOnly="True"
+                                  MaxWidth="1000"
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Salarié" 
+                                                                            Binding="{Binding Path=Releve_Heure_Atelier1.Salarie1.Personne.fullname}"
+                                                                            Width="*"
+                                                                                />
+                                                <DataGridTextColumn Header="Numéro de semaine" 
+                                                                    SortMemberPath="Releve_Heure_Atelier1.NumeroSemaine"
+                                                                            Binding="{Binding Path=Releve_Heure_Atelier1.NumeroSemaine}"
+                                                                    Width="*"
+                                                                                />
+                                                <DataGridTextColumn Header="Date début" 
+                                                                            Binding="{Binding Path=Releve_Heure_Atelier1.Date_Debut, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                    Width="*"
+                                                                                />
+                                                <DataGridTextColumn 
+                    Header="Designation" 
+                    Binding="{Binding Path=Designation, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="40"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                    Header="Lundi" 
+                    Binding="{Binding Path=Heures_Lundi, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="20"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                    Header="Mardi" 
+                    Binding="{Binding Path=Heures_Mardi, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="20"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                    Header="Mercredi" 
+                    Binding="{Binding Path=Heures_Mercredi, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="20"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                    Header="Jeudi" 
+                    Binding="{Binding Path=Heures_Jeudi, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="20"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                    Header="Vendredi" 
+                    Binding="{Binding Path=Heures_Vendredi, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="20"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn 
+                    Header="Samedi" 
+                    Binding="{Binding Path=Heures_Samedi, Mode=TwoWay}"                    
+                    Width="*" 
+                    MinWidth="20"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireAtelierNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireAtelierNouveau_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireAtelierModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireAtelierModifier_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireAtelierSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireAtelierSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem x:Name="_tabChantier" Header="Chantier">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                  x:Name="_dataGridChantier"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  MaxWidth="1000"
+                                            IsReadOnly="True"
+                                  ItemsSource="{Binding Path=Releve_Heure_Forfait}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"                                  
+                                  >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Date début de semaine" 
+                                                                            Binding="{Binding Path=Date_Debut, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                                                />
+                                                <DataGridTextColumn Header="Numéro de semaine"
+                                                                            Binding="{Binding Path=NumeroSemaine}"
+                                                                                />
+                                                <DataGridTextColumn Header="Nombre d'heures de forfait" 
+                                                                            Binding="{Binding Path=Total_Forfait}"
+                                                                                />
+                                                <DataGridTextColumn Header="Nombre d'heures de régie" 
+                                                                            Binding="{Binding Path=Total_Regie}"
+                                                                                />
+                                                <DataGridTextColumn Header="Affaire" 
+                                                                            Binding="{Binding Path=Affaire1.CompletHeures}"
+                                                                                />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Button 
+                        Content="Nouveau"
+                        x:Name="_ButtonAffaireChantierNouveau"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireChantierNouveau_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Modifier"
+                        x:Name="_ButtonAffaireChantierModifier"
+                        Grid.Row="2"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireChantierModifier_Click"
+                                                        
+                        >
+                                            </Button>
+
+                                            <Button 
+                        Content="Supprimer"
+                        x:Name="_ButtonAffaireChantierSupprimer"
+                        Grid.Row="5"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonAffaireChantierSupprimer_Click"
+                        >
+                                            </Button>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                            </TabItem>
+
+                        </TabControl>
+
+                    </TabItem>
+
+
+
+                </TabControl>
+            </Grid>
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>                    
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+            <TextBlock Grid.Row="7" Grid.Column="1" Text="Veuillez ne pas passer par ce module pour ajouter / modifier / supprimer des élements. Il y a des risques d'erreur de sauvegarde et rien ne sera modifié. Veuillez passer par les modules concernés pour le moment dans l'attente de la refonte de celui-ci. Merci." TextWrapping="Wrap" MaxWidth="500" Foreground="Red"></TextBlock>
+        </Grid.Children>
+    </Grid>
+</Window>

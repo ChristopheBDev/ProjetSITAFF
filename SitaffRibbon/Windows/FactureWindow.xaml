@@ -1,0 +1,1083 @@
+﻿<Window x:Class="SitaffRibbon.Windows.FactureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:AppLocal="clr-namespace:SitaffRibbon"
+        xmlns:localSolution="clr-namespace:SitaffRibbon"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:local2="clr-namespace:SitaffRibbon.Converters"
+        Icon="..\Images\icone-facture-large.png"
+        Title="Facture" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" MinWidth="685" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*" MinHeight="200"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <!--Partie générale-->
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        x:Name="_textBlockAffaire"
+                        Text="Numéro d'affaire : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        x:Name="_comboBoxAffaire"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listAffaire}"
+                        SelectedItem="{Binding Path=Affaire1}"
+                        DisplayMemberPath="Numero"
+                        SelectionChanged="_comboBoxAffaire_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="0"
+                        x:Name="_textBlockFacture"
+                        Text="Numéro de facture : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="0"
+                        x:Name="_textBoxFacture"
+                        Text="{Binding Path=Numero}"
+                        LostFocus="_textBoxFacture_LostFocus_1"
+                        ></TextBox>
+                    
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        x:Name="_textBlockClient"
+                        Text="Client : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        x:Name="_comboBoxClient"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listClient}"
+                        SelectedItem="{Binding Path=Client1}"
+                        DisplayMemberPath="Entreprise.Libelle"
+                        SelectionChanged="_comboBoxClient_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="2"
+                        x:Name="_textBlockDateFacture"
+                        Text="Date de la facture : "
+                        ></TextBlock>
+                    <DatePicker
+                        Grid.Column="4"
+                        Grid.Row="2"
+                        x:Name="_datePickerDateFacture"
+                        SelectedDate="{Binding Path=Date_Facture}"
+                        SelectedDateChanged="_datePickerDateFacture_SelectedDateChanged_1"
+                        ></DatePicker>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        x:Name="_textBlockChargeAffaire"
+                        Text="Chargé d'affaire : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        x:Name="_comboBoxChargeAffaire"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listChargeAffaire}"
+                        SelectedItem="{Binding Path=Salarie}"
+                        DisplayMemberPath="Personne.fullname"
+                        SelectionChanged="_comboBoxChargeAffaire_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="4"
+                        x:Name="_textBlockCommande"
+                        Text="Numéro de commande : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="4"
+                        Grid.Row="4"
+                        x:Name="_comboBoxCommande"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listCommande}"
+                        SelectedItem="{Binding Path=Commande1}"
+                        DisplayMemberPath="NumeroAvecPrixRemise"
+                        SelectionChanged="_comboBoxCommande_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="6"
+                        x:Name="_textBlockEntrepriseMere"
+                        Text="Entreprise Mère : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="1"
+                        Grid.Row="6"
+                        x:Name="_comboBoxEntrepriseMere"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listEntrepriseMere}"
+                        SelectedItem="{Binding Path=Entreprise_Mere1}"
+                        DisplayMemberPath="Nom"
+                        SelectionChanged="_comboBoxEntrepriseMere_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="6"
+                        x:Name="_textBlockContact"
+                        Text="Contact : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="4"
+                        Grid.Row="6"
+                        x:Name="_comboBoxContact"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listContact}"
+                        SelectedItem="{Binding Path=Contact1}"
+                        DisplayMemberPath="Personne.fullname"
+                        SelectionChanged="_comboBoxContact_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="8"
+                        x:Name="_textBlockExonere"
+                        Text="Exonéré : "
+                        ></TextBlock>
+                    <CheckBox
+                        Grid.Column="1"
+                        Grid.Row="8"
+                        x:Name="_checkBoxExonere"
+                        IsChecked="{Binding Path=Exonere, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        Checked="_checkBoxExonere_Checked_1"
+                        Unchecked="_checkBoxExonere_Unchecked_1"
+                        ></CheckBox>
+
+
+                </Grid.Children>
+            </Grid>
+
+            <!--Partie TabControl-->
+            <Grid Grid.Row="3" Grid.Column="1">
+                <TabControl>
+                    <TabItem Header="Contenu" x:Name="_tabItemContenuFacture">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <DataGrid
+                                        AllowDrop="True"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        x:Name="_dataGridContenuFacture"
+                                        ItemsSource="{Binding Path=Contenu_Facture}"
+                                        AutoGenerateColumns="False"
+                                        CanUserDeleteRows="False"
+                                           KeyUp="_dataGridContenuFacture_KeyUp_1"
+                                            >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                                                    Header="T"
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=isText, Mode=OneWay}"
+                                                    IsReadOnly="True"
+                                                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            <Setter Property="TextBlock.Foreground" Value="Blue"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                                
+                                                <DataGridTemplateColumn 
+                                                    Header="Article" 
+                                                    Width="Auto">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                    <TextBlock.Text>
+                                                                        <Binding Path="Article_Facture1">
+                                                                            <Binding.Converter>
+                                                                                <local2:ArticleFactureConverter></local2:ArticleFactureConverter>
+                                                                            </Binding.Converter>
+                                                                        </Binding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox  
+                                                                DisplayMemberPath="Code" 
+                                                                SelectedItem="{Binding Path=Article_Facture1}"
+                                                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listArticleFacture}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+                                                
+                                                <DataGridTextColumn
+                                                    Header="Désignation"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Designation}"
+                                                    >
+                                                </DataGridTextColumn>
+                                                
+                                                <DataGridTextColumn
+                                                    Header="Quantité"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Quantite, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                                
+                                                <DataGridTextColumn
+                                                    Header="Prix Unitaire"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Prix_Unitaire, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                                
+                                                <DataGridTextColumn
+                                                    Header="Total"
+                                                    Width="Auto"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Prix_Total, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+
+                                            <DataGrid.RowDetailsTemplate>
+                                                <DataTemplate>
+                                                    <Grid HorizontalAlignment="Left">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" MinHeight="20" MaxHeight="80"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.Children>
+                                                            <TextBox 
+                                                                HorizontalAlignment="Left"
+                                                                x:Name="_TextBoxDescription" 
+                                                                Grid.Row="0" 
+                                                                Grid.Column="0" 
+                                                                Text="{Binding Path=Description}"
+                                                                TextWrapping="Wrap"
+                                                                MinHeight="20"
+                                                                MaxHeight="80"
+                                                                MaxWidth="600"
+                                                                MinWidth="600"
+                                                                LostFocus="_TextBoxDescription_LostFocus_1"
+                                                                AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                                            </TextBox>
+                                                        </Grid.Children>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGrid.RowDetailsTemplate>
+                                        </DataGrid>
+                                        
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" MinWidth="50" MaxWidth="80"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50*" MinHeight="40"></RowDefinition>
+                                                <RowDefinition Height="50*" MinHeight="40"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Children>
+                                                <Button
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            x:Name="_buttonCalculer"
+                                            ToolTip="Calculer"
+                                                    Click="_buttonCalculer_Click_1"
+                                            >
+                                                    <Image Source="..\Images\icone-calculatrice-small.png" Height="20"></Image>
+                                                </Button>
+                                                <Button
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            x:Name="_buttonSupprimer"
+                                            ToolTip="Supprimer"
+                                                    Click="_buttonSupprimer_Click_1"
+                                            >
+                                                    <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+                                    </Grid.Children>
+                                </Grid>
+                                
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Texte d'en-tête de contenu" x:Name="_tabItemCommentaireContenu">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" MinHeight="180"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+                                <TextBox 
+                                    x:Name="_TextBoxDescription" 
+                                    Grid.Row="0" 
+                                    Grid.Column="0" 
+                                    Text="{Binding Path=Commentaire_Contenu}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" 
+                                    AcceptsTab="True"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                </TextBox>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Facture Proforma" x:Name="_tabItemFactureProforma">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50*" MinHeight="50"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="50*" MinHeight="50"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="5"
+                                    x:Name="_dataGridFactureProforma1"
+                                    ItemsSource="{Binding Path=listFactureProforma}"
+                                    AutoGenerateColumns="False" 
+                                    CanUserAddRows="False" 
+                                    CanUserDeleteRows="False"
+                                    GridLinesVisibility="None"
+                                    >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma1DateFacture"
+                                            Header="Date de facture"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Date_Facture}"
+                                            ></DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma1MontantHT"
+                                            Header="Montant HT"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Montant}"
+                                            ></DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma1ChargeAffaire"
+                                            Header="Chargé d'affaire"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Salarie1.Personne.fullname}"
+                                            ></DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma1Contact"
+                                            Header="Contact"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Contact1.Personne.fullname}"
+                                            ></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <Button
+                                    Grid.Column="2"
+                                    Grid.Row="1"
+                                    x:Name="_buttonGaucheDroite"
+                                    Content=">>"
+                                    Click="_buttonGaucheDroite_Click_1"
+                                    ></Button>
+
+                                <Button
+                                    Grid.Column="2"
+                                    Grid.Row="3"
+                                    x:Name="_buttonDroiteGauche"
+                                    Content="&lt;&lt;"
+                                    Click="_buttonDroiteGauche_Click_1"
+                                    ></Button>
+
+                                <DataGrid
+                                    Grid.Column="4"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="5"
+                                    x:Name="_dataGridFactureProforma2"
+                                    AutoGenerateColumns="False" 
+                                    CanUserAddRows="False" 
+                                    CanUserDeleteRows="False"
+                                    GridLinesVisibility="None"
+                                    ItemsSource="{Binding Path=Facture_Client1.Proforma_Facture}"
+                                    >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma2DateFacture"
+                                            Header="Date de facture"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Date_Facture}"
+                                            ></DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma2MontantHT"
+                                            Header="Montant HT"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Montant}"
+                                            ></DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma2ChargeAffaire"
+                                            Header="Chargé d'affaire"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Salarie1.Personne.fullname}"
+                                            ></DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            x:Name="_ColonneProforma2Contact"
+                                            Header="Contact"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Contact1.Personne.fullname}"
+                                            ></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Litiges" x:Name="_tabItemLitigeFactureClient">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridLitigeFactureClient"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Litige_Facture}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  >
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn 
+                                        Header="Litige" 
+                                        x:Name="_ColonneLitige"
+                                        Binding="{Binding Path=Litige1.Libelle, Mode=OneWay}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn 
+                                        Header="Date" 
+                                        x:Name="_ColonneDateLitige"
+                                        Binding="{Binding Path=Date_Litige, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn 
+                                        Header="Commentaire" 
+                                        x:Name="_ColonneCommentaire"
+                                        Binding="{Binding Path=Commentaire, Mode=OneWay}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                                    ToolTip="Nouveau"
+                                    x:Name="_ButtonLitigeNouveau"
+                                    Grid.Row="0"                    
+                                    Grid.Column="1"           
+                                    Click="_ButtonLitigeNouveau_Click_1"
+                                    >
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                    ToolTip="Modifier"
+                                    x:Name="_ButtonLitigeModifier"
+                                    Grid.Row="2"                    
+                                    Grid.Column="1"  
+                                    Click="_ButtonLitigeModifier_Click_1"
+                                    >
+                                        <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                    ToolTip="Supprimer"
+                                    x:Name="_ButtonLitigeSupprimer"
+                                    Grid.Row="4"                    
+                                    Grid.Column="1"
+                                    Click="_ButtonLitigeSupprimer_Click_1"
+                                    >
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Règlements Client" x:Name="_tabItemRgltClient">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                    x:Name="_dataGridRgltClient"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    ItemsSource="{Binding Path=Reglement_Client_Facture}"
+                                    AutoGenerateColumns="False" 
+                                    CanUserAddRows="False" 
+                                    CanUserDeleteRows="False"
+                                    GridLinesVisibility="None"
+                                    >
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn 
+                                            Header="Date" 
+                                            x:Name="_ColonneDateRglt"                   
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=Reglement_Client1.Date_Reglement}"
+                                        >
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn 
+                                        Header="Montant" 
+                                        x:Name="_ColonneMontant"                   
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                        >
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn 
+                                        Header="Pourcentage réglé" 
+                                        x:Name="_ColonnePctRegle"                  
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=Pourcentage, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                        >
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                                    ToolTip="Nouveau"
+                                    x:Name="_ButtonRgltClientNouveau"
+                                    Grid.Row="0"                    
+                                    Grid.Column="1"        
+                                        Click="_ButtonRgltClientNouveau_Click_1"
+                                    >
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                    ToolTip="Modifier"
+                                    x:Name="_ButtonRgltClientModifier"
+                                    Grid.Row="2"                    
+                                    Grid.Column="1"                
+                                        Click="_ButtonRgltClientModifier_Click_1"
+                                    >
+                                        <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                    ToolTip="Supprimer"
+                                    x:Name="_ButtonRgltClientSupprimer"
+                                    Grid.Row="4"                    
+                                    Grid.Column="1"
+                                        Click="_ButtonRgltClientSupprimer_Click_1"
+                                    >
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Relances" x:Name="_tabItemRelanceFactureClient">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <DataGrid
+                                  x:Name="_dataGridRelanceFactureClient"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path=Relance_Facture}"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  >
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn 
+                                        Header="Date de relance" 
+                                        x:Name="_ColonneDate_Relance"
+                                        Binding="{Binding Path=Date_Relance, Mode=OneWay}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn 
+                                        Header="Montant de relance" 
+                                        x:Name="_ColonneMontant_Relance"
+                                        Binding="{Binding Path=Montant_Relance, Mode=OneWay}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn 
+                                        Header="Client" 
+                                        x:Name="_ColonneClient"
+                                        Binding="{Binding Path=Client1.Entreprise.Libelle, Mode=OneWay}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn 
+                                        Header="Salarié" 
+                                        x:Name="_ColonneSalarie"
+                                        Binding="{Binding Path=Salarie1.Personne.fullname, Mode=OneWay}"                    
+                                        IsReadOnly="True"
+                                        >
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Button 
+                                    ToolTip="Nouveau"
+                                    x:Name="_ButtonRelanceNouveau"
+                                    Grid.Row="0"                    
+                                    Grid.Column="1"      
+                                    Click="_ButtonRelanceNouveau_Click_1"
+                                    >
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                    ToolTip="Modifier"
+                                    x:Name="_ButtonRelanceModifier"
+                                    Grid.Row="2"                    
+                                    Grid.Column="1"   
+                                    Click="_ButtonRelanceModifier_Click_1"
+                                    >
+                                        <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                    ToolTip="Supprimer"
+                                    x:Name="_ButtonRelanceSupprimer"
+                                    Grid.Row="4"                    
+                                    Grid.Column="1"
+                                    Click="_ButtonRelanceSupprimer_Click_1"
+                                    >
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+            <!--Partie Montant-->
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        x:Name="_textBlockCommentaire"
+                        Text="Commentaire : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="4"
+                        x:Name="_textBoxCommentaire"
+                        Text="{Binding Path=Commentaire}"
+                        TextChanged="_textBoxCommentaire_TextChanged_1"
+                        ></TextBox>
+                    
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        x:Name="_textBlockConditionRglt"
+                        Text="Condition de règlement : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        x:Name="_comboBoxConditionRglt"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FactureWindow}}, Path=listCondition_Reglement}"
+                        SelectedItem="{Binding Path=Condition_Reglement1}"
+                        DisplayMemberPath="Libelle"
+                        SelectionChanged="_comboBoxConditionRglt_SelectionChanged_1"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="2"
+                        x:Name="_textBlockTotalHT"
+                        Text="Total HT : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="2"
+                        x:Name="_textBoxTotalHT"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        KeyUp="_textBoxMontant_KeyUp"
+                        TextChanged="_textBoxTotalHT_TextChanged_1"
+                        TextAlignment="Right"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        x:Name="_textBlockDateEcheance"
+                        Text="Date échéance : "
+                        ></TextBlock>
+                    <DatePicker
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        x:Name="_datePickerDateEcheance"
+                        SelectedDate="{Binding Path=Date_Echeance}"
+                        SelectedDateChanged="_datePickerDateEcheance_SelectedDateChanged_1"
+                        ></DatePicker>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="4"
+                        x:Name="_textBlockMontantTVA"
+                        Text="Montant TVA : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="4"
+                        x:Name="_textBoxMontantTVA"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Montant_TVA, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        KeyUp="_textBoxMontant_KeyUp"
+                        TextChanged="_textBoxMontantTVA_TextChanged_1"
+                        TextAlignment="Right"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="6"
+                        x:Name="_textBlockTotalTTC"
+                        Text="Total TTC : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="6"
+                        x:Name="_textBoxTotalTTC"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Montant_TTC, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        KeyUp="_textBoxMontant_KeyUp"
+                        TextChanged="_textBoxTotalTTC_TextChanged_1"
+                        TextAlignment="Right"
+                        ></TextBox>
+                    
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="8"
+                        x:Name="_textBlockAcompte"
+                        Text="Acompte : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="8"
+                        x:Name="_textBoxAcompte"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Facture_Client.Acompte, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        KeyUp="_textBoxMontant_KeyUp"
+                        TextChanged="_textBoxAcompte_TextChanged_1"
+                        TextAlignment="Right"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="10"
+                        x:Name="_textBlockVerrouiller"
+                        Text="Verrouiller la facture : "
+                        ></TextBlock>
+                    <CheckBox
+                        Grid.Column="1"
+                        Grid.Row="10"
+                        x:Name="_checkBoxVerouiller"
+                        IsChecked="{Binding Path=Exporte_Maxima}"
+                        ></CheckBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="10"
+                        x:Name="_textBlockNetAPayer"
+                        Text="Net à payer : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="10"
+                        x:Name="_textBoxNetAPayer"
+                        IsReadOnly="True"
+                        Text="{Binding Path=Net_A_Payer, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                        KeyUp="_textBoxMontant_KeyUp"
+                        TextChanged="_textBoxNetAPayer_TextChanged_1"
+                        TextAlignment="Right"
+                        ></TextBox>
+
+                </Grid.Children>
+            </Grid>
+            
+            <!--Partie Boutons Ok/Annuler-->
+            <Grid Grid.Row="7" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>
+

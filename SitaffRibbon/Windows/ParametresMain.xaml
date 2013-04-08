@@ -1,0 +1,856 @@
+﻿<ribbon:RibbonWindow x:Class="SitaffRibbon.Windows.ParametresMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+        xmlns:local="clr-namespace:SitaffRibbon"
+        xmlns:myUserControls="clr-namespace:SitaffRibbon.UserControls"
+        Icon="..\Images\icone-programme.ico"
+        Title="Parametres" 
+        Loaded="Window_Loaded"
+        x:Name="WindowParametres"
+        FontFamily="Comic Sans MS"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ThreeDBorderWindow" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" >
+    <!--  Binding des commandes pour les utiliser dans le ribbon  -->
+    <Window.CommandBindings>
+        <CommandBinding x:Name="_CommandFiltrage" Command="{x:Static local:App.Filtrage}" Executed="_CommandFiltrage_Executed"  CanExecute="_CommandFiltrage_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandLook" Command="{x:Static local:App.Look}" Executed="_CommandLook_Executed"  CanExecute="_CommandLook_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAdd" Command="{x:Static local:App.Add}" Executed="_CommandAdd_Executed"  CanExecute="_CommandAdd_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandUpdate" Command="{x:Static local:App.Update}" Executed="_CommandUpdate_Executed"  CanExecute="_CommandUpdate_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandDelete" Command="{x:Static local:App.Delete}" Executed="_CommandDelete_Executed"  CanExecute="_CommandDelete_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherCivilites" Command="{x:Static local:App.AfficherCivilites}" Executed="_CommandAfficherCivilites_Executed"  CanExecute="_CommandAfficherCivilites_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherPermis" Command="{x:Static local:App.AfficherPermis}" Executed="_CommandAfficherPermis_Executed"  CanExecute="_CommandAfficherPermis_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherVilles" Command="{x:Static local:App.AfficherVilles}" Executed="_CommandAfficherVilles_Executed"  CanExecute="_CommandAfficherVilles_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherPays" Command="{x:Static local:App.AfficherPays}" Executed="_CommandAfficherPays_Executed"  CanExecute="_CommandAfficherPays_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherHabilitation" Command="{x:Static local:App.AfficherHabilitation}" Executed="_CommandAfficherHabilitation_Executed"  CanExecute="_CommandAfficherHabilitation_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherQualification" Command="{x:Static local:App.AfficherQualification}" Executed="_CommandAfficherQualification_Executed"  CanExecute="_CommandAfficherQualification_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherDiplomes" Command="{x:Static local:App.AfficherDiplomes}" Executed="_CommandAfficherDiplomes_Executed"  CanExecute="_CommandAfficherDiplomes_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherFormation" Command="{x:Static local:App.AfficherFormation}" Executed="_CommandAfficherFormation_Executed"  CanExecute="_CommandAfficherFormation_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherGroupe" Command="{x:Static local:App.AfficherGroupe}" Executed="_CommandAfficherGroupe_Executed"  CanExecute="_CommandAfficherGroupe_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherModeFacturation" Command="{x:Static local:App.AfficherModeFacturation}" Executed="_CommandAfficherModeFacturation_Executed"  CanExecute="_CommandAfficherModeFacturation_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherDevise" Command="{x:Static local:App.AfficherDevise}" Executed="_CommandAfficherDevise_Executed"  CanExecute="_CommandAfficherDevise_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherLitige" Command="{x:Static local:App.AfficherLitige}" Executed="_CommandAfficherLitige_Executed"  CanExecute="_CommandAfficherLitige_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherDomaine" Command="{x:Static local:App.AfficherDomaine}" Executed="_CommandAfficherDomaine_Executed"  CanExecute="_CommandAfficherDomaine_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherActivite" Command="{x:Static local:App.AfficherActivite}" Executed="_CommandAfficherActivite_Executed"  CanExecute="_CommandAfficherActivite_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherTypeEntreprise" Command="{x:Static local:App.AfficherTypeEntreprise}" Executed="_CommandAfficherTypeEntreprise_Executed"  CanExecute="_CommandAfficherTypeEntreprise_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherContrat" Command="{x:Static local:App.AfficherContrat}" Executed="_CommandAfficherContrat_Executed"  CanExecute="_CommandAfficherContrat_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherDocTypeSalarie" Command="{x:Static local:App.AfficherDocTypeSalarie}" Executed="_CommandAfficherDocTypeSalarie_Executed"  CanExecute="_CommandAfficherDocTypeSalarie_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherContactService" Command="{x:Static local:App.AfficherContactService}" Executed="_CommandAfficherContactService_Executed"  CanExecute="_CommandAfficherContactService_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherContactFonction" Command="{x:Static local:App.AfficherContactFonction}" Executed="_CommandAfficherContactFonction_Executed"  CanExecute="_CommandAfficherContactFonction_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherTypeReception" Command="{x:Static local:App.AfficherTypeReception}" Executed="_CommandAfficherTypeReception_Executed"  CanExecute="_CommandAfficherTypeRecepetion_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherDepartement" Command="{x:Static local:App.AfficherDepartement}" Executed="_CommandAfficherDepartement_Executed"  CanExecute="_CommandAfficherDepartement_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherRegion" Command="{x:Static local:App.AfficherRegion}" Executed="_CommandAfficherRegion_Executed"  CanExecute="_CommandAfficherRegion_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherConditionReglement" Command="{x:Static local:App.AfficherConditionReglement}" Executed="_CommandAfficherConditionReglement_Executed"  CanExecute="_CommandAfficherConditionReglement_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherNiveauSecurite" Command="{x:Static local:App.AfficherNiveauSecurite}" Executed="_CommandAfficherNiveauSecurite_Executed"  CanExecute="_CommandAfficherNiveauSecurite_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherUtilisateur" Command="{x:Static local:App.AfficherUtilisateur}" Executed="_CommandAfficherUtilisateur_Executed"  CanExecute="_CommandAfficherUtilisateur_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherEntrepriseMere" Command="{x:Static local:App.AfficherEntrepriseMere}" Executed="_CommandAfficherEntrepriseMere_Executed"  CanExecute="_CommandAfficherEntrepriseMere_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherTauxHoraire" Command="{x:Static local:App.AfficherTauxHoraire}" Executed="_CommandAfficherTauxHoraire_Executed"  CanExecute="_CommandAfficherTauxHoraire_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherVersionType" Command="{x:Static local:App.AfficherVersionType}" Executed="_CommandAfficherVersionType_Executed"  CanExecute="_CommandAfficherVersionType_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherBanques" Command="{x:Static local:App.AfficherBanques}" Executed="_CommandAfficherBanques_Executed" CanExecute="_CommandAfficherBanques_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherType_Devis" Command="{x:Static local:App.AfficherType_Devis}" Executed="_CommandAfficherType_Devis_Executed"    CanExecute="_CommandAfficherType_Devis_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherEtat_Devis" Command="{x:Static local:App.AfficherEtat_Devis}" Executed="_CommandAfficherEtat_Devis_Executed"    CanExecute="_CommandAfficherEtat_Devis_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherExercice" Command="{x:Static local:App.AfficherExercice}" Executed="_CommandAfficherExercice_Executed" CanExecute="_CommandAfficherExercice_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherOutillage" Command="{x:Static local:App.AfficherOutillage}" Executed="_CommandAfficherOutillage_Executed" CanExecute="_CommandAfficherOutillage_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherTypeCommande" Command="{x:Static local:App.AfficherTypeCommande}" Executed="_CommandAfficherTypeCommande_Executed" CanExecute="_CommandAfficherTypeCommande_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherPlanComptableTVA" Command="{x:Static local:App.AfficherPlanComptableTVA}" Executed="_CommandAfficherPlanComptableTVA_Executed" CanExecute="_CommandAfficherPlanComptableTVA_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherPlanComptableImputation" Command="{x:Static local:App.AfficherPlanComptableImputation}" Executed="_CommandAfficherPlanComptableImputation_Executed" CanExecute="_CommandAfficherPlanComptableImputation_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherTva" Command="{x:Static local:App.AfficherTva}" Executed="_CommandAfficherTva_Executed" CanExecute="_CommandAfficherTva_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherMotifMission" Command="{x:Static local:App.AfficherMotifMission}" Executed="_CommandAfficherMotifMission_Executed" CanExecute="_CommandAfficherMotifMission_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherPieceAdministrative" Command="{x:Static local:App.AfficherPieceAdministrative}" Executed="_CommandAfficherPieceAdministrative_Executed"  CanExecute="_CommandAfficherPieceAdministrative_CanExecute"></CommandBinding>
+        <!--<CommandBinding x:Name="_CommandAfficherType_Reservation" Command="{x:Static local:App.AfficherType_Reservation}" Executed="_CommandAfficherType_Reservation_Executed" CanExecute="_CommandAfficherType_Reservation_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherType_Classe" Command="{x:Static local:App.AfficherType_Classe}" Executed="_CommandAfficherType_Classe_Executed" CanExecute="_CommandAfficherType_Classe_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherType_Categorie_Vehicule" Command="{x:Static local:App.AfficherType_Categorie_Vehicule}" Executed="_CommandAfficherType_Categorie_Vehicule_Executed" CanExecute="_CommandAfficherType_Categorie_Vehicule_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherType_Chambre_Hotel" Command="{x:Static local:App.AfficherType_Chambre_Hotel}" Executed="_CommandAfficherType_Chambre_Hotel_Executed" CanExecute="_CommandAfficherType_Chambre_Hotel_CanExecute"></CommandBinding>-->
+        <CommandBinding x:Name="_CommandAfficherTacheAtelier" Command="{x:Static local:App.AfficherTacheAtelier}" Executed="_CommandAfficherTacheAtelier_Executed" CanExecute="_CommandAfficherTacheAtelier_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherMotifDemandeConge" Command="{x:Static local:App.AfficherMotifDemandeConge}" Executed="_CommandAfficherMotifDemandeConge_Executed" CanExecute="_CommandAfficherMotifDemandeConge_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherMotifRefusConge" Command="{x:Static local:App.AfficherMotifRefusConge}" Executed="_CommandAfficherMotifRefusConge_Executed" CanExecute="_CommandAfficherMotifRefusConge_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherJourFerie" Command="{x:Static local:App.AfficherJourFerie}" Executed="_CommandAfficherJourFerie_Executed" CanExecute="_CommandAfficherJourFerie_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherStatut" Command="{x:Static local:App.AfficherStatut}" Executed="_CommandAfficherStatut_Executed" CanExecute="_CommandAfficherStatut_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherTypeRemboursement" Command="{x:Static local:App.AfficherTypeRemboursement}" Executed="_CommandAfficherTypeRemboursement_Executed"  CanExecute="_CommandAfficherTypeRemboursement_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherEvenementRemboursement" Command="{x:Static local:App.AfficherEvenementRemboursement}" Executed="_CommandAfficherEvenementRemboursement_Executed"  CanExecute="_CommandAfficherEvenementRemboursement_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherSalle" Command="{x:Static local:App.AfficherSalle}" Executed="_CommandAfficherSalle_Executed" CanExecute="_CommandAfficherSalle_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherBesoinReservation" Command="{x:Static local:App.AfficherBesoinReservation}" Executed="_CommandAfficherBesoinReservation_Executed" CanExecute="_CommandAfficherBesoinReservation_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherFrais" Command="{x:Static local:App.AfficherParametreFrais}" Executed="_CommandAfficherFrais_Executed" CanExecute="_CommandAfficherFrais_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherArticleFacture" Command="{x:Static local:App.AfficherArticleFacture}" Executed="_CommandAfficherArticleFacture_Executed" CanExecute="_CommandAfficherArticleFacture_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherMoyenReglement" Command="{x:Static local:App.AfficherMoyenReglement}" Executed="_CommandAfficherMoyenReglement_Executed" CanExecute="_CommandAfficherMoyenReglement_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandAfficherDistanceVille" Command="{x:Static local:App.AfficherDistanceVille}" Executed="_CommandAfficherDistanceVille_Executed"  CanExecute="_CommandAfficherDistanceVille_CanExecute"></CommandBinding>
+    </Window.CommandBindings>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Children>
+            <ribbon:Ribbon x:Name="Ribbon" Grid.Column="0" Grid.Row="0" FontFamily="Comic Sans MS" SelectionChanged="Ribbon_SelectionChanged">
+                <ribbon:Ribbon.ApplicationMenu>
+                    <ribbon:RibbonApplicationMenu SmallImageSource="..\Images\icone-programme.ico">
+                    </ribbon:RibbonApplicationMenu>
+                </ribbon:Ribbon.ApplicationMenu>
+                
+                <!-- personne -->
+                
+                <ribbon:RibbonTab x:Name="Tab_GestionPersonne" 
+                              Header="Personne">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionPersonne_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionPersonne_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionPersonne_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionPersonne_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionPersonne_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+                    
+                    <ribbon:RibbonGroup x:Name="Tab_GestionPersonne_Group_Affichages" 
+                                    Header="Compétences">
+
+                        <ribbon:RibbonButton x:Name="Permis"
+                                         LargeImageSource="..\Images\icone-permis-large.png"
+                                          Command="{x:Static Member=local:App.AfficherPermis}" 
+                                         Label="Permis"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Habilitation"
+                                         LargeImageSource="..\Images\icone-habilitation-large.png"
+                                         Command="{x:Static Member=local:App.AfficherHabilitation}"                                             
+                                         Label="Habilitation"   
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Diplome"
+                                         LargeImageSource="..\Images\icone-diplome-large.png"
+                                         Command="{x:Static Member=local:App.AfficherDiplomes}"                                             
+                                         Label="Diplôme"   
+                                             />
+                        <ribbon:RibbonButton x:Name="Formation"
+                                         LargeImageSource="..\Images\icone-formation-large.png"
+                                         Command="{x:Static Member=local:App.AfficherFormation}"                                             
+                                         Label="Formation"   
+                                             />
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionContacts_Group_Emploi" 
+                                    Header="Emploi">
+
+                            <ribbon:RibbonButton x:Name="Contrat"
+                                         LargeImageSource="..\Images\icone-contrat-large.png"
+                                         Command="{x:Static Member=local:App.AfficherContrat}"                                             
+                                         Label="Contrat"   
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Qualification"
+                                         LargeImageSource="..\Images\icone-qualification-large.png"
+                                         Command="{x:Static Member=local:App.AfficherQualification}"                                             
+                                         Label="Qualification"   
+                                             />
+                    </ribbon:RibbonGroup>
+                    
+                    <ribbon:RibbonGroup x:Name="Tab_GestionContacts_Group_Outillage" 
+                                    Header="Outillage">
+                        
+                            <ribbon:RibbonButton x:Name="Outillage"
+                                         LargeImageSource="..\Images\icone-outillage-large.png"
+                                         Command="{x:Static Member=local:App.AfficherOutillage}"                                             
+                                         Label="Outillage"   
+                                             />
+                    </ribbon:RibbonGroup>
+                    
+                    <ribbon:RibbonGroup x:Name="Tab_GestionContacts_Group_Affichages" 
+                                    Header="Contacts">
+
+                        <ribbon:RibbonButton x:Name="Civilités"
+                                         LargeImageSource="..\Images\icone-civilites-large.png"
+                                         Command="{x:Static Member=local:App.AfficherCivilites}"                                             
+                                         Label="Civilité"  
+                                             />
+                        <ribbon:RibbonButton x:Name="ContactService"
+                                         LargeImageSource="..\Images\icone-service-large.png"
+                                         Command="{x:Static Member=local:App.AfficherContactService}"                                             
+                                         Label="Service"   
+                                             />
+
+                        <ribbon:RibbonButton x:Name="ContactFonction"
+                                         LargeImageSource="..\Images\icone-fonction-large.png"
+                                         Command="{x:Static Member=local:App.AfficherContactFonction}"                                             
+                                         Label="Fonction"   
+                                             />
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionOrdremission_Group_Affichages" 
+                                    Header="Ordres de mission">
+
+                        <ribbon:RibbonButton x:Name="MotifMission"
+                                         LargeImageSource="..\Images\icone-motifmission-large.png"
+                                         Command="{x:Static Member=local:App.AfficherMotifMission}"                                             
+                                         Label="Motif de mission"  
+                                             />
+                        <ribbon:RibbonButton x:Name="PieceAdministrative"
+                                         LargeImageSource="..\Images\icone-pieceadministrative-large.png"
+                                         Command="{x:Static Member=local:App.AfficherPieceAdministrative}"                                             
+                                         Label="Pièce administrative"   
+                                             />
+                    </ribbon:RibbonGroup>
+                </ribbon:RibbonTab>
+
+                <!-- fin personne-->
+                
+                <!-- adresse-->
+                
+                <ribbon:RibbonTab x:Name="Tab_GestionAdresses" 
+                              Header="Adresse">
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionAdresses_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionAdresses_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAdresses_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAdresses_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAdresses_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Tab_GestionAdresses_Group_Affichages" 
+                                    Header="Affichages">
+
+                        <ribbon:RibbonButton x:Name="Ville"
+                                         LargeImageSource="..\Images\icone-ville-large.png"
+                                          Command="{x:Static Member=local:App.AfficherVilles}" 
+                                         Label="Ville"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Departement"
+                                         LargeImageSource="..\Images\icone-departement-large.png"
+                                          Command="{x:Static Member=local:App.AfficherDepartement}" 
+                                         Label="Département"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Region"
+                                         LargeImageSource="..\Images\icone-region-large.png"
+                                          Command="{x:Static Member=local:App.AfficherRegion}" 
+                                         Label="Région"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Pays"
+                                         LargeImageSource="..\Images\icone-pays-large.png"
+                                          Command="{x:Static Member=local:App.AfficherPays}" 
+                                         Label="Pays"
+                                             IsEnabled="True"
+                                             />
+                        
+                    </ribbon:RibbonGroup>
+
+                </ribbon:RibbonTab>
+                
+                <!-- fin adresses -->
+                
+                <!-- entreprise -->
+
+                <ribbon:RibbonTab x:Name="Tab_GestionEntreprise" 
+                              Header="Entreprise">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionEntreprise_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionEntreprise_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionEntreprise_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionEntreprise_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionEntreprise_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionEntreprise_Group_Affichages" 
+                                    Header="Groupe">
+                        <ribbon:RibbonButton x:Name="Groupe"
+                                         LargeImageSource="..\Images\icone-groupe-large.png"
+                                          Command="{x:Static Member=local:App.AfficherGroupe}" 
+                                         Label="Groupe"
+                                             IsEnabled="True"
+                                             />
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionEntreprise_Group_Domaine" 
+                                    Header="Domaine/Activité">
+
+                        <ribbon:RibbonButton x:Name="Domaine"
+                                         LargeImageSource="..\Images\icone-domaine-large.png"
+                                          Command="{x:Static Member=local:App.AfficherDomaine}" 
+                                         Label="Domaine"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Activite"
+                                         LargeImageSource="..\Images\icone-activite-large.png"
+                                          Command="{x:Static Member=local:App.AfficherActivite}" 
+                                         Label="Activité"
+                                             IsEnabled="True"
+                                             />
+
+
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionEntreprise_Group_Type" 
+                                    Header="Type">
+
+                        <ribbon:RibbonButton x:Name="TypeEntreprise"
+                                         LargeImageSource="..\Images\icone-typeentreprise-large.png"
+                                          Command="{x:Static Member=local:App.AfficherTypeEntreprise}" 
+                                         Label="Type d'Entreprise"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Statut"
+                                         LargeImageSource="..\Images\icone-typeentreprise-large.png"
+                                          Command="{x:Static Member=local:App.AfficherStatut}" 
+                                         Label="Statut"
+                                             IsEnabled="True"
+                                             />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionEntreprise_Group_EntrepriseMere" 
+                                    Header="Entreprise Mère">
+
+                            <ribbon:RibbonButton x:Name="EntrepriseMere"
+                                         LargeImageSource="..\Images\icone-entreprisemere-large.png"
+                                         Label="Entreprise Mère"
+                                         Command="{x:Static Member=local:App.AfficherEntrepriseMere}"                                          
+                                             />
+
+                    </ribbon:RibbonGroup>
+                    
+                </ribbon:RibbonTab>
+
+                <!-- fin entreprise -->
+                
+                <!-- appel d'offre -->
+
+                <ribbon:RibbonTab x:Name="Tab_GestionAppelOffre" 
+                              Header="Appel d'Offre">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionAppelOffre_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionAppelOffre_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAppelOffre_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAppelOffre_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAppelOffre_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Tab_GestionAppelOffre_Group_Affichage" 
+                                    Header="Affichages" IsEnabled="True">
+                   
+                        <ribbon:RibbonButton x:Name="TypeReception"
+                                         LargeImageSource="..\Images\icone-typereception-large.png"
+                                          Command="{x:Static Member=local:App.AfficherTypeReception}" 
+                                         Label="Type de Réception"
+                                             IsEnabled="True"
+                                             />
+                        <ribbon:RibbonButton x:Name="ZoneARiques"
+                                         LargeImageSource="..\Images\icone-zonearisque-large.png"
+                                         Label="Zone à Risques"
+                                             Visibility="Collapsed"
+                                             IsEnabled="False"
+                                             />
+
+
+                    </ribbon:RibbonGroup>
+                </ribbon:RibbonTab>
+
+                <!-- fin appel d'offre-->
+                
+                <!-- affaire devis -->
+
+                <ribbon:RibbonTab x:Name="Tab_GestionAffaireDevis" 
+                              Header="Devis">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionAffaireDevis_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionAffaireDevis_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAffaireDevis_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAffaireDevis_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionAffaireDevis_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Tab_GestionAffaireDevis_Group_Affichages" 
+                                    Header="Devis">
+
+                        <ribbon:RibbonButton x:Name="ChapitreClause"
+                                         LargeImageSource="..\Images\icone-chapitreclause-large.png"
+                                         Label="Chapitre Clause"
+                                             Visibility="Collapsed"
+                                             IsEnabled="False"
+                                             />
+
+
+                        <ribbon:RibbonButton x:Name="VersionType"
+                                         LargeImageSource="..\Images\icone-contrat-large.png"
+                                          Command="{x:Static Member=local:App.AfficherVersionType}" 
+                                         Label="Version Type"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Type_Devis"
+                                         LargeImageSource="..\Images\icone-outillage-large.png"
+                                          Command="{x:Static Member=local:App.AfficherType_Devis}" 
+                                         Label="Type Devis"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Etat_Devis"
+                                         LargeImageSource="..\Images\icone-etatdevis-large.png"
+                                          Command="{x:Static Member=local:App.AfficherEtat_Devis}" 
+                                         Label="Etat Devis"
+                                             IsEnabled="True"
+                                             />
+                       
+
+                    </ribbon:RibbonGroup>
+                </ribbon:RibbonTab>
+
+                <!-- fin affaire devis -->
+                    
+                    <!-- comptabilité -->
+
+                <ribbon:RibbonTab x:Name="Tab_GestionComptabilite" 
+                              Header="Comptabilité">
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionComptabiliteDevis_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionComptabilite_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionComptabilite_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionComptabilite_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionComptabilite_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionComptabiliteDroit_Group_Affichages" 
+                                    Header="Droit">
+                        <ribbon:RibbonButton x:Name="Litige"
+                                         LargeImageSource="..\Images\icone-litige-large.png"
+                                          Command="{x:Static Member=local:App.AfficherLitige}" 
+                                         Label="Litige"
+                                             IsEnabled="True"
+                                             />
+                    
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Tab_GestionComptabilite_Group_Affichages" 
+                                    Header="Banque">
+                        <ribbon:RibbonButton x:Name="ModeFacturation"
+                                         LargeImageSource="..\Images\icone-modefacturation-large.png"
+                                          Command="{x:Static Member=local:App.AfficherModeFacturation}" 
+                                         Label="Mode de Facturation"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Devise"
+                                         LargeImageSource="..\Images\icone-devise-large.png"
+                                         Command="{x:Static Member=local:App.AfficherDevise}" 
+                                         Label="Devise"
+                                             IsEnabled="True"
+                                             />
+
+
+                        <ribbon:RibbonButton x:Name="Banques"
+                                         LargeImageSource="..\Images\icone-banque-large.png"
+                                         Label="Banques"
+                                         Command="{x:Static Member=local:App.AfficherBanques}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="ConditionReglement"
+                                         LargeImageSource="..\Images\icone-conditionreglement-large.png"
+                                         Label="Condition de Règlement"
+                                         Command="{x:Static Member=local:App.AfficherConditionReglement}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="MoyenReglement"
+                                         LargeImageSource="..\Images\icone-moyenreglement-large.png"
+                                         Label="Moyen de Règlement"
+                                         Command="{x:Static Member=local:App.AfficherMoyenReglement}"                                          
+                                             />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionComptabilite_Group_Compta" 
+                                    Header="Compta">
+
+                            <ribbon:RibbonButton x:Name="PlanComptableTva"
+                                         LargeImageSource="..\Images\icone-comptable-large.png"
+                                         Label="Plan comptable TVA"
+                                         Command="{x:Static Member=local:App.AfficherPlanComptableTVA}"                                          
+                                             />
+                        <ribbon:RibbonButton x:Name="PlanComptableImputation"
+                                         LargeImageSource="..\Images\icone-comptable-large.png"
+                                         Label="Plan comptable imputation"
+                                         Command="{x:Static Member=local:App.AfficherPlanComptableImputation}"                                          
+                                             />
+                        <ribbon:RibbonButton x:Name="ArticleFacture"
+                                         LargeImageSource="..\Images\icone-comptable-large.png"
+                                         Label="Article facture"
+                                         Command="{x:Static Member=local:App.AfficherArticleFacture}"                                          
+                                             />
+                        <ribbon:RibbonButton x:Name="Tva"
+                                         LargeImageSource="..\Images\icone-tva-large.png"
+                                         Label="Taux Tva"
+                                         Command="{x:Static Member=local:App.AfficherTva}"                                          
+                                             />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionComptabilite_Group_Frais" 
+                                    Header="Frais">
+
+                        <ribbon:RibbonButton x:Name="Frais"
+                                         LargeImageSource="..\Images\icone-rendements-large.png"
+                                         Label="Frais"
+                                         Command="{x:Static Member=local:App.AfficherParametreFrais}"                                          
+                                             />
+
+                    </ribbon:RibbonGroup>
+
+                </ribbon:RibbonTab>
+
+                <!-- fin comptabilité -->
+
+                <!-- utilisateur -->
+
+                <ribbon:RibbonTab x:Name="Tab_GestionUtilisateur" 
+                              Header="Utilisateur">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionUtilisateur_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionUtilisateur_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionUtilisateur_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionUtilisateur_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionUtilisateur_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Tab_GestionUtilisateur_Group_Affichages" 
+                                    Header="Affichages">
+                        <ribbon:RibbonButton x:Name="Niveau_Securite"
+                                         LargeImageSource="..\Images\icone-niveausecurite-large.png"
+                                         Label="Niveau de Sécurité"
+                                         Command="{x:Static Member=local:App.AfficherNiveauSecurite}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="Utilisateur"
+                                         LargeImageSource="..\Images\icone-utilisateur-large.png"
+                                         Label="Utilisateur"
+                                         Command="{x:Static Member=local:App.AfficherUtilisateur}"                                          
+                                             />
+
+                        
+                    </ribbon:RibbonGroup>
+                </ribbon:RibbonTab>
+                
+                <!-- fin utilisateur -->
+
+                <ribbon:RibbonTab x:Name="Tab_GestionExercice" 
+                              Header="Exercice">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionExercice_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionExercice_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionExercice_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionExercice_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionExercice_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionExercice_Group_Affichages" 
+                                    Header="Exercice">
+
+                        <ribbon:RibbonButton x:Name="Exercice"
+                                         LargeImageSource="..\Images\icone-exercice-large.png"
+                                         Command="{x:Static Member=local:App.AfficherExercice}" 
+                                         Label="Exercice"
+                                         IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="TauxHoraire"
+                                         LargeImageSource="..\Images\icone-tauxhoraire-large.png"
+                                          Command="{x:Static Member=local:App.AfficherTauxHoraire}" 
+                                         Label="Taux Horaires"
+                                             IsEnabled="True"
+                                             />
+
+                        <ribbon:RibbonButton x:Name="JourFerie"
+                                         LargeImageSource="..\Images\icone-tauxhoraire-large.png"
+                                          Command="{x:Static Member=local:App.AfficherJourFerie}" 
+                                         Label="Jour Ferié"
+                                             IsEnabled="True"
+                                             />
+
+                    </ribbon:RibbonGroup>
+
+                </ribbon:RibbonTab>
+
+
+                <ribbon:RibbonTab x:Name="Tab_GestionHeures" 
+                              Header="Heures">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionHeures_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionHeures_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionHeures_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionHeures_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionHeures_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionHeures_Group_Affichages" 
+                                    Header="Heures">
+
+                        <ribbon:RibbonButton x:Name="TacheAtelier"
+                                         LargeImageSource="..\Images\icone-outillage-large.png"
+                                         Label="Tache atelier"
+                                         Command="{x:Static Member=local:App.AfficherTacheAtelier}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="TypeRemboursement"
+                                         LargeImageSource="..\Images\icone-typeremboursement-large.png"
+                                         Label="Type remboursement"
+                                         Command="{x:Static Member=local:App.AfficherTypeRemboursement}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="DistanceVille"
+                                         LargeImageSource="..\Images\icone-distance-large.png"
+                                         Label="Distance ville"
+                                         Command="{x:Static Member=local:App.AfficherDistanceVille}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="EvenementRemboursement"
+                                         LargeImageSource="..\Images\icone-evenementremboursement-large.png"
+                                         Label="Evenement remboursement"
+                                         Command="{x:Static Member=local:App.AfficherEvenementRemboursement}"                                          
+                                             />
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionHeures_Group_Conge" 
+                                    Header="Congé">
+
+
+                        <ribbon:RibbonButton x:Name="DemandeConge"
+                                         LargeImageSource="..\Images\icone-demandeconge-large.png"
+                                         Label="Motif de demande"
+                                         Command="{x:Static Member=local:App.AfficherMotifDemandeConge}"                                          
+                                             />
+
+                        <ribbon:RibbonButton x:Name="RefusConge"
+                                         LargeImageSource="..\Images\icone-refusconge-large.png"
+                                         Label="Motif de refus"
+                                         Command="{x:Static Member=local:App.AfficherMotifRefusConge}"                                          
+                                             />
+                    </ribbon:RibbonGroup>
+
+                </ribbon:RibbonTab>
+
+
+                <ribbon:RibbonTab x:Name="Tab_GestionTechniques" 
+                              Header="Techniques">
+                    <ribbon:RibbonGroup x:Name="Tab_GestionTechniques_Group_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_GestionTechniques_Group_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionTechniques_Group_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionTechniques_Group_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_GestionTechniques_Group_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_GestionTechniques_Group_Affichages" 
+                                    Header="Techniques">
+
+                        <ribbon:RibbonButton x:Name="TypeCommande"
+                                         LargeImageSource="..\Images\icone-document-large.png"
+                                         Label="Doc technique"
+                                         Command="{x:Static Member=local:App.AfficherTypeCommande}"                                          
+                                             />
+                    </ribbon:RibbonGroup>
+
+
+                </ribbon:RibbonTab>
+
+                <ribbon:RibbonTab x:Name="Tab_Divers" 
+                              Header="Divers">
+                    <ribbon:RibbonGroup x:Name="Tab_Divers_Edition" 
+                                    Header="Edition" IsEnabled="True">
+                        <ribbon:RibbonButton x:Name="Tab_Divers_Edition_Afficher"
+                                         LargeImageSource="..\Images\icone-afficher-large.png"
+                                         Command="{x:Static Member=local:App.Look}"
+                                         Label="Afficher" />
+                        <ribbon:RibbonButton x:Name="Tab_Divers_Edition_Ajouter"
+                                         SmallImageSource="..\Images\ajouter-icone-small.png"
+                                         Command="{x:Static Member=local:App.Add}"
+                                         Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Tab_Divers_Edition_Modifier"
+                                         SmallImageSource="..\Images\icone-modifier-small.png"
+                                         Command="{x:Static Member=local:App.Update}"
+                                         Label="Modifier" />
+                        <ribbon:RibbonButton x:Name="Tab_Divers_Edition_Supprimer"
+                                         SmallImageSource="..\Images\icone-supprimer-small.png"
+                                         Command="{x:Static Member=local:App.Delete}"
+                                         Label="Supprimer" />
+
+                    </ribbon:RibbonGroup>
+
+                    <ribbon:RibbonGroup x:Name="Tab_Divers_Reservation" 
+                                    Header="Réservations">
+
+                        <ribbon:RibbonButton x:Name="Salle"
+                                         LargeImageSource="..\Images\icone-resasalle-large.png"
+                                         Label="Salle"
+                                         Command="{x:Static Member=local:App.AfficherSalle}"                                          
+                                             />
+                        <ribbon:RibbonButton x:Name="Besoin_reservation"
+                                         LargeImageSource="..\Images\icone-resasalle-large.png"
+                                         Label="Besoin réservation"
+                                         Command="{x:Static Member=local:App.AfficherBesoinReservation}"                                          
+                                             />
+                    </ribbon:RibbonGroup>
+
+
+                </ribbon:RibbonTab>
+
+            </ribbon:Ribbon>
+            <Border x:Name="_BorderContent" Grid.Column="0" Grid.Row="1">
+                <!--<Image Source="..\Images\icone-programme-large.png" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>-->
+                <!--<myUserControls:VideControl VerticalAlignment="Center" HorizontalAlignment="Center"></myUserControls:VideControl>-->
+            </Border>
+            <StatusBar x:Name="_statusBar" Grid.Column="0" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Children>
+                        <ProgressBar Grid.Column="0" Grid.Row="0" x:Name="progressBarMainWindow" IsIndeterminate="False"></ProgressBar>
+                        <TextBlock Grid.Column="2" Grid.Row="0" x:Name="textBlockMainWindow" Text="Bienvenue dans la fenêtre des paramètres !"></TextBlock>
+                    </Grid.Children>
+                </Grid>
+            </StatusBar>
+        </Grid.Children>
+    </Grid>
+</ribbon:RibbonWindow>

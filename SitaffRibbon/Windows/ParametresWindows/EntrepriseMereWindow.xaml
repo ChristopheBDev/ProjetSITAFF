@@ -1,0 +1,172 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ParametresWindows.EntrepriseMereWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows.ParametresWindows"
+        Icon="/SitaffRibbon;component/Images/icone-entreprisemere-large.png"
+        Title="Entreprise Mère" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="200"/>
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock 
+            Text="Entreprise Mère :" 
+            Name="label1"
+            Grid.Column="1"
+            Grid.Row="1"
+        />
+
+                <TextBox 
+            Name="_TextBoxEntrepseMere" 
+            Grid.Column="2" 
+            Grid.Row="1"
+             Text="{Binding Path=Nom, UpdateSourceTrigger=PropertyChanged}"
+            TextChanged="_TextBoxEntrepseMere_TextChanged"
+            />
+
+                <TextBlock
+            Text="Description :" 
+            Name="label2" 
+            Grid.Row="2" 
+            Grid.Column="1"
+        />
+
+                <TextBox
+            Name="_TextBoxDescription"
+            Grid.Column="2" 
+            Grid.Row="2"
+            Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxDescription_TextChanged"
+        />
+
+                <TextBlock
+            Text="Identificateur :" 
+            Name="label3" 
+            Grid.Column="1"
+            Grid.Row="3"
+            />
+                <TextBox
+
+            Name="_TextBoxIdentificateur"
+            Text="{Binding Path=Identificateur, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Column="2" 
+            Grid.Row="3"
+            TextChanged="_TextBoxIdentificateur_TextChanged" />
+
+                <TextBlock 
+                x:Name="_TextBlockEntreprise"
+                Text="Entreprise : "
+                Grid.Row="4" 
+                Grid.Column="1"
+                >
+                </TextBlock>
+
+                <ComboBox 
+                x:Name="_ComboBoxEntreprise" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseMereWindow}}, Path=ListEntreprise}"
+                SelectionChanged="_ComboBoxEntreprise_SelectionChanged"
+                SelectedItem="{Binding Path=Entreprise1}"
+                >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock
+            Name="textBlockAdresseEMail" 
+            Text="Adresse email (HTML) : " 
+            Grid.Row="5" 
+            Grid.Column="1" 
+            />
+
+                <TextBox
+            Grid.Column="2"
+            Grid.Row="5" 
+            Name="_TextBoxAdresseEMail"
+            Text="{Binding Path=AdresseEMail, UpdateSourceTrigger=PropertyChanged}"
+            TextChanged="_TextBoxAdresseEMail_TextChanged_1"
+            />
+
+                <TextBlock
+            Name="textBlockLogo" 
+            Text="Lien logo : " 
+            Grid.Row="6" 
+            Grid.Column="1" 
+            />
+
+                <TextBox
+            Grid.Column="2"
+            Grid.Row="6" 
+            Name="_TextBoxLogo"
+            Text="{Binding Path=Logo, UpdateSourceTrigger=PropertyChanged}"
+            TextChanged="_TextBoxLogo_TextChanged_1"
+            />
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                    <!--  Définition des colonnes  -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--  Fin Définition des colonnes  -->
+                    <!--  Contenu du Grid2  -->
+                    <Grid.Children>
+                        <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                        </Button>
+                        <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                        </Button>
+                    </Grid.Children>
+                    <!--  Fin Contenu du Grid2  -->
+                </Grid>
+            </Grid.Children>
+    </Grid>
+</Window>

@@ -1,0 +1,325 @@
+﻿<Window x:Class="SitaffRibbon.Windows.EntrepriseRIBWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Icon="..\Images\icone-entreprise-large.png"
+        Title="Entreprise RIB" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"  Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+
+                    <TextBlock 
+                x:Name="_TextBlockBanque"
+                Text="Banque : "
+                Grid.Row="0" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <ComboBox 
+                x:Name="_ComboBoxBanque" 
+                Grid.Row="0"
+                Grid.Column="1"
+                SelectedItem="{Binding Path=Banque1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseRIBWindow}}, Path=listBanque}"
+                SelectionChanged="_ComboBoxBanque_SelectionChanged"
+                >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock 
+                x:Name="_TextBlockBIC"
+                Text=" BIC : "
+                Grid.Row="0" 
+                Grid.Column="2" 
+                        Margin="5"
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxBIC" 
+                Grid.Row="0" 
+                Grid.Column="3" 
+                Text="{Binding Path=BIC}"
+                TextChanged="_TextBoxBIC_TextChanged"
+                >
+                    </TextBox>
+
+                </Grid.Children>
+            </Grid>
+            
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <GroupBox x:Name="_groupBoxInfoIBAN" Header="Infos IBAN" Grid.Column="0" Grid.Row="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+                                <TextBox 
+                x:Name="_TextBoxIBAN1" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Text="{Binding Path=IBAN_GROUP_1}"
+                TextChanged="_TextBoxIBAN1_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBox 
+                x:Name="_TextBoxIBAN2" 
+                Grid.Row="1" 
+                Grid.Column="3" 
+                Text="{Binding Path=IBAN_GROUP_2}"
+                TextChanged="_TextBoxIBAN2_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBox 
+                x:Name="_TextBoxIBAN3" 
+                Grid.Row="1" 
+                Grid.Column="5" 
+                Text="{Binding Path=IBAN_GROUP_3}"
+                TextChanged="_TextBoxIBAN3_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBox 
+                x:Name="_TextBoxIBAN4" 
+                Grid.Row="1" 
+                Grid.Column="7" 
+                Text="{Binding Path=IBAN_GROUP_4}"
+                TextChanged="_TextBoxIBAN4_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBox 
+                x:Name="_TextBoxIBAN5" 
+                Grid.Row="1" 
+                Grid.Column="9" 
+                Text="{Binding Path=IBAN_GROUP_5}"
+                TextChanged="_TextBoxIBAN5_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBox 
+                x:Name="_TextBoxIBAN6" 
+                Grid.Row="1" 
+                Grid.Column="11" 
+                Text="{Binding Path=IBAN_GROUP_6}"
+                TextChanged="_TextBoxIBAN6_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBox 
+                x:Name="_TextBoxIBAN7" 
+                Grid.Row="1" 
+                Grid.Column="13" 
+                Text="{Binding Path=IBAN_GROUP_7}"
+                TextChanged="_TextBoxIBAN7_TextChanged"
+                >
+                                </TextBox>
+                            </Grid.Children>
+                        </Grid>
+                    </GroupBox>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <GroupBox x:Name="_groupBoxInfoRIB" Header="Infos RIB" Grid.Column="0" Grid.Row="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+
+                                <TextBlock 
+                x:Name="_TextBlockEtablissement"
+                Text=" Etablissement : "
+                Grid.Row="1" 
+                Grid.Column="1" 
+                VerticalAlignment="Center"
+                >
+                                </TextBlock>
+                                <TextBox 
+                x:Name="_TextBoxEtablissement" 
+                Grid.Row="3" 
+                Grid.Column="1" 
+                Text="{Binding Path=RIB_Etablissement}"
+                TextChanged="_TextBoxEtablissement_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBlock 
+                x:Name="_TextBlockGuichet"
+                Text=" Guichet : "
+                Grid.Row="1" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                >
+                                </TextBlock>
+
+                                <TextBox 
+                x:Name="_TextBoxGuichet" 
+                Grid.Row="3" 
+                Grid.Column="3" 
+                Text="{Binding Path=RIB_Guichet}"
+                TextChanged="_TextBoxGuichet_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBlock 
+                x:Name="_TextBlockCompte"
+                Text=" Compte : "
+                Grid.Row="1" 
+                Grid.Column="5" 
+                VerticalAlignment="Center"
+                >
+                                </TextBlock>
+
+                                <TextBox 
+                x:Name="_TextBoxCompte" 
+                Grid.Row="3" 
+                Grid.Column="5" 
+                Text="{Binding Path=RIB_Compte}"
+                TextChanged="_TextBoxCompte_TextChanged"
+                >
+                                </TextBox>
+
+                                <TextBlock 
+                x:Name="_TextBlockCle"
+                Text=" Clé : "
+                Grid.Row="1" 
+                Grid.Column="7" 
+                VerticalAlignment="Center"
+                >
+                                </TextBlock>
+
+                                <TextBox 
+                x:Name="_TextBoxCle" 
+                Grid.Row="3" 
+                Grid.Column="7" 
+                Text="{Binding Path=RIB_Cle}"
+                TextChanged="_TextBoxCle_TextChanged"
+                >
+                                </TextBox>
+                            </Grid.Children>
+                        </Grid>
+                    </GroupBox>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="7" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

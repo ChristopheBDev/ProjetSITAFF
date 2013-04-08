@@ -1,0 +1,283 @@
+﻿<Window x:Class="SitaffRibbon.Windows.CommandeOrdreMissionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:AppLocal="clr-namespace:SitaffRibbon"
+        xmlns:localSolution="clr-namespace:SitaffRibbon"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Icon="..\Images\icone-commande-large.png"
+        Title="Commande Ordre de Mission" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock
+                    Grid.Column="0"
+                    x:Name="_textBlockNumeroCommande"
+                    Text="Numéro de commande :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="2"
+                    x:Name="_textBoxNumeroCommande"
+                    Text="{Binding Path=Numero}"
+                    IsReadOnly="True"
+                    ></TextBox>
+                
+                <TextBlock
+                    Grid.Column="4"
+                    x:Name="_textBlockDateCommande"
+                    Text="Date de la commande :"
+                    ></TextBlock>
+                <DatePicker
+                    Grid.Column="6"
+                    x:Name="_datePickerDateCommande"
+                    SelectedDateChanged="_datePickerDateCommande_SelectedDateChanged"
+                    SelectedDate="{Binding Path=Date_Livraison_Prevu, Mode=TwoWay}" 
+                    ></DatePicker>
+            </Grid>
+
+            <TabControl x:Name="_tabControl" Grid.Column="1" Grid.Row="3" MinHeight="170">
+                <TabItem x:Name="_tabItemContenu" Header="Contenu">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100*"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <DataGrid
+                                        MinHeight="200"
+                                        AllowDrop="True"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        x:Name="_dataGridContenuCommande"
+                                        ItemsSource="{Binding Path=Contenu_Commande_Fournisseur}"
+                                        AutoGenerateColumns="False"
+                                        CanUserDeleteRows="False"
+                                        KeyUp="_dataGridContenuCommande_KeyUp" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn 
+                                                    x:Name="_col2"
+                                                    Header="Désignation"
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Designation}"                                                    
+                                                    >
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                                                    x:Name="_col3"
+                                                    Header="Quantité" 
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Quantite, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn 
+                                                    x:Name="_col4"
+                                                    Header="Prix unitaire" 
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Prix_Unitaire, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style>
+                                                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                        <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    
+                                    <Button
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    x:Name="_buttonSupprimer"
+                                    ToolTip="Supprimer"
+                                    Click="_buttonSupprimer_Click"
+                                    >
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Column="0" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="33*"></ColumnDefinition>
+                                    <ColumnDefinition Width="15"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <TextBlock 
+                                            Grid.Column="1" 
+                                            Text="Total commande :" 
+                                            x:Name="_textBlockTotalCommande">
+                                    </TextBlock>
+                                    <TextBox 
+                                            Grid.Column="2" 
+                                            TextAlignment="Right"
+                                            x:Name="_textBoxTotalCommande"
+                                            Text="{Binding Path=Total_Commande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                                    </TextBox>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="_tabItemCommentaireContenu" Header="Texte d'en-tête de contenu">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" MinHeight="200"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Children>
+                            <TextBox 
+                            x:Name="_TextBoxDescription" 
+                            Grid.Row="0" 
+                            Grid.Column="0" 
+                            Text="{Binding Path=Commentaire_Contenu}"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True" AcceptsTab="True">
+
+                            </TextBox>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="_tabItemCondReglement" Header="Conditions de règlements">
+                    <Grid MaxHeight="200">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="40*" MinWidth="100"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="10*" MinWidth="60"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Children>
+                            <ListBox 
+                                    Grid.Column="1" 
+                                    Grid.Row="1" 
+                                    x:Name="_listBoxCondReglementGauche"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CommandeOrdreMissionWindow}}, Path=list_Condition_Reglement}"
+                                    DisplayMemberPath="Libelle" >
+                            </ListBox>
+                            <Grid Grid.Row="1" Grid.Column="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="80*"></RowDefinition>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition Height="80*"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <Button Grid.Row="1" Content="->" x:Name="_buttonGaucheDroite" MinHeight="40" Click="_buttonGaucheDroite_Click"></Button>
+                                    <Button Grid.Row="3" Content="&lt;-" x:Name="_buttonDroiteGauche" MinHeight="40" Click="_buttonDroiteGauche_Click"></Button>
+                                </Grid.Children>
+                            </Grid>
+                            <DataGrid
+                                        Grid.Row="1"
+                                        Grid.Column="5"
+                                        x:Name="_dataGridCommandeFournisseurConditionReglement"
+                                        ItemsSource="{Binding Path=Commande_Fournisseur_Condition_Reglement}"
+                                        KeyUp="_dataGridCommandeFournisseurConditionReglement_KeyUp"
+                                        CanUserAddRows="False"
+                                        CanUserDeleteRows="False"
+                                        AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn 
+                                                    x:Name="_colonnePourcentageCdtRglmt"
+                                                    Header="Pourcentage (%)"  
+                                                    Binding="{Binding Path=Pourcentage, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                        <DataGridTextColumn.CellStyle>
+                                            <Style>
+                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </DataGridTextColumn.CellStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Modalité de règlement" Binding="{Binding Path=Commentaire}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Condition de règlement" Width="Auto" IsReadOnly="True" Binding="{Binding Path=Condition_Reglement1.Libelle}">
+                                        <DataGridTextColumn.CellStyle>
+                                            <Style>
+                                                <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                            </Style>
+                                        </DataGridTextColumn.CellStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button Grid.Row="1" Grid.Column="7" ToolTip="Importer du fournisseur" x:Name="_importerConditions" Click="_importerConditions_Click">
+                                <Image Source="..\Images\icone-importer-small.png" Height="20"></Image>
+                            </Button>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+            <Grid Grid.Column="1" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <Grid Grid.Column="1">
+                        <Button Content="Ok" x:Name="_buttonOk" Click="_buttonOk_Click"></Button>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button x:Name="_buttonAnnuler" Content="Annuler" Click="_buttonAnnuler_Click"></Button>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+            
+        </Grid.Children>
+    </Grid>
+</Window>

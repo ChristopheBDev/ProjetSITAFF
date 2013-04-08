@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="SitaffRibbon.UserControls.ListeAppelOffresControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SitaffRibbon.UserControls"
+             FontFamily="Comic Sans MS" 
+             Loaded="UserControl_Loaded" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="791">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <!--  Début de construction de la zone de filtrage  -->
+            <Grid Grid.Row="0" Grid.Column="0" Visibility="Hidden" x:Name="_filterZone">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="1"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="1"></RowDefinition>
+                </Grid.RowDefinitions>
+            </Grid>
+            <!--  Fin de construction de la zone de filtrage  -->
+
+            <!--  Début de construction du DataGrid  -->
+            <DataGrid 
+            x:Name="_DataGridMain" 
+                PreviewMouseDoubleClick="_DataGridMain_PreviewMouseDoubleClick"
+            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeAppelOffresControl}}, Path=AppelOffres}" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            FrozenColumnCount="2"
+            Grid.Column="0"
+            Grid.Row="1"
+            EnableColumnVirtualization="True"
+                VirtualizingStackPanel.IsVirtualizing="True"
+            VirtualizingStackPanel.VirtualizationMode="Recycling"
+            IsReadOnly="True" 
+            GridLinesVisibility="None">
+
+                <!--  Animation du DataGrid  -->
+                <DataGrid.ItemContainerStyle>
+                    <!--  Animation sur les lignes du DataGRid  -->
+                    <Style TargetType="DataGridRow">
+                        <!--  Style par défaut des lignes  -->
+                        <Style.Setters>
+                            <Setter Property="Height" Value="21">
+                            </Setter>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                        <!--  Fin Style par défaut des lignes  -->
+                        <!--  Animation de la ligne selon evenement  -->
+                        <Style.Triggers>
+                            <!--  Animation de la ligne selectionnée "Selected"  -->
+                            <EventTrigger RoutedEvent="Selected">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation 
+                                        Storyboard.TargetProperty="Background.Color" 
+                                        To="Green">
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <!--  Fin Animation de la ligne selectionnée "Selected"  -->
+                            <!--  Animation de la ligne déselectionnée "Unselected"  -->
+                            <EventTrigger RoutedEvent="Unselected">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation 
+                                        Storyboard.TargetProperty="Background.Color" 
+                                        To="White">
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <!--  Fin Animation de la ligne déselectionnée "Unselected"  -->
+                        </Style.Triggers>
+                        <!--  Fin Animation de la ligne selon evenement  -->
+                    </Style>
+                    <!--  Fin Animation sur les lignes du DataGRid  -->
+                </DataGrid.ItemContainerStyle>
+                <!--  Fin Animation du DataGrid  -->
+
+                <!--  Definition des colomnes du DataGrid  -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                    Header="Nom du client" 
+                    Binding="{Binding Path=Client.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="20*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Chargé d'affaire"
+                    Binding="{Binding Path=Salarie.Nom, Mode=OneWay}"  
+                    IsReadOnly="True" 
+                    Width="20*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Date Reception"
+                    Binding="{Binding Path=Date_Reception, Mode=OneWay,  StringFormat=\{0:dd/MM/yyyy\}}"  
+                    IsReadOnly="True" 
+                    Width="20*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Nature des travaux"
+                    Binding="{Binding Path=Nature_Travaux, Mode=OneWay}"  
+                    IsReadOnly="True" 
+                    Width="20*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Etat"
+                    Binding="{Binding Path=Etat, Mode=OneWay}"  
+                    IsReadOnly="True" 
+                    Width="20*" 
+                    FontFamily="Comic Sans MS"
+                    >
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+                <!--  Fin Definition des colomnes du DataGrid  -->
+            </DataGrid>
+            <!--  Fin de construction du DataGrid  -->
+        </Grid.Children>
+    </Grid>
+</UserControl>

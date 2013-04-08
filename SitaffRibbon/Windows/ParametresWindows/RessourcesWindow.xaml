@@ -1,0 +1,84 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ParametresWindows.RessourcesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RessourcesWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="78*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="36*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="33*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="34*" />
+        </Grid.ColumnDefinitions>
+
+
+        <Label 
+            Content="Besoin :" 
+            Height="28"
+            HorizontalAlignment="Left"
+            Margin="18,2,0,0"
+            Name="label1"
+            VerticalAlignment="Top"
+            Grid.Row="1"
+        />
+
+        <TextBox 
+            Height="20" 
+            HorizontalAlignment="Right"
+            Margin="0,10,10,0"
+            Name="_TextBoxBesoin" 
+            VerticalAlignment="Top" 
+            Width="132" Grid.Column="1" 
+            Grid.Row="1"
+             Text="{Binding Path=Besoin, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxBesoin_TextChanged"
+            />
+
+        <Label
+            Content="Nature :" 
+            Height="28" 
+            HorizontalAlignment="Left"
+            Margin="12,5,0,0"
+            Name="label2" 
+            VerticalAlignment="Top" 
+            Grid.Row="2" 
+        />
+
+        <TextBox
+            Height="20" 
+            HorizontalAlignment="Right" 
+            Margin="0,13,10,0"
+            Name="_TextBoxNature"
+            VerticalAlignment="Top"
+            Width="132"
+            Grid.Column="1" 
+            Grid.Row="2"
+            Text="{Binding Path=Nature, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxNature_TextChanged"
+        />
+        <Button
+            Content="Valider"
+            Grid.Column="1" 
+            Grid.Row="4"
+            Height="23"
+            HorizontalAlignment="Left" 
+            Margin="0,15,0,0" 
+            Name="_BtnOk"
+            VerticalAlignment="Top"
+            Width="75" Click="_BtnOk_Click" />
+        <Button 
+            Content="Annuler"
+            Height="23"
+            HorizontalAlignment="Left"
+            Margin="92,15,0,0" 
+            Name="_BtnAnnuler"
+            VerticalAlignment="Top" 
+            Width="75" 
+            Grid.Column="1"
+            Grid.Row="4" Click="_BtnAnnuler_Click" />
+    </Grid>
+</Window>

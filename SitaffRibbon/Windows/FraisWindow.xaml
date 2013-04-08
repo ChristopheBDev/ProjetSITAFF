@@ -1,0 +1,997 @@
+﻿<Window x:Class="SitaffRibbon.Windows.FraisWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:AppLocal="clr-namespace:SitaffRibbon"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:local2="clr-namespace:SitaffRibbon.Converters"
+        Loaded="Window_Loaded"
+        Title="Notes de frais" 
+        Height="Auto" 
+        Width="Auto"
+        MinWidth="600"
+        MinHeight="500"
+        SizeToContent="WidthAndHeight" 
+        Icon="..\Images\icone-facture-large.png"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+
+            <!--En-tête-->
+            <Grid x:Name="_gridTete" Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Nom du salarié-->
+                <TextBlock
+                        x:Name="_textBlockNomSalarie"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Text="Nom : "
+                ></TextBlock>
+                <ComboBox
+                        x:Name="_comboBoxNomSalarie"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsEnabled="False"
+                        SelectionChanged="_comboBoxNomSalarie_SelectionChanged"
+                        SelectedItem="{Binding Path=Salarie1}"
+                        DisplayMemberPath="Personne.fullname"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=listSalarie}">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                
+                <!--Date de début-->
+                <TextBlock
+                        x:Name="_textBlockDateDeDebut"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Text="Date de début : "
+                ></TextBlock>
+                <DatePicker
+                        x:Name="_datePickerDateDeDebut"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        SelectedDateFormat="Short"
+                        IsEnabled="False"
+                        SelectedDate="{Binding Path=Date_Debut}"
+                        SelectedDateChanged="_datePickerDateDeDebut_SelectedDateChanged"
+                 ></DatePicker>
+
+                <!--Date de fin-->
+                <TextBlock
+                        x:Name="_textBlockDateFin"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Text="Date de fin : "
+                ></TextBlock>
+                <DatePicker
+                        x:Name="_datePickerDateFin"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        SelectedDateFormat="Short"
+                        IsEnabled="False"
+                        SelectedDate="{Binding Path=Date_Fin}"
+                ></DatePicker>
+
+                <!--Lot-->
+                <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        HorizontalAlignment="Left"
+                        x:Name="_textBlockLot"
+                        Text="Lot : "
+                ></TextBlock>
+                <TextBox
+                        Text="{Binding Path=Lot}"
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        IsReadOnly="True"
+                        IsEnabled="False"
+                        x:Name="_textBoxLot"
+                ></TextBox>
+            </Grid>
+
+            <!--Frais-->
+            <Grid x:Name="_gridOngletFrais" Grid.Row="3" Grid.Column="1">
+
+                <TabControl x:Name="_tabControlFrais" MinHeight="150">
+                    <!--Onglet Frais Généraux-->
+                    <TabItem x:Name="_tabItemFraisGeneraux" Header="Frais généraux">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                            </Grid.RowDefinitions>
+
+                            <!--1er datagrid, liste les Fiche_Frais -->
+                            <DataGrid
+                                x:Name="_dataGridFraisGeneraux"    
+                                Block.TextAlignment="Right"    
+                                MinHeight="200"
+                                MaxHeight="200"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                IsReadOnly="True"
+                                RowDetailsVisibilityMode="VisibleWhenSelected"
+                                ScrollViewer.CanContentScroll="True"
+                                VerticalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Auto"
+                                ItemsSource="{Binding Path=Fiche_Frais}"
+                                MouseDown="_dataGridFraisGeneraux_MouseDown"
+                                >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                                    x:Name="_dataGridFraisGenerauxColumnNumero"
+                                                    Header="N°"
+                                                    Width="Auto" 
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Numero}"
+                                    ></DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                    x:Name="_dataGridFraisGenerauxColumnDate"
+                                                    Header="Date"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Date_Fiche, StringFormat=\{0:dd/MM/yyyy\}}"
+                                    ></DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                    x:Name="_dataGridFraisGenerauxColumnTotalHT"
+                                                    Header="Total HT"
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Total_HT, StringFormat='{}{0:n}' }"  
+                                    ></DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                    x:Name="_dataGridFraisGenerauxColumnTotalTTC"
+                                                    Header="Total TTC"
+                                                    Width="Auto"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Total_TTC,StringFormat='{}{0:n}'}"        
+                                    ></DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                    x:Name="_dataGridFraisGenerauxColumnTotalTVA"
+                                                    Header="Total TVA"
+                                                    Width="Auto"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Total_TVA,StringFormat='{}{0:n}'}"
+                                    ></DataGridTextColumn>
+                                </DataGrid.Columns>
+
+                                <DataGrid.RowDetailsTemplate>
+
+                                    <DataTemplate x:Name="_dataTemplateDetailFraisGeneraux">
+
+                                        <!-- 2éme datagrid, liste les Lignes de la Fiche_Frais -->
+                                        <DataGrid 
+                                            x:Name="_dataGridDetailFraisGeneraux"
+                                            Block.TextAlignment="Right"
+                                            IsReadOnly="True" 
+                                            AutoGenerateColumns="False" 
+                                            VerticalScrollBarVisibility="Auto" 
+                                            HorizontalScrollBarVisibility="Auto"
+                                            ItemsSource="{Binding Path=Ligne_Fiche_Frais}" 
+                                            >
+                                            <DataGrid.Columns>
+
+                                                <DataGridTemplateColumn Header="Client" x:Name="_dataGridLigneFraisGenerauxColumnClient">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                               <TextBlock.Text>
+                                                                    <Binding Path="Entreprise1">
+                                                                        <Binding.Converter>
+                                                                            <local2:EntrepriseLibelleConverter></local2:EntrepriseLibelleConverter> 
+                                                                        </Binding.Converter>
+                                                                    </Binding>
+                                                                </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox DisplayMemberPath="Libelle" SelectedItem="{Binding Path=Entreprise1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=Entreprise1}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn Header="Affaire" x:Name="_dataGridLigneFraisGenerauxColumnAffaire">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Affaire1">
+                                                                        <Binding.Converter>
+                                                                            <local2:AffaireNumeroConverter></local2:AffaireNumeroConverter>
+                                                                        </Binding.Converter>
+                                                                    </Binding>
+                                                                </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox DisplayMemberPath="Numero" SelectedItem="Affaire1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=listAffaire}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridCheckBoxColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnImputerSurAffaire"
+                                                    Header="Imputer sur Affaire"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Imputer_Affaire}"
+                                                ></DataGridCheckBoxColumn>
+                                                
+                                                <DataGridTextColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnLibelle"
+                                                    Header="Libellé"
+                                                    MinWidth="10"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Libelle}"
+                                                    ></DataGridTextColumn>
+
+                                                <DataGridTemplateColumn Header="Type" x:Name="_dataGridLigneFraisGenerauxColumnTypeFrais">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Type_Frais1">
+                                                                        <Binding.Converter>
+                                                                            <local2:TypeFraisLibelleConverter></local2:TypeFraisLibelleConverter> 
+                                                                        </Binding.Converter>
+                                                                    </Binding>
+                                                                </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox DisplayMemberPath="Libelle" SelectedItem="{Binding Path=Type_Frais1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=listTypeFrais}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTextColumn
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnTTCTicket"
+                                                    Header="TTC Ticket"
+                                                    MinWidth="10" 
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=TTC_Sur_Ticket,StringFormat='{}{0:n}'}" 
+                                                ></DataGridTextColumn>
+                                                
+                                                <DataGridCheckBoxColumn
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnEtranger"
+                                                    Header="Etranger" 
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Etranger}" 
+                                                ></DataGridCheckBoxColumn>
+                                                
+                                                <DataGridTextColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnTTCEuro"
+                                                    Header="TTC Euro"
+                                                    MinWidth="10" 
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=TTC_En_Euro, StringFormat='{}{0:n}'}" 
+                                                ></DataGridTextColumn>
+                                                
+                                                <DataGridTextColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnTauxDeChange" 
+                                                    Header="Taux de change"
+                                                    MinWidth="5"
+                                                    Width="Auto"
+                                                    Binding="{Binding Path=Taux_Change,StringFormat='{}{0:0.0000}'}"
+                                                ></DataGridTextColumn>
+                                                
+                                                <DataGridTextColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnTauxDeChangeReel"
+                                                    Header="Taux de change réel" 
+                                                    MinWidth="5" 
+                                                    Width="Auto"
+                                                    Visibility="Collapsed"
+                                                    Binding="{Binding Path=Taux_Change_Reel,StringFormat='{}{0:0.0000}'}"
+                                                ></DataGridTextColumn>
+                                                
+                                                <DataGridTextColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnTVARecup"
+                                                    Header="TVA récuperable" 
+                                                    MinWidth="10" 
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=TVA_Recuperable,StringFormat='{}{0:n}'}"
+                                                ></DataGridTextColumn>
+                                                
+
+                                                <DataGridTemplateColumn Header="Compte TVA" x:Name="_dataGridLigneFraisGenerauxColumnCompteTVA">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Plan_Comptable_Tva1">
+                                                                        <Binding.Converter>
+                                                                            <local2:PlanComptableTvaConverter></local2:PlanComptableTvaConverter>
+                                                                        </Binding.Converter>
+                                                                    </Binding>
+                                                                </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox DisplayMemberPath="Numero" SelectedItem="Plan_Comptable_Tva1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=Plan_Comptable_Tva1}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn Header="Compte charge" x:Name="_dataGridLigneFraisGenerauxColumnCompteCharge">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Plan_Comptable_Imputation1">
+                                                                        <Binding.Converter>
+                                                                            <local2:PlanComptableImputationConverter></local2:PlanComptableImputationConverter>
+                                                                        </Binding.Converter>
+                                                                    </Binding>
+                                                                </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                                        <DataTemplate>
+                                                            <ComboBox DisplayMemberPath="Numero" SelectedItem="Plan_Comptable_Imputation1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=Plan_Comptable_Imputation1}">
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTextColumn 
+                                                    x:Name="_dataGridLigneFraisGenerauxColumnCommentaire"
+                                                    Header="Commentaire"
+                                                    Width="Auto" 
+                                                    Visibility="Collapsed"
+                                                    Binding="{Binding Path=Commentaire}"
+                                                ></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </DataTemplate>
+                                </DataGrid.RowDetailsTemplate>
+                            </DataGrid>
+
+                            <!--Bouton Ajouter,Modifier,Supprimer,Dupiquer -->
+                            <Grid Grid.Row="0" Grid.Column="1" MinHeight="100">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="50" MaxWidth="80"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                    <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                    <RowDefinition Height="33*" MinHeight="40"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <Button
+                                            x:Name="_buttonAjouterFraisGeneraux"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            ToolTip="Ajouter" Click="_buttonAjouterFraisGeneraux_Click">
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+                                    <Button
+                                            x:Name="_buttonModifierFraisGeneraux"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            ToolTip="Modifier" Click="_buttonModifierFraisGeneraux_Click">
+                                        <Image Source="..\Images\icone-modifier-small.png" Height="20" ></Image>
+                                    </Button>
+                                    <Button
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            x:Name="_buttonSupprimerFicheFraisGeneraux"
+                                            ToolTip="Supprimer" Click="_buttonSupprimerFicheFraisGeneraux_Click">
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20" ></Image>
+                                    </Button>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <!--Onglet Frais Km-->
+                    <TabItem x:Name="_tabItemFraisKm" Header="Frais Km">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <DataGrid
+                                x:Name="_dataGridFraisKm"    
+                                MinHeight="200"
+                                MaxHeight="200"
+                                Block.TextAlignment="Right" 
+                                AllowDrop="True"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                CanUserAddRows="True"
+                                CanUserDeleteRows="False"
+                                CanUserReorderColumns="False"
+                                AutoGenerateColumns="False"
+                                SelectionChanged="_dataGridFraisKm_SelectionChanged"
+                                ScrollViewer.CanContentScroll="True" 
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto"
+                                ItemsSource="{Binding Path=Frais_Km}"
+                                >
+                                <DataGrid.CommandBindings>
+                                    <CommandBinding x:Name="_FraisKmColler" Command="{x:Static AppLocal:App.Coller}" Executed="_FraisKmColler_Executed_1"  CanExecute="_FraisKmColler_CanExecute_1"></CommandBinding>
+                                </DataGrid.CommandBindings>
+
+                                <DataGrid.Columns>
+
+                                    <DataGridTemplateColumn Header="Affaire" Width="auto" x:Name="_dataGridFraisKmColumnAffaire">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="Affaire1">
+                                                            <Binding.Converter>
+                                                                <local2:AffaireNumeroConverter></local2:AffaireNumeroConverter>  <!--voir dans SitaffRibbon/Converters --> 
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox
+                                                    DisplayMemberPath="Numero" SelectedItem="{Binding Path=Affaire1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=listAffaire}">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <DataGridCheckBoxColumn
+                                                x:Name="_dataGridFraisKmColumnImputerSurAffaire"
+                                                Header="Imputer sur Affaire"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                Binding="{Binding Path=ImputerAffaire, Mode=TwoWay}"
+                                    ></DataGridCheckBoxColumn>
+
+                                    <DataGridTextColumn
+                                                x:Name="_dataGridFraisKmColumnLibelle"
+                                                Header="Libellé"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                Block.TextAlignment="Right"
+                                                Binding="{Binding Path=Libelle, Mode=TwoWay}"
+                                    ></DataGridTextColumn>
+
+                                    <DataGridTemplateColumn Header="Puissance Fiscale" Width="auto" x:Name="_dataGridFraisKmColumnChevauxFiscaux">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Left">
+                                                    <TextBlock.Text>
+                                                        <Binding Path="Puissance1">
+                                                            <Binding.Converter>
+                                                                <local2:AffaireNumeroConverter></local2:AffaireNumeroConverter>  <!--voir dans SitaffRibbon/Converters --> 
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox
+                                                    DisplayMemberPath="Libelle"  SelectionChanged="ComboBoxTypeChevauxFiscaux_SelectionChanged" SelectedItem="{Binding Path=Puissance1}" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=listTypeCoefChevauxFiscaux}">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <DataGridTextColumn
+                                                x:Name="_dataGridFraisKmColumnKm"
+                                                Header="Km"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                Block.TextAlignment="Right"
+                                                Binding="{Binding Path=Km, Mode=TwoWay, StringFormat='{}{0:n}'}"
+                                    ></DataGridTextColumn>
+
+                                    <DataGridTextColumn 
+                                                x:Name="_dataGridFraisKmColumnBase"
+                                                Header="Base"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                Block.TextAlignment="Right"  
+                                                Binding="{Binding Path=Base, Mode=TwoWay}"
+                                    ></DataGridTextColumn>
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+
+                            <!--Bouton Ajouter,Modifier,Supprimer,Dupiquer -->
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="50" MaxWidth="80"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*" MinHeight="40"></RowDefinition>
+                                    <RowDefinition Height="50*" MinHeight="40"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <Button
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            x:Name="_buttonCollerFraisKm"
+                                            ToolTip="Coller"
+                                            Click="_buttonCollerFraisKm_Click">
+                                        <Image Source="..\Images\icone-coller-small.png" Height="20"></Image>
+                                    </Button>
+                                    <Button
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            x:Name="_buttonSupprimerFraisKm"
+                                            ToolTip="Supprimer" Click="_buttonSupprimerFraisKm_Click">
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20" ></Image>
+                                    </Button>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid>
+
+                    </TabItem>
+                    <!--Onglet Avances-->
+                    <TabItem x:Name="_tabItemAvances" Header="Avances">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="40*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="20*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="40*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="1" Grid.Row="0" x:Name="_textBlockDemandeAvance" Text="Demande Avance"></TextBlock>
+                            <TextBlock Grid.Column="5" Grid.Row="0" x:Name="_textBlockVerserAvance" Text="Avance Versée"></TextBlock>
+                            <DataGrid 
+                                x:Name="_dataGridAvancesDemande"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Block.TextAlignment="Right" 
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                CanUserDeleteRows="True"
+                                CanUserReorderColumns="False"
+                                ScrollViewer.CanContentScroll="True" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FraisWindow}},Path=listAvanceDemande}"
+                                >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                                Header="Date"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                x:Name="_dataGridAvancesDemandeColumnDate"
+                                                Binding="{Binding Path=Date_Avance, StringFormat=\{0:dd/MM/yyyy\}}">
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                Header="Somme"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                x:Name="_dataGridAvancesDemandeColumnSomme"
+                                                Binding="{Binding Path=Somme,StringFormat='{}{0:n}'}">
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Grid Grid.Column="3" Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <Button
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Content="->"
+                                        x:Name="_buttonPasserAvancesEnValide"
+                                        MinHeight="40"
+                                        Click="_buttonPasserAvancesEnValide_Click"
+                                        ToolTip="Valide l'avance">
+                                    </Button>
+                                    <Button
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Content="&lt;-"
+                                        x:Name="_buttonPasserAvancesEnDemande"
+                                        MinHeight="40"
+                                        Click="_buttonPasserAvancesEnDemande_Click" 
+                                        ToolTip="Invalide l'avance">
+                                    </Button>
+                                    <Button 
+                                        Grid.Row="5" 
+                                        Grid.Column="1"
+                                        x:Name="_buttonAjoutAvance" 
+                                        ToolTip="Faire une demande d'Avance"
+                                        Click="_buttonAjoutAvance_Click">
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid.Children>
+                            </Grid>
+                            <DataGrid 
+                                x:Name="_dataGridAvancesValide"
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                Block.TextAlignment="Right" 
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                CanUserDeleteRows="True"
+                                CanUserReorderColumns="False"
+                                ScrollViewer.CanContentScroll="True" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FraisWindow}},Path=listAvanceValider}"
+                                >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                                x:Name="_dataGridAvancesValideColumnDate"
+                                                Header="Date"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                Binding="{Binding Path=Date_Avance, StringFormat=\{0:dd/MM/yyyy\}}">
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                x:Name="_dataGridAvancesValideColumnSomme"
+                                                Header="Somme"
+                                                MinWidth="10"
+                                                Width="Auto"
+                                                Binding="{Binding Path=Somme,StringFormat='{}{0:n}'}">
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+            </Grid>
+
+            <!--Totaux-->
+            <Grid x:Name="_gridOngletTotaux" Grid.Row="5" Grid.Column="1">
+
+                <TabControl x:Name="_tabControlTotaux">
+                    <!--Onglet Totaux-->
+                    <TabItem x:Name="_tabItemTotaux" Header="Totaux">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        x:Name="_textBlockTotalHT"
+                        Text="Total HT : ">
+                            </TextBlock>
+                            <TextBox
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        TextAlignment="Right"
+                        IsReadOnly="True"
+                        x:Name="_textBoxHT"
+                        Text="{Binding Path=Total_HT,StringFormat='{}{0:n}'}">
+                            </TextBox>
+                            <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        HorizontalAlignment="Left"
+                        x:Name="_textBlockTotalTTC"
+                        Text="Total TTC : ">
+                            </TextBlock>
+                            <TextBox
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        TextAlignment="Right"
+                        IsReadOnly="True"
+                        x:Name="_textBoxTotalTTC"
+                        Text="{Binding Path=Total_TTC,StringFormat='{}{0:n}'}">
+                            </TextBox>
+                            <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="5"
+                        HorizontalAlignment="Left"
+                        x:Name="_textBlockTotalTVARecup"
+                        Text="Total TVA : ">
+                            </TextBlock>
+                            <TextBox
+                        Grid.Row="3"
+                        Grid.Column="5"
+                        TextAlignment="Right"
+                        IsReadOnly="True"
+                        x:Name="_textBoxTotalTVArecup"
+                        Text="{Binding Path=Total_TVA,StringFormat='{}{0:n}'}">
+                            </TextBox>
+                            <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="7"
+                        HorizontalAlignment="Left"
+                        x:Name="_textBlockTotalARembourser"
+                        Text="Total à rembourser : ">
+                            </TextBlock>
+                            <TextBox
+                        Grid.Row="3"
+                        Grid.Column="7"
+                        TextAlignment="Right"
+                        IsReadOnly="True"
+                        x:Name="_textBoxTotalARembourser"
+                        Text="{Binding Path=Total_A_Rembourser,StringFormat='{}{0:n}'}">
+                            </TextBox>
+                            <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="9"
+                        HorizontalAlignment="Left"
+                        x:Name="_textBlockTotalAvance"
+                        Text="Total Avance : ">
+                            </TextBlock>
+                            <TextBox
+                        Grid.Row="3"
+                        Grid.Column="9"
+                        IsReadOnly="True"
+                        TextAlignment="Right"
+                        x:Name="_textBoxTotalAvance"
+                        Text="{Binding Path=Total_Avance,StringFormat='{}{0:n}'}">
+                            </TextBox>
+
+                            <Button
+                        Grid.Row="3"
+                        Grid.Column="11"
+                        x:Name="_buttonCalculer"
+                        ToolTip="Calculer"
+                        Click="_buttonCalculer_Click"
+                        >
+                                <Image Source="..\Images\icone-calculatrice-small.png" Height="20"></Image>
+                            </Button>
+                        </Grid>
+                    </TabItem>
+                    <!--Onglet Résumé-->
+                    <TabItem x:Name="_tabItemResume" Header="Resumé">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="1" Grid.Row="1" x:Name="_textBlockTitreResumeGauche" Text="Totaux Frais Généraux" ></TextBlock>
+                            <TextBlock Grid.Column="3" Grid.Row="1" x:Name="_textBlockTitreResumeDroit" Text="Totaux Frais Km" ></TextBlock>
+                            <DataGrid
+                                x:Name="_datagridResumeFicheFrais"
+                                Grid.Column="1"
+                                Grid.Row="3"
+                                Block.TextAlignment="Right"  
+                                MaxHeight="130"
+                                CanUserResizeColumns="False"
+                                CanUserAddRows="False"
+                                CanUserDeleteRows="False"
+                                AutoGenerateColumns="False"
+                                ScrollViewer.CanContentScroll="True" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FraisWindow}},Path=listARecupererFicheFrais}"
+                                >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                                    x:Name="_datagridResumeFicheFraisColumnNumero"
+                                                    Header="N°"
+                                                    Width="Auto" 
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Numero}"
+                                                    >
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                                    x:Name="_datagridResumeFicheFraisColumnDateFiche"
+                                                    Header="Date de la fiche"
+                                                    Width="Auto" 
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Date_Fiche, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                    >
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn 
+                                                    x:Name="_datagridResumeFicheFraisColumnARembourser"
+                                                    Header="A rembourser"
+                                                    Width="Auto" 
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Total_TVA,StringFormat='{}{0:n}'}"
+                                                    >
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <DataGrid 
+                                x:Name="_datagridResumeFraisKm"
+                                Grid.Column="3"
+                                Grid.Row="3"
+                                Block.TextAlignment="Right"  
+                                MaxHeight="130"
+                                AutoGenerateColumns="False"
+                                CanUserAddRows="False"
+                                CanUserDeleteRows="False"
+                                ScrollViewer.CanContentScroll="True" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FraisWindow}}, Path=listFraisKmARembourse}"
+                                >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn 
+                                                    x:Name="_datagridResumeFraisKmColumnLibelle"
+                                                    Header="Libellé"
+                                                    Width="Auto" 
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Path=Libelle}"
+                                                    >
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn 
+                                                    x:Name="_datagridResumeFraisKmColumnTvaARembourser"
+                                                    Header="A rembourser"
+                                                    Width="Auto" 
+                                                    IsReadOnly="True" 
+                                                    Binding="{Binding Path=Km,StringFormat='{}{0:n}'}"
+                                                    >
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+            <!--Bas-->
+            <Grid x:Name="_gridBas" Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <Grid Grid.Column="1">
+                        <Button Content="Ok" x:Name="_buttonOk" Height="40" Click="_buttonOk_Click"></Button>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button Content="Annuler" x:Name="_buttonAnnuler" Height="40" Click="_buttonAnnuler_Click"></Button>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

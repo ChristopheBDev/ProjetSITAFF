@@ -1,0 +1,448 @@
+﻿<Window x:Class="SitaffRibbon.Windows.CongeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Title="Congé" Height="Auto" Width="Auto" MaxWidth="1000" MaxHeight="800" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Icon="..\Images\icone-heures-large.png" Loaded="Window_Loaded" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" MinWidth="5"></ColumnDefinition>
+            <ColumnDefinition Width="96*"></ColumnDefinition>
+            <ColumnDefinition Width="2*" MinWidth="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" MinHeight="5"></RowDefinition>
+            <!-- Demande -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Réponse -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- boutons ok / annuler -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="2*" MinHeight="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10"
+                        Text="Demande">
+                    </TextBlock>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="2" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockSalarie"
+                                        Text="Salarié : ">
+                                    </TextBlock>
+                                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="_comboBoxSalarie"
+                        DisplayMemberPath="Personne.fullname" 
+                        SelectionChanged="_comboBoxSalarie_SelectionChanged"
+                        SelectedItem="{Binding Path=Salarie1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CongeWindow}}, Path=listSalarie}"
+                    >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="4" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockDateDebutDemande"
+                                        Text="Date du : ">
+                                    </TextBlock>
+                                    <DatePicker  
+                                        Grid.Row="0" 
+                                        Grid.Column="1" 
+                                        SelectedDateFormat="Short"
+                                        SelectedDate="{Binding Path=Date_Debut, Mode=TwoWay}"
+                                        SelectedDateChanged="_datePickerDateDebutDemande_SelectedDateChanged"
+                                        x:Name="_datePickerDateDebutDemande">
+                                    </DatePicker>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        x:Name="_textBlockDateFinDemande"
+                                        Text="     au :    ">
+                                    </TextBlock>
+                                    <DatePicker  
+                                        Grid.Row="0" 
+                                        Grid.Column="3" 
+                                        SelectedDateFormat="Short"
+                                        SelectedDate="{Binding Path=Date_Fin, Mode=TwoWay}"
+                                        SelectedDateChanged="_datePickerDateFinDemande_SelectedDateChanged"
+                                        x:Name="_datePickerDateFinDemande">
+                                    </DatePicker>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="6" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockMotifDemande"
+                                        Text="Motif : ">
+                                    </TextBlock>
+                                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="_comboBoxMotifDemande"
+                        DisplayMemberPath="Libelle" 
+                        SelectionChanged="_comboBoxMotifDemande_SelectionChanged"
+                        SelectedItem="{Binding Path=Motif_Demande1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CongeWindow}}, Path=listMotif_Demande}"
+                    >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockDateDemande"
+                                        Text="Date : ">
+                                    </TextBlock>
+                                    <DatePicker  
+                                        Grid.Row="0" 
+                                        Grid.Column="1" 
+                                        SelectedDateFormat="Short"
+                                        SelectedDateChanged="_datePickerDateDemande_SelectedDateChanged"
+                                        x:Name="_datePickerDateDemande">
+                                    </DatePicker>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="8" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockNbJours"
+                                        VerticalAlignment="Center"
+                                        Text="Soit un nombre de jours : ">
+                                    </TextBlock>
+                                    <Grid Grid.Row="0" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <TextBox
+                                        TextAlignment="Right"
+                                        Grid.Column="0"
+                                        LostFocus="_textBoxNbJours_LostFocus"
+                                        x:Name="_textBoxNbJours">
+                                            </TextBox>
+                                            <Button
+                                        Grid.Column="1"
+                                        x:Name="Calculer"
+                                        Click="Calculer_Click_1"
+                                ToolTip="Calculer automatiquement, veuillez vérifier la valeur."
+                                        >
+                                                <Image Source="..\Images\icone-calculatrice-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="10" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockCommentaire"
+                                        VerticalAlignment="Center"
+                                        Text="Commentaire : ">
+                                    </TextBlock>
+                                    <TextBox
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Path=Observation}"
+                                        x:Name="_textBoxCommentaire"
+                                        TextWrapping="WrapWithOverflow"
+                                        LostFocus="_textBoxCommentaire_LostFocus"
+                                        MinHeight="100">
+                                    </TextBox>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10"
+                        Text="Réponse">
+                    </TextBlock>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockAccepte"
+                                        Text="Acceptée : ">
+                                    </TextBlock>
+                                    <CheckBox
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Checked="_checkBoxAccepteOui_Checked"
+                                        Unchecked="_checkBoxAccepteOui_Unchecked"
+                                        x:Name="_checkBoxAccepteOui">
+                                    </CheckBox>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        x:Name="_textBlockAccepteOui"
+                                        Text="  Oui  ">
+                                    </TextBlock>
+                                    <CheckBox
+                                        Grid.Row="0"
+                                        Grid.Column="3"
+                                        Checked="_checkBoxAccepteNon_Checked"
+                                        Unchecked="_checkBoxAccepteNon_Unchecked"
+                                        x:Name="_checkBoxAccepteNon">
+                                    </CheckBox>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="4"
+                                        x:Name="_textBlockAccepteNon"
+                                        Text="  Non  ">
+                                    </TextBlock>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockMotifRefus"
+                                        Text="Motif du refus : ">
+                                    </TextBlock>
+                                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="_comboBoxMotifRefus"
+                        DisplayMemberPath="Libelle" 
+                        SelectionChanged="_comboBoxMotifRefus_SelectionChanged"
+                        SelectedItem="{Binding Path=Motif_Refus1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CongeWindow}}, Path=listMotif_Refus}"
+                    >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="4" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockDateReponse"
+                                        Text="Date : ">
+                                    </TextBlock>
+                                    <DatePicker  
+                                        Grid.Row="0" 
+                                        Grid.Column="1" 
+                                        SelectedDateFormat="Short"
+                                        IsEnabled="False"
+                                        x:Name="_datePickerDateReponse">
+                                    </DatePicker>
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="6" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        x:Name="_textBlockDetailReponse"
+                                        Text="Commentaire : ">
+                                    </TextBlock>
+                                    <TextBox x:Name="_textBoxDetailReponse" Text="{Binding Path=Commentaire}" Grid.Row="0" Grid.Column="1" TextChanged="_textBoxDetailReponse_TextChanged" TextWrapping="Wrap" MinHeight="50"></TextBox>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+            <!--  Nouveau Grid pour boutons Ok/Annuler  -->
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

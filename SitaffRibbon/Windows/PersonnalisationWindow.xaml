@@ -1,0 +1,418 @@
+﻿<Window x:Class="SitaffRibbon.Windows.PersonnalisationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:WpfToolKitExtended="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Title="Personnalisation" Height="Auto" Width="Auto" MinWidth="100" MinHeight="100" Icon="..\Images\icone-programme.ico" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <TabControl>
+                    <TabItem x:Name="_LogScreen" Header="Fenêtre d'ouverture">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <TextBlock x:Name="_ColorBackGroundLogScreen"
+                                           Text="Couleur de fond : "
+                                           Grid.Row="0"
+                                           Grid.Column="0">                                    
+                                </TextBlock>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>                                    
+                                    <Grid.Children>
+                                        <Button Grid.Row="0" Grid.Column="0" Content="Modifier" Click="Button_Click"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestBackGroundLogScreen"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+                                
+                                <TextBlock x:Name="_FontFamilyBackGroundLogScreen"
+                                           Text="Police : "
+                                           Grid.Row="2"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="2" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <ComboBox Grid.Row="0" Grid.Column="0" x:Name="ComboBox_FontFamilyBackGroundLogScreen" SelectionChanged="ComboBox_FontFamilyBackGroundLogScreen_SelectionChanged">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontFamily="{Binding}" Height="20"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="FontFamilyToTestBackGroundLogScreen" Text="Lorem Ipsum Dolor"></TextBlock>
+                                    </Grid.Children>                                                                        
+                                </Grid>
+
+                                <TextBlock x:Name="_FontSizeLogScreen"
+                                           Text="Taille police : "
+                                           Grid.Row="4"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="4" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <WpfToolKitExtended:DoubleUpDown
+                                            x:Name="_doubleUpDownFontSizeLogScreen"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Increment=".5"
+                                            ValueChanged="DoubleUpDown_ValueChanged"
+                                            ></WpfToolKitExtended:DoubleUpDown>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="FontSizeToTestLogScreen" Text="Lorem Ipsum Dolor"></TextBlock>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_ColorMoveLogScreen"
+                                           Text="Couleur déplacement : "
+                                           Grid.Row="6"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="6" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <Button Grid.Row="0" Grid.Column="0" Content="Modifier" x:Name="Modifier_ColorMove" Click="Modifier_ColorMove_Click_1"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestMoveLogScreen"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_ColorFixeLogScreen"
+                                           Text="Couleur fixe : "
+                                           Grid.Row="8"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="8" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <Button Grid.Row="0" Grid.Column="0" Content="Modifier" x:Name="Modifier_ColorFixe" Click="Modifier_ColorFixe_Click_1"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestFixeLogScreen"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>                            
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="_Windows" Header="Fenêtre">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <TextBlock x:Name="_ColorBackGroundWindow"
+                                           Text="Couleur de fond : "
+                                           Grid.Row="0"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <Button x:Name="_buttonModifierColorWindow" Grid.Row="0" Grid.Column="0" Content="Modifier" Click="_buttonModifierColorWindow_Click"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestWindow"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_FontFamilyWindow"
+                                           Text="Police : "
+                                           Grid.Row="2"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="2" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <ComboBox Grid.Row="0" Grid.Column="0" x:Name="ComboBox_FontFamilyWindow" SelectionChanged="ComboBox_FontFamilyWindow_SelectionChanged">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontFamily="{Binding}" Height="20"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="FontFamilyToTestWindow" Text="Lorem Ipsum Dolor"></TextBlock>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_FontSizeWindow"
+                                           Text="Taille police : "
+                                           Grid.Row="4"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="4" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <WpfToolKitExtended:DoubleUpDown
+                                            x:Name="_doubleUpDownFontSizeWindow"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Increment=".5"
+                                            ValueChanged="_doubleUpDownFontSizeWindow_ValueChanged"
+                                            ></WpfToolKitExtended:DoubleUpDown>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="FontSizeToTestWindow" Text="Lorem Ipsum Dolor"></TextBlock>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="_UserControl" Header="Module">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <TextBlock x:Name="_ColorBackGroundUserControlFilterZone"
+                                           Text="Couleur de la zone de filtrage : "
+                                           Grid.Row="0"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <Button x:Name="_buttonModifierColorUserControlFilterZone" Grid.Row="0" Grid.Column="0" Content="Modifier" Click="_buttonModifierColorUserControlFilterZone_Click"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestUserControlFilterZone"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_ColorBackGroundUserControlDataGrid"
+                                           Text="Couleur des lignes principales tableau : "
+                                           Grid.Row="2"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="2" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <Button x:Name="_buttonModifierColorUserControlDataGrid" Grid.Row="0" Grid.Column="0" Content="Modifier" Click="_buttonModifierColorUserControlDataGrid_Click"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestUserControlDataGrid"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_ColorBackGroundUserControlDataGridAlternative"
+                                           Text="Couleur des lignes secondaires tableau : "
+                                           Grid.Row="4"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="4" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <Button x:Name="_buttonModifierColorUserControlDataGridAlternative" Grid.Row="0" Grid.Column="0" Content="Modifier" Click="_buttonModifierColorUserControlDataGridAlternative_Click"></Button>
+                                        <Grid Grid.Row="0" Grid.Column="1" x:Name="_colorToTestUserControlDataGridAlternative"></Grid>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_FontFamilyUserControl"
+                                           Text="Police : "
+                                           Grid.Row="6"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="6" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <ComboBox Grid.Row="0" Grid.Column="0" x:Name="ComboBox_FontFamilyUserControl" SelectionChanged="ComboBox_FontFamilyUserControl_SelectionChanged">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontFamily="{Binding}" Height="20"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="FontFamilyToTestUserControl" Text="Lorem Ipsum Dolor"></TextBlock>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_FontSizeUserControl"
+                                           Text="Taille police : "
+                                           Grid.Row="8"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="8" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <WpfToolKitExtended:DoubleUpDown
+                                            x:Name="_doubleUpDownFontSizeUserControl"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Increment=".5"
+                                            ValueChanged="_doubleUpDownFontSizeUserControl_ValueChanged"
+                                            ></WpfToolKitExtended:DoubleUpDown>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="FontSizeToTestUserControl" Text="Lorem Ipsum Dolor"></TextBlock>
+                                    </Grid.Children>
+                                </Grid>
+
+                                <TextBlock x:Name="_styleVideUserControl"
+                                           Text="Style écran vide : "
+                                           Grid.Row="10"
+                                           Grid.Column="0">
+                                </TextBlock>
+                                <Grid Grid.Row="10" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="250" Width="100*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto" MinWidth="120"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <ComboBox Grid.Row="0" Grid.Column="0" x:Name="ComboBox_styleVide" SelectionChanged="ComboBox_styleVide_SelectionChanged_1">
+                                            <system:String>Classique</system:String>
+                                            <system:String>Ronds animés</system:String>
+                                            <system:String>Cube tournant</system:String>
+                                            <system:String>Gouttes de pluie</system:String>
+                                        </ComboBox>
+                                    </Grid.Children>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="_Options" Header="Options">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Button
+                                    x:Name="_Reset"
+                                    Click="_Reset_Click"
+                                    Content="Remettre par défaut">                                    
+                                </Button>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                    <!--<ColumnDefinition Width="50*"></ColumnDefinition>-->
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <!--<Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>-->
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

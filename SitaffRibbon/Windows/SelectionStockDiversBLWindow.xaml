@@ -1,0 +1,71 @@
+﻿<Window x:Class="SitaffRibbon.Windows.SelectionStockDiversBLWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="..\Images\icone-bonlivraison-large.png"
+        Title="BL Stock - Divers ?" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto" MinHeight="40"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>                    
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <CheckBox x:Name="_checkBoxStock" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="_checkBoxStock_Checked" Unchecked="_checkBoxStock_Unchecked"></CheckBox>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Stock"></TextBlock>
+                    <CheckBox x:Name="_checkBoxDivers" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="_checkBoxDivers_Checked"  Unchecked="_checkBoxDivers_Unchecked"></CheckBox>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="Divers"></TextBlock>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <!--Définitions des colonnes de la ligne des boutons "OK" et "Annuler"-->
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="50*" MinWidth="60"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="50*" MinWidth="60"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Children>
+                    <!--Outils de la ligne des boutons "OK" et "Annuler"-->
+                    <Button 
+                        Grid.Row="1" 
+                        Grid.Column="1" 
+                        Content="OK" 
+                        x:Name="_buttonOK" 
+                        IsDefault="True" 
+                        Click="_buttonOK_Click">
+                    </Button>
+                    <Button 
+                        Grid.Row="1" 
+                        Grid.Column="3" 
+                        Content="Annuler" 
+                        x:Name="_buttonAnnuler" 
+                        IsCancel="True" 
+                        Click="_buttonAnnuler_Click">
+                    </Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

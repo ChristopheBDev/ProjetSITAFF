@@ -1,0 +1,1923 @@
+﻿<Window x:Class="SitaffRibbon.Windows.EntrepriseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Icon="..\Images\icone-entreprise-large.png"
+        Loaded="Window_Loaded"
+        Width="Auto"
+        MinWidth="600"
+        Height="Auto"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Title="Entreprise">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="15"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <TabControl Grid.Row="1" Grid.Column="1">
+                <TabItem Header="Général" x:Name="_tabItemGeneral">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <!--Première ligne-->
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Grid Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="16*"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.Children>
+                                                    <TextBlock 
+                                                        x:Name="_TextBlockCoordonneesGroupe" 
+                                                        Text="Groupe : " 
+                                                        Grid.Row="0" 
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+
+                                                    <Grid Grid.Row="0" Grid.Column="2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.Children>
+                                                            <ComboBox 
+                                                        x:Name="_ComboBoxCoordonneesGroupe" 
+                                                        Grid.Row="0" 
+                                                        Grid.Column="0"
+                                                        SelectedItem="{Binding Path=Groupe1}" 
+                                                        DisplayMemberPath="Libelle" 
+                                                        ToolTip="{Binding Path=Groupe1.Commentaire}"
+                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=GroupList}" SelectionChanged="_ComboBoxCoordonneesGroupe_SelectionChanged">
+                                                                <ComboBox.Resources>
+                                                                    <Style TargetType="ComboBoxItem">
+                                                                        <Setter Property="ToolTip" Value="{Binding Path=Commentaire}" />
+                                                                    </Style>
+                                                                </ComboBox.Resources>
+                                                                <ComboBox.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <VirtualizingStackPanel/>
+                                                                    </ItemsPanelTemplate>
+                                                                </ComboBox.ItemsPanel>
+                                                            </ComboBox>
+                                                            <Button
+                                        Grid.Column="1"
+                                        x:Name="NewGroupe"
+                                        Click="NewGroupe_Click_1"    
+                                        ToolTip="Ajouter"
+                                        >
+                                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                            </Button>
+                                                            <Button
+                                        Grid.Column="2"
+                                        x:Name="LookGroupe"
+                                        Click="LookGroupe_Click_1"
+                                        ToolTip="Voir"
+                                        >
+                                                                <Image Source="..\Images\icone-afficher-large.png" Height="20"></Image>
+                                                            </Button>
+                                                            <Button
+                                        Grid.Column="3"
+                                        x:Name="NullGroupe"
+                                        Click="NullGroupe_Click_1"   
+                                        ToolTip="Mettre à null"
+                                        >
+                                                                <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                                            </Button>
+                                                        </Grid.Children>
+                                                    </Grid>
+
+                                                    <TextBlock 
+                                                        x:Name="_TextBlockCoordonneesStatut"
+                                                        Text="Statut : "
+                                                        Grid.Row="2"
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+                                                    <ComboBox 
+                                                        x:Name="_ComboBoxCoordonneesStatut"
+                                                        Grid.Row="2" 
+                                                        Grid.Column="1"
+                                                        SelectedItem="{Binding Path=Statut1}" 
+                                                        DisplayMemberPath="Libelle" 
+                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=listStatut}"
+                                                        SelectionChanged="_ComboBoxCoordonneesStatut_SelectionChanged"
+                                                        >
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+
+                                                    <TextBlock 
+                                                        x:Name="_TextBlockCoordonneesTypeEntreprise"
+                                                        Text="Type d'entreprise : "
+                                                        Grid.Row="4"
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+                                                    <ComboBox 
+                                                        x:Name="_ComboBoxCoordonneesTypeEntreprise"
+                                                        Grid.Row="4" 
+                                                        Grid.Column="1"
+                                                        SelectedItem="{Binding Path=Type_Entreprise1}" 
+                                                        DisplayMemberPath="Libelle" 
+                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=TypeList}"
+                                                        SelectionChanged="_ComboBoxCoordonneesTypeEntreprise_SelectionChanged_1"
+                                                        >
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+
+                                                    <TextBlock
+                                                        Text="Nom : "
+                                                        x:Name="_TextBlockCoordonnéesNom" 
+                                                        Grid.Row="6" 
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                        x:Name="_TextBoxCoordonnéesNom" 
+                                                        Grid.Row="6" 
+                                                        Grid.Column="1"
+                                                        Text="{Binding Path=Libelle, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxCoordonnéesNom_TextChanged" LostFocus="_TextBoxCoordonnéesNom_LostFocus_1">
+                                                    </TextBox>
+
+                                                    <TextBlock 
+                                                        Text="N° SIRET : "
+                                                        x:Name="_TextBlockCoordonnéesSIRET" 
+                                                        Grid.Row="8" 
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                        x:Name="_TextBoxCoordonnéesSIRET" 
+                                                        Grid.Row="8" 
+                                                        Grid.Column="1"
+                                                        Text="{Binding Path=Siret, UpdateSourceTrigger=PropertyChanged}" 
+                                                        TextChanged="_TextBoxCoordonnéesSIRET_TextChanged" 
+                                                        >
+                                                    </TextBox>
+
+                                                    <TextBlock 
+                                                        Text="Site Web : "
+                                                        x:Name="_TextBlockCoordonnéesSiteWeb" 
+                                                        Grid.Row="10" 
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                        x:Name="_TextBoxCoordonnéesSiteWeb" 
+                                                        Grid.Row="10" 
+                                                        Grid.Column="1"
+                                                        Text="{Binding Path=Site_Web, UpdateSourceTrigger=PropertyChanged}" 
+                                                        TextChanged="_TextBoxCoordonnéesSiteWeb_TextChanged"
+                                                    >
+                                                    </TextBox>
+
+                                                    <TextBlock 
+                                                        Text="N° APE : "
+                                                        x:Name="_TextBlockCoordonnéesAPE" 
+                                                        Grid.Row="12" 
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                        x:Name="_TextBoxCoordonnéesAPE" 
+                                                        Grid.Row="12" 
+                                                        Grid.Column="1" 
+                                                        Text="{Binding Path=APE, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxCoordonnéesAPE_TextChanged"
+                                                    >
+                                                    </TextBox>
+
+                                                    <TextBlock
+                                                        Text="Commentaires : "
+                                                        x:Name="_TextBlockCommentaires" 
+                                                        Grid.Row="14" 
+                                                        Grid.Column="0"
+                                                        >
+                                                    </TextBlock>
+
+                                                    <TextBox
+                                                        x:Name="_TextBoxCommentaires" 
+                                                        Grid.Row="14" 
+                                                        Grid.Column="1"
+                                                        TextWrapping="Wrap"
+                                                        AcceptsReturn="True"
+                                                        Text="{Binding Path=Commentaire, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxCommentaires_TextChanged"
+                                                        >
+                                                    </TextBox>
+                                                </Grid.Children>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <GroupBox Header="Adresse" Grid.Row="0" Grid.Column="0" x:Name="_groupBoxAdresse">
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.Children>
+                                                                <TextBlock 
+                                                                    Text="Adresse : "
+                                                                    x:Name="_TextBlockCoordonnéesAdresse" 
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="0"  
+                                                                    >
+                                                                </TextBlock>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesAdresse" 
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="1"
+                                                                    Text="{Binding Path=Adresse1.Rue, UpdateSourceTrigger=PropertyChanged}" 
+                                                                    TextChanged="_TextBoxCoordonnéesAdresse_TextChanged"
+                                                                    >
+                                                                </TextBox>
+
+                                                                <TextBlock 
+                                                                    Text="Adresse Complémentaire : "
+                                                                    x:Name="_TextBlockCoordonnéesBP" 
+                                                                    Grid.Row="2" 
+                                                                    Grid.Column="0"  
+                                                                    >
+                                                                </TextBlock>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesBP" 
+                                                                    Grid.Row="2" 
+                                                                    Grid.Column="1" 
+                                                                    Text="{Binding Path=Adresse1.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" 
+                                                                    TextChanged="_TextBoxCoordonnéesBP_TextChanged"
+                                                                    >
+                                                                </TextBox>
+
+                                                                <TextBlock 
+                                                                    Text="Code Postal : "
+                                                                    x:Name="_TextBlockCoordonnéesCP" 
+                                                                    Grid.Row="4" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                                </TextBlock>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesCP" 
+                                                                    Grid.Row="4" 
+                                                                    Grid.Column="1"
+                                                                    TextChanged="_TextBoxCoordonnéesCP_TextChanged"
+                                                                >
+                                                                </TextBox>
+
+                                                                <TextBlock 
+                                                                    Text="Ville : "
+                                                                    x:Name="_TextBlockCoordonneesVille" 
+                                                                    Grid.Row="6" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                                </TextBlock>
+                                                                <ComboBox 
+                                                                    x:Name="_ComboBoxCoordonneesVille" 
+                                                                    Grid.Row="6" 
+                                                                    Grid.Column="1" 
+                                                                    SelectedItem="{Binding Path=Adresse1.Ville1}" 
+                                                                    DisplayMemberPath="fullVille" 
+                                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=VilleList}"
+                                                                    SelectionChanged="_ComboBoxCoordonneesVille_SelectionChanged" 
+                                                                    GotFocus="_ComboBoxCoordonneesVille_GotFocus"
+                                                                    >
+                                                                    <ComboBox.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ComboBox.ItemsPanel>
+                                                                </ComboBox>
+
+                                                                <TextBlock 
+                                                                    Text="Pays : "
+                                                                    x:Name="_TextBlockCoordonneesPays" 
+                                                                    Grid.Row="8" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                                </TextBlock>
+                                                                <ComboBox 
+                                                                    x:Name="_ComboBoxCoordonneesPays" 
+                                                                    Grid.Row="8" 
+                                                                    Grid.Column="1"
+                                                                    DisplayMemberPath="Libelle" 
+                                                                    SelectionChanged="_ComboBoxCoordonneesPays_SelectionChanged"
+                                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=PaysList}"
+                                                                                    >
+                                                                    <ComboBox.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <VirtualizingStackPanel/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ComboBox.ItemsPanel>
+                                                                </ComboBox>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                    </GroupBox>
+                                                    <GroupBox Header="Contacts" Grid.Row="2" Grid.Column="0" x:Name="_groupBoxContacts">
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.Children>
+                                                                <TextBlock 
+                                                                    Text="N° Téléphone : "
+                                                                    x:Name="_TextBlockCoordonnéesTEL" 
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                                </TextBlock>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxIndicatif" 
+                                                                    IsReadOnly="True"
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="1">
+                                                                </TextBox>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesTEL" 
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="2"
+                                                                    Text="{Binding Path=Telephone, UpdateSourceTrigger=PropertyChanged}" 
+                                                                    TextChanged="_TextBoxCoordonnéesTEL_TextChanged">
+                                                                </TextBox>
+
+                                                                <TextBlock 
+                                                                    Text="N° Fax : "
+                                                                    x:Name="_TextBlockCoordonnéesFAX" 
+                                                                    Grid.Row="2" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                                </TextBlock>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesFAX" 
+                                                                    Grid.Row="2" 
+                                                                    Grid.Column="2"
+                                                                    Text="{Binding Path=Fax, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxCoordonnéesFAX_TextChanged"
+                                                                    >
+                                                                </TextBox>
+
+                                                                <TextBlock 
+                                                                    Text="Mail : "
+                                                                    x:Name="_TextBlockCoordonnéesMail" 
+                                                                    Grid.Row="4" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                                </TextBlock>
+                                                                <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesMail" 
+                                                                    Grid.Row="4" 
+                                                                    Grid.Column="2"
+                                                                    Text="{Binding Path=EMail, UpdateSourceTrigger=PropertyChanged}" 
+                                                                    TextChanged="_TextBoxCoordonnéesMail_TextChanged"
+                                                                    >
+                                                                </TextBox>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                    </GroupBox>
+                                                </Grid.Children>
+                                            </Grid>
+                                        </Grid.Children>
+                                    </Grid>
+                                    <!--Deuxième ligne-->
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="20*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+
+                                            <CheckBox
+                                                x:Name="Bouton_Client"
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                IsChecked="{Binding Path=Is_Client}"
+                                                Checked="Bouton_Client_Checked_1"
+                                                Unchecked="Bouton_Client_Unchecked_1"
+                                                >
+                                            </CheckBox>
+
+                                            <TextBlock
+                                                    Text="Client"
+                                                    x:Name="_TextBlockChoixClient"
+                                                    Grid.Column="2"
+                                                    HorizontalAlignment="Left"
+                                                    >
+                                            </TextBlock>
+
+                                            <CheckBox
+                                                x:Name="_Bouton_Fournisseur"
+                                                Grid.Column="4"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                IsChecked="{Binding Path=Is_Fournisseur}" 
+                                                Checked="Bouton_Fournisseur_Checked_1"
+                                                Unchecked="Bouton_Fournisseur_Unchecked_1">
+
+                                            </CheckBox>
+
+                                            <TextBlock
+                                                Text="Fournisseur"
+                                                x:Name="_TextBlockChoixFournisseur"
+                                                Grid.Column="5"
+                                                HorizontalAlignment="Left"
+                                                >
+                                            </TextBlock>
+
+                                        </Grid.Children>
+                                    </Grid>
+                                    <!--Troisième ligne-->
+                                    <Grid Grid.Row="4">
+                                        <TabControl>
+                                            <TabItem Header="Contacts" x:Name="_tabItemContacts" >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <DataGrid
+                                  x:Name="_dataGridContact"
+                                  Grid.Row="1"
+                                  Grid.Column="1"     
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=ContactsList}"
+                                  >
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn 
+                    Header="Nom" 
+                    Binding="{Binding Path=Nom, Mode=OneWay}"
+                    Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+                                                                <DataGridTextColumn 
+                    Header="Prenom"
+                    Binding="{Binding Path=Prenom, Mode=OneWay}"  
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                                <DataGridTextColumn 
+                    Header="Entreprise"
+                    Binding="{Binding Path=Entreprise1.Libelle, Mode=OneWay}"
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                                <DataGridTextColumn 
+                    Header="Fonction"
+                    Binding="{Binding Path=Contact.Contact_Fonction1.Libelle, Mode=OneWay}"
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                                <DataGridTextColumn 
+                    Header="Service"
+                    Binding="{Binding Path=Contact.Contact_Service1.Libelle, Mode=OneWay}" 
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                                <DataGridTextColumn 
+                    Header="Tel Pro"
+                    Binding="{Binding Path=NumTelFixeProAvecEspaces, Mode=OneWay}"
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                                <DataGridTextColumn 
+                    Header="Portable Pro"
+                    Binding="{Binding Path=NumTelPortProAvecEspaces, Mode=OneWay}"  
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                                <DataGridTextColumn 
+                    Header="Email"
+                    Binding="{Binding Path=EMail_Pro, Mode=OneWay}"  
+                                                            Width="Auto"
+                    >
+                                                                </DataGridTextColumn>
+
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                        <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Button 
+                        ToolTip="Nouveau"
+                        x:Name="_ButtonContactNouveau"
+                        Grid.Row="1" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" 
+                        Click="_ButtonContactNouveau_Click"
+                        >
+                                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                            </Button>
+
+                                                            <Button 
+                        ToolTip="Modifier"
+                        x:Name="_ButtonContactModifier"
+                        Grid.Row="3" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" 
+                        Click="_ButtonContactModifier_Click"
+                                                        
+                        >
+                                                                <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                                            </Button>
+
+                                                            <Button 
+                        ToolTip="Supprimer"
+                        x:Name="_ButtonContactSupprimer"
+                        Grid.Row="5" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" 
+                        Click="_ButtonContactSupprimer_Click"                        
+                        >
+                                                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </TabItem>
+
+                                            <TabItem Header="Activités" x:Name="_tabItemActivites">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="0"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="0"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="1" Grid.Column="1">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="100*"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.Children>
+                                                            <ListBox 
+                                                        x:Name="_ComboBoxActivite" 
+                                                        Grid.Row="0" 
+                                                        Grid.Column="0"
+                                                        Height="200"
+                                                        MinHeight="200"
+                                                        MaxHeight="300"
+                                                        Margin="2" 
+                                                        DisplayMemberPath="Libelle" 
+                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=Secteur_Activite}"
+                                                        >
+                                                            </ListBox>
+                                                            <Button x:Name="_newActivite" Grid.Row="1" Grid.Column="0" ToolTip="Ajouter" Click="_newActivite_Click_1">
+                                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                            </Button>
+                                                        </Grid.Children>
+                                                    </Grid>
+                                                    <DataGrid 
+                                                        x:Name="_ComboBoxActiviteEntreprise" 
+                                                        ItemsSource="{Binding Path=Entreprise_Activite}" 
+                                                        AutoGenerateColumns="False" 
+                                                        CanUserAddRows="False" 
+                                                        CanUserDeleteRows="false"
+                                                        FrozenColumnCount="2"
+                                                        Grid.Column="5"
+                                                        Height="200"
+                                                        MinHeight="200"
+                                                        MaxHeight="300"
+                                                        Grid.Row="1"
+                                                        EnableColumnVirtualization="True">
+
+                                                        <!--  Definition des colomnes du DataGrid  -->
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn 
+                    Header="Activite" 
+                    Binding="{Binding Path=Activite1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True" 
+                    Width="45*" 
+                    MinWidth="120"  
+                    FontFamily="Comic Sans MS"
+                    >
+                                                            </DataGridTextColumn>
+
+                                                            <DataGridTextColumn 
+                    Header="Commentaire" 
+                    Binding="{Binding Path=Commentaire, Mode=TwoWay}"                    
+                    Width="55*" 
+                    MinWidth="120"  
+                    FontFamily="Comic Sans MS"
+                    x:Name="ColonneActivites"
+                    >
+                                                            </DataGridTextColumn>
+
+                                                        </DataGrid.Columns>
+                                                        <!--  Fin Definition des colomnes du DataGrid  -->
+                                                    </DataGrid>
+
+                                                    <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        >
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="33*"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="33*"></RowDefinition>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="33*"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Button 
+                        Content="-►"
+                        x:Name="_ButtonVersDroite"
+                        Grid.Row="1"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonVersDroite_click"
+                        >
+                                                        </Button>
+
+                                                        <Button 
+                        Content="◄-"
+                        x:Name="_ButtonVersGauche"
+                        Grid.Row="3"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonVersGauche_click"
+                        >
+                                                        </Button>
+
+                                                    </Grid>
+
+                                                </Grid>
+
+                                            </TabItem>
+
+                                            <TabItem Header="Coordonnées bancaires" x:Name="_tabItemCoordonneesBanquaire">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.Children>
+                                                        <DataGrid
+                                        Grid.Column="0"
+                                        x:Name="_dataGridRIB"
+                                        ItemsSource="{Binding Path=Entreprise_RIB}"
+                                        AutoGenerateColumns="False"
+                                        IsReadOnly="True">
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn Header="Banque" Binding="{Binding Path=Banque1.Libelle}">
+                                                                    <DataGridTextColumn.CellStyle>
+                                                                        <Style>
+                                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                                        </Style>
+                                                                    </DataGridTextColumn.CellStyle>
+                                                                </DataGridTextColumn>
+                                                                <DataGridTextColumn Header="BIC" Binding="{Binding Path=BIC}">
+                                                                    <DataGridTextColumn.CellStyle>
+                                                                        <Style>
+                                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                                        </Style>
+                                                                    </DataGridTextColumn.CellStyle>
+                                                                </DataGridTextColumn>
+                                                                <DataGridTextColumn Header="IBAN" Binding="{Binding Path=fullIBAN}">
+                                                                    <DataGridTextColumn.CellStyle>
+                                                                        <Style>
+                                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                                        </Style>
+                                                                    </DataGridTextColumn.CellStyle>
+                                                                </DataGridTextColumn>
+                                                                <DataGridTextColumn Header="RIB" Binding="{Binding Path=fullRIB}">
+                                                                    <DataGridTextColumn.CellStyle>
+                                                                        <Style>
+                                                                            <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                                        </Style>
+                                                                    </DataGridTextColumn.CellStyle>
+                                                                </DataGridTextColumn>
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                        <Grid Grid.Column="2">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="33*"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="33*"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="33*"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.Children>
+                                                                <Button Grid.Row="1" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonAjouterRIB" ToolTip="Ajouter" Click="_buttonAjouterRIB_Click_1">
+                                                                    <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                                </Button>
+                                                                <Button Grid.Row="3" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonModifierRIB" ToolTip="Modifier" Click="_buttonModifierRIB_Click_1">
+                                                                    <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                                                </Button>
+                                                                <Button Grid.Row="5" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonSupprimerRIB" ToolTip="Supprimer" Click="_buttonSupprimerRIB_Click_1">
+                                                                    <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                                </Button>
+                                                            </Grid.Children>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </TabItem>
+                                            <TabItem Header="N° TVA Intraco" x:Name="_tabItemNTva">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="5"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <DataGrid
+                                  x:Name="_dataGridNumIntraco"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Numero_Tva_Intraco}"
+                                  >
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn Header="Pays"
+                                                            Binding="{Binding Path=Pays1.Libelle, Mode=OneWay}"
+                                                                    />
+                                                                <DataGridTextColumn Header="Numero"
+                                                            Binding="{Binding Path=Numero, Mode=OneWay}"
+                                                                    />
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                        <Grid
+                                                            Grid.Row="1"
+                                                            Grid.Column="3"
+                                                            >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Button 
+                        ToolTip="Nouveau"
+                        x:Name="_ButtonNumIntracoNouveau"
+                         Grid.Row="1" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" 
+                        Click="_ButtonNumIntracoNouveau_Click"
+                        >
+                                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                            </Button>
+
+                                                            <Button 
+                        ToolTip="Modifier"
+                        x:Name="_ButtonNumIntracoModifier"
+                         Grid.Row="3" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" 
+                        Click="_ButtonNumIntracoModifier_Click"                                                        
+                        >
+                                                                <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                                            </Button>
+
+                                                            <Button 
+                        ToolTip="Supprimer"
+                        x:Name="_ButtonNumIntracoSupprimer"
+                         Grid.Row="5" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" 
+                        Click="_ButtonNumIntracoSupprimer_Click"                        
+                        >
+                                                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </TabItem>
+                                        </TabControl>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Client" x:Name="_tabItemClient">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="100*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Text="Taux de TVA : " 
+                                        x:Name="_TextBlockTauxTVAClient" 
+                                        Grid.Row="1" 
+                                        Grid.Column="0" 
+                                        >
+                                    </TextBlock>
+
+                                    <ComboBox 
+                                        x:Name="_ComboBoxTauxTVAClient" 
+                                        Grid.Row="1" 
+                                        Grid.Column="1" 
+                                        SelectedItem="{Binding Path=Client.Tva1}" 
+                                        DisplayMemberPath="Taux" 
+                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=TvaList}"
+                                        SelectionChanged="_ComboBoxTauxTVAClient_SelectionChanged"
+                                        >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <TextBlock
+                                        Text="Code Client : "
+                                        x:Name="_TextBlockCodeClient" 
+                                        Grid.Row="1" 
+                                        Grid.Column="3"
+                                        >
+                                    </TextBlock>
+
+                                    <TextBox 
+                                        x:Name="_TextBoxCodeClient" 
+                                        Grid.Row="1" 
+                                        Grid.Column="4"
+                                        Text="{Binding Path=Client.Code, UpdateSourceTrigger=PropertyChanged}" 
+                                        TextChanged="_TextBoxCodeClient_TextChanged"
+                                        >
+                                    </TextBox>
+
+                                </Grid.Children>
+                            </Grid>
+                            <TabControl Grid.Row="1">
+                                <TabItem Header="Conditions de règlement" x:Name="ClientConditionsReglement">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15"></RowDefinition>
+                                            <RowDefinition Height="100*" MaxHeight="150"></RowDefinition>
+                                            <RowDefinition Height="15"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <ListBox 
+                                    Grid.Column="1" 
+                                    Grid.Row="1" 
+                                                MinHeight="150"
+                                                MaxHeight="150"
+                                                Height="150"
+                                    x:Name="_listBoxCondReglementGaucheClient"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=list_Condition_Reglement}"
+                                    DisplayMemberPath="Libelle" >
+                                            </ListBox>
+                                            <Grid Grid.Row="1" Grid.Column="3">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="80*"></RowDefinition>
+                                                    <RowDefinition Height="20"></RowDefinition>
+                                                    <RowDefinition Height="80*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Button Grid.Row="1" Content="->" x:Name="_buttonGaucheDroiteClient" MinHeight="40" Click="_buttonGaucheDroite_Click_2"></Button>
+                                                    <Button Grid.Row="3" Content="&lt;-" x:Name="_buttonDroiteGaucheClient" MinHeight="40" Click="_buttonDroiteGauche_Click_2"></Button>
+                                                </Grid.Children>
+                                            </Grid>
+                                            <DataGrid
+                                        Grid.Row="1"
+                                        Grid.Column="5"
+                                        x:Name="_dataGridEntrepriseConditionReglementClient"
+                                        ItemsSource="{Binding Path=Client.Client_Condition_Reglement}"
+                                        CanUserAddRows="False"
+                                        CanUserDeleteRows="False"
+                                        AutoGenerateColumns="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn
+                                                    Header="Pourcentage (%)"  
+                                                    Binding="{Binding Path=Pourcentage, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Modalité de réglement" Binding="{Binding Path=Commentaire}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Condition de règlement" IsReadOnly="True" Binding="{Binding Path=Condition_Reglement1.Libelle}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Grid.Children>
+
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Facturation" x:Name="FacturationClient">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <TextBlock
+                                                Text="Escompte : "
+                                                x:Name="_TextBlockEscompteClient" 
+                                                Grid.Row="0" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxEscompteClient" 
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Client.Escompte, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxEscompteClient_TextChanged" 
+                                                >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="Remise : "
+                                                x:Name="_TextBlockRemiseClient" 
+                                                Grid.Row="2" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxRemiseClient" 
+                                                Grid.Row="2" 
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Client.Remise_Commerciale, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxRemiseClient_TextChanged" 
+                                                >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="Tarif minimum de commande : "
+                                                x:Name="_TextBlockTarifMini" 
+                                                Grid.Row="4" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxTarifMini" 
+                                                Grid.Row="4"
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Client.Commande_Minimum, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxTarifMini_TextChanged"
+                                                >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="Nombre d'exemplaires de facture : "
+                                                x:Name="_TextBlockNbFacture" 
+                                                Grid.Row="8" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxNbFacture" 
+                                                Grid.Row="8" 
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Client.Nb_Exemplaire_Facture, UpdateSourceTrigger=PropertyChanged}" 
+                                                TextChanged="_TextBoxNbFacture_TextChanged"
+                                                >
+                                            </TextBox>
+                                        </Grid.Children>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Clés comptables" x:Name="ClesComptableClient">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <DataGrid
+                                        Grid.Column="0"
+                                        x:Name="_dataGridClientCleComptable"
+                                        ItemsSource="{Binding Path=Client.Client_Cle_Comptable}"
+                                        AutoGenerateColumns="False"
+                                        IsReadOnly="True">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Entreprise Mère" Binding="{Binding Path=Entreprise_Mere1.Nom}">
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Clé comptable" Binding="{Binding Path=Cle_Comptable}">
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Grid Grid.Column="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="33*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="33*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="33*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Button Grid.Row="1" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonAjouterCleComptableClient" ToolTip="Ajouter" Click="_buttonAjouterCleComptableClient_Click_1">
+                                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                    </Button>
+                                                    <Button Grid.Row="3" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonModifierCleComptableClient" ToolTip="Modifier" Click="_buttonModifierCleComptableClient_Click_1">
+                                                        <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                                    </Button>
+                                                    <Button Grid.Row="5" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonSupprimerCleComptableClient" ToolTip="Supprimer" Click="_buttonSupprimerCleComptableClient_Click_1">
+                                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                    </Button>
+                                                </Grid.Children>
+                                            </Grid>
+                                        </Grid.Children>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Adresse de facturation" x:Name="_tabItemGeneralFacturation">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Grid Grid.Row="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.Children>
+
+                                                    <TextBlock
+                                                            Text="Mode de facturation : "
+                                                            x:Name="_TextBlockModeFacturation" 
+                                                            Grid.Row="1" 
+                                                            Grid.Column="0"
+                                                            >
+                                                    </TextBlock>
+
+                                                    <ComboBox 
+                                                            x:Name="_ComboBoxModeFacturation" 
+                                                            Grid.Row="1" 
+                                                            Grid.Column="1"
+                                                            SelectedItem="{Binding Path=Mode_Facturation1}" 
+                                                            DisplayMemberPath="Libelle" 
+                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=ModeFacturationList}"
+                                                            SelectionChanged="ComboBoxModeFacturation_SelectionChanged"
+                                                            >
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+
+                                                    <TextBlock
+                                                            Text="Devise : "
+                                                            x:Name="_TextBlockDevise" 
+                                                            Grid.Row="1" 
+                                                            Grid.Column="3"
+                                                            >
+                                                    </TextBlock>
+
+                                                    <ComboBox 
+                                                            x:Name="_ComboBoxDevise" 
+                                                            Grid.Row="1" 
+                                                            Grid.Column="4" 
+                                                            SelectedItem="{Binding Path=Devise1}" 
+                                                            DisplayMemberPath="Libelle" 
+                                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=DeviseList}"
+                                                            SelectionChanged="ComboBoxDevise_SelectionChanged"
+                                                            >
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+
+                                                </Grid.Children>
+                                            </Grid>
+                                            <Grid Grid.Row="2" x:Name="_AdresseFacturation">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.Children>
+                                                    <TextBlock 
+                                                                    Text="Adresse : "
+                                                                    x:Name="_TextBlockCoordonnéesAdresseFact" 
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="0"  
+                                                                    >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesAdresseFact" 
+                                                                    Grid.Row="0" 
+                                                                    Grid.Column="1"
+                                                                    Text="{Binding Path=Adresse2.Rue, UpdateSourceTrigger=PropertyChanged}" 
+                                                                    TextChanged="_TextBoxCoordonnéesAdresseFact_TextChanged"
+                                                                    >
+                                                    </TextBox>
+
+                                                    <TextBlock 
+                                                                    Text="Adresse Complémentaire : "
+                                                                    x:Name="_TextBlockCoordonnéesBPFact" 
+                                                                    Grid.Row="2" 
+                                                                    Grid.Column="0"  
+                                                                    >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesBPFact" 
+                                                                    Grid.Row="2" 
+                                                                    Grid.Column="1" 
+                                                                    Text="{Binding Path=Adresse2.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" 
+                                                                    TextChanged="_TextBoxCoordonnéesBPFact_TextChanged"
+                                                                    >
+                                                    </TextBox>
+
+                                                    <TextBlock 
+                                                                    Text="Code Postal : "
+                                                                    x:Name="_TextBlockCoordonnéesCPFact" 
+                                                                    Grid.Row="4" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                    </TextBlock>
+                                                    <TextBox 
+                                                                    x:Name="_TextBoxCoordonnéesCPFact" 
+                                                                    Grid.Row="4" 
+                                                                    Grid.Column="1"
+                                                                    TextChanged="_TextBoxCoordonnéesCPFact_TextChanged"
+                                                                >
+                                                    </TextBox>
+
+                                                    <TextBlock 
+                                                                    Text="Ville : "
+                                                                    x:Name="_TextBlockCoordonneesVilleFact" 
+                                                                    Grid.Row="6" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                    </TextBlock>
+                                                    <ComboBox 
+                                                                    x:Name="_ComboBoxCoordonneesVilleFact" 
+                                                                    Grid.Row="6" 
+                                                                    Grid.Column="1" 
+                                                                    SelectedItem="{Binding Path=Adresse2.Ville1}" 
+                                                                    DisplayMemberPath="fullVille" 
+                                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=VilleList2}"
+                                                                    SelectionChanged="_ComboBoxCoordonneesVilleFact_SelectionChanged" 
+                                                                    GotFocus="_ComboBoxCoordonneesVilleFact_GotFocus"
+                                                                    >
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+
+                                                    <TextBlock 
+                                                                    Text="Pays : "
+                                                                    x:Name="_TextBlockCoordonneesPaysFact" 
+                                                                    Grid.Row="8" 
+                                                                    Grid.Column="0"
+                                                                    >
+                                                    </TextBlock>
+                                                    <ComboBox 
+                                                                    x:Name="_ComboBoxCoordonneesPaysFact" 
+                                                                    Grid.Row="8" 
+                                                                    Grid.Column="1"
+                                                                    DisplayMemberPath="Libelle" 
+                                                                    SelectionChanged="_ComboBoxCoordonneesPaysFact_SelectionChanged"
+                                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=PaysList2}"
+                                                                                    >
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+                                                </Grid.Children>
+                                            </Grid>
+                                        </Grid.Children>
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Fournisseur" x:Name="_tabItemFournisseur">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="100*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+                                    <TextBlock
+                                        Text="Taux de TVA : "
+                                        x:Name="_TextBlockTauxTVA" 
+                                        Grid.Row="1" 
+                                        Grid.Column="0"
+                                        >
+                                    </TextBlock>
+
+                                    <ComboBox 
+                                        x:Name="_ComboBoxTauxTVA" 
+                                        Grid.Row="1" 
+                                        Grid.Column="1" 
+                                        SelectedItem="{Binding Path=Fournisseur.Tva1}" 
+                                        DisplayMemberPath="Taux" 
+                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=TvaList}"
+                                        SelectionChanged="_ComboBoxTauxTVAFournisseur_SelectionChanged"
+                                        >
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <TextBlock
+                                        Text="Code Fournisseur : "
+                                        x:Name="_TextBlockCodeFournisseur" 
+                                        Grid.Row="1" 
+                                        Grid.Column="3"
+                                        >
+                                    </TextBlock>
+
+                                    <TextBox 
+                                        x:Name="_TextBoxCodeFournisseur" 
+                                        Grid.Row="1" 
+                                        Grid.Column="4" 
+                                        Text="{Binding Path=Fournisseur.Code, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxCodeFournisseur_TextChanged">
+                                    </TextBox>
+
+                                </Grid.Children>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Children>
+
+                                    <CheckBox
+                                        x:Name="_CheckBoxSousTraitant"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Checked="_CheckBoxSousTraitant_Checked" 
+                                        Unchecked="_CheckBoxSousTraitant_Unchecked">
+                                    </CheckBox>
+
+                                    <TextBlock
+                                        Text="Sous-Traitant MO"
+                                        x:Name="_TextBlockChoixSousTraitant"
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Left">
+                                    </TextBlock>
+
+                                    <CheckBox
+                                        x:Name="_CheckBoxInterimaire"
+                                        Grid.Column="4"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Unchecked="_CheckBoxInterimaire_Unchecked"
+                                        Checked="_CheckBoxInterimaire_Checked">
+                                    </CheckBox>
+
+                                    <TextBlock
+                                        Text="Agence interimaire"
+                                        x:Name="_TextBlockChoixInterimaire"
+                                        Grid.Column="5"
+                                        HorizontalAlignment="Left">
+                                    </TextBlock>
+
+                                </Grid.Children>
+                            </Grid>
+                            <GroupBox Header="Agence Interimaire" Grid.Row="2" x:Name="_groupBoxAgenceInterimaire">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="5"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <TextBlock
+                                            Text="Coef Délégation : "
+                                            x:Name="_TextBlockCoefDelegation" 
+                                            Grid.Row="1" 
+                                            Grid.Column="0">
+                                        </TextBlock>
+
+                                        <TextBox 
+                                            x:Name="_TextBoxCoefDelegation" 
+                                            Grid.Row="1" 
+                                            Grid.Column="1"
+                                            KeyUp="_TextBox_KeyUp"
+                                            Text="{Binding Path=Fournisseur.Agence_Interimaire.Coef_Delegation, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                            TextChanged="_TextBoxCoefDelegation_TextChanged">
+                                        </TextBox>
+
+                                        <TextBlock
+                                            Text="Coef Gestion : "
+                                            x:Name="_TextBlockCoefGestion" 
+                                            Grid.Row="1" 
+                                            Grid.Column="3">
+                                        </TextBlock>
+
+                                        <TextBox 
+                                            x:Name="_TextBoxCoefGestion" 
+                                            Grid.Row="1" 
+                                            Grid.Column="4"
+                                            KeyUp="_TextBox_KeyUp"
+                                            Text="{Binding Path=Fournisseur.Agence_Interimaire.Coef_Gestion, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                            TextChanged="_TextBoxCoefGestion_TextChanged">
+                                        </TextBox>
+                                    </Grid.Children>
+                                </Grid>
+                            </GroupBox>
+                            <TabControl  Grid.Row="3">
+                                <TabItem Header="Conditions de règlement" x:Name="FournisseurConditionsReglement">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15"></RowDefinition>
+                                            <RowDefinition Height="100*" MaxHeight="150"></RowDefinition>
+                                            <RowDefinition Height="15"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <ListBox 
+                                    Grid.Column="1" 
+                                    Grid.Row="1" 
+                                    Height="150"
+                                    MinHeight="150"
+                                    MaxHeight="150"
+                                    x:Name="_listBoxCondReglementGauche"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EntrepriseWindow}}, Path=list_Condition_Reglement}"
+                                    DisplayMemberPath="Libelle" >
+                                            </ListBox>
+                                            <Grid Grid.Row="1" Grid.Column="3">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="80*"></RowDefinition>
+                                                    <RowDefinition Height="20"></RowDefinition>
+                                                    <RowDefinition Height="80*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Button Grid.Row="1" Content="->" x:Name="_buttonGaucheDroite" MinHeight="40" Click="_buttonGaucheDroite_Click_1"></Button>
+                                                    <Button Grid.Row="3" Content="&lt;-" x:Name="_buttonDroiteGauche" MinHeight="40" Click="_buttonDroiteGauche_Click"></Button>
+                                                </Grid.Children>
+                                            </Grid>
+                                            <DataGrid
+                                        Grid.Row="1"
+                                        Grid.Column="5"
+                                        x:Name="_dataGridEntrepriseConditionReglement"
+                                        ItemsSource="{Binding Path=Fournisseur.Fournisseur_Condition_Reglement}"
+                                        CanUserAddRows="False"
+                                        CanUserDeleteRows="False"
+                                        AutoGenerateColumns="False">
+                                                <DataGrid.Columns>
+
+                                                    <DataGridTextColumn
+                                                    Header="Pourcentage (%)"  
+                                                    Binding="{Binding Path=Pourcentage, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+
+                                                    <DataGridTextColumn Header="Modalité de réglement" Binding="{Binding Path=Commentaire}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Condition de règlement" IsReadOnly="True" Binding="{Binding Path=Condition_Reglement1.Libelle}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Grid.Children>
+
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Délais de livraison" x:Name="DelaisLivraisonFournisseur">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <TextBlock
+                                                Text="Délai de normatif de livraison : "
+                                                x:Name="_TextBlockDelaiNormatif" 
+                                                Grid.Row="0" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxDelaiNormatif" 
+                                                Grid.Row="0" 
+                                                Grid.Column="1" 
+                                                Text="{Binding Path=Fournisseur.Delais_Livraison, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxDelaiNormatif_TextChanged"
+                                                >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="  jour(s) ouvré(s)"
+                                                Grid.Row="0" 
+                                                Grid.Column="2"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBlock
+                                                Text="Incertitude Fournisseur : "
+                                                x:Name="_TextBlockIncertitudeFournisseur" 
+                                                Grid.Row="2" 
+                                                Grid.Column="0" 
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxIncertitudeFournisseur" 
+                                                Grid.Row="2" 
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Fournisseur.Delais_Incertitude, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxIncertitudeFournisseur_TextChanged"
+                                             >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="  jour(s) ouvré(s)"
+                                                Grid.Row="2" 
+                                                Grid.Column="3" 
+                                                >
+                                            </TextBlock>
+
+                                            <TextBlock
+                                                Text="Délai de retour consultation : "
+                                                x:Name="_TextBlockDelaiRetourConsult" 
+                                                Grid.Row="4" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxDelaiRetourConsult" 
+                                                Grid.Row="4" 
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Fournisseur.Delais_Consultation, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxDelaiRetourConsult_TextChanged"
+                                            >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="  jour(s) ouvré(s)"
+                                                Grid.Row="4" 
+                                                Grid.Column="3"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBlock
+                                                Text="Commentaires :"
+                                                x:Name="_TextBlockCommentairesLivraisonDelais" 
+                                                Grid.Row="6" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxCommentairesLivraisonDelais" 
+                                                Grid.Row="6" 
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Fournisseur.Commentaire_Livraison, UpdateSourceTrigger=PropertyChanged}" 
+                                                TextChanged="_TextBoxCommentairesLivraisonDelais_TextChanged" 
+                                                >
+                                            </TextBox>
+                                        </Grid.Children>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Facturation" x:Name="FacturationFournisseur">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="5"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <TextBlock
+                                                Text="Escompte : "
+                                                x:Name="_TextBlockEscompte" 
+                                                Grid.Row="0" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxEscompte" 
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Fournisseur.Escompte, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxEscompte_TextChanged"
+                                                >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="Remise commerciale : "
+                                                x:Name="_TextBlockRemiseCommerciale" 
+                                                Grid.Row="2" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_TextBoxRemiseCommerciale" 
+                                                Grid.Row="2" 
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Fournisseur.Remise_Commerciale, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_TextBoxRemiseCommerciale_TextChanged"
+                                                >
+                                            </TextBox>
+
+                                            <TextBlock
+                                                Text="Frais de port : "
+                                                x:Name="_TextBlockFraisDePort" 
+                                                Grid.Row="4" 
+                                                Grid.Column="0"
+                                                >
+                                            </TextBlock>
+
+                                            <TextBox
+                                                x:Name="_textBoxFraisDePort"
+                                                Grid.Row="4"
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Fournisseur.Frais_De_Port, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                KeyUp="_TextBox_KeyUp"
+                                                TextChanged="_textBoxFraisDePort_TextChanged">
+                                            </TextBox>
+                                        </Grid.Children>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Clés comptables" x:Name="ClesComptableFournisseur">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Children>
+                                            <DataGrid
+                                        Grid.Column="0"
+                                        x:Name="_dataGridFournisseurtCleComptable"
+                                        ItemsSource="{Binding Path=Fournisseur.Fournisseur_Cle_Comptable}"
+                                        AutoGenerateColumns="False"
+                                        IsReadOnly="True">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Entreprise Mère" Binding="{Binding Path=Entreprise_Mere1.Nom}">
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Clé comptable" Binding="{Binding Path=Cle_Comptable}">
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="Grid.Background" Value="#79696969"></Setter>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Grid Grid.Column="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="33*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="33*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                    <RowDefinition Height="33*"></RowDefinition>
+                                                    <RowDefinition Height="5"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Children>
+                                                    <Button Grid.Row="1" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonAjouterCleComptableFournisseur" ToolTip="Ajouter" Click="_buttonAjouterCleComptableFournisseur_Click_1">
+                                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                                    </Button>
+                                                    <Button Grid.Row="3" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonModifierCleComptableFournisseur" ToolTip="Modifier" Click="_buttonModifierCleComptableFournisseur_Click_1">
+                                                        <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                                    </Button>
+                                                    <Button Grid.Row="5" MaxHeight="50" MinWidth="20" MaxWidth="100" MinHeight="20" x:Name="_buttonSupprimerCleComptableFournisseur" ToolTip="Supprimer" Click="_buttonSupprimerCleComptableFournisseur_Click_1">
+                                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                                    </Button>
+                                                </Grid.Children>
+                                            </Grid>
+                                        </Grid.Children>
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
+                        </Grid.Children>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <!--  Nouveau Grid pour boutons Ok/Annuler  -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

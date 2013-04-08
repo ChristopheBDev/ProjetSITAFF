@@ -1,0 +1,256 @@
+﻿<Window x:Class="SitaffRibbon.Windows.VisiteMedicaleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Icon="..\Images\icone-visitemedicale-large.png"
+        Title="Visite médicale" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MinWidth="300"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock 
+                x:Name="_TextBlockDateVisiteMedicale"
+                Text="Date de visite médicale : "
+                Grid.Row="0" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <DatePicker 
+                x:Name="_DatePickerDateVisiteMedicale" 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                SelectedDate="{Binding Path=Date_Visite}"
+                SelectedDateFormat="Short" SelectedDateChanged="_DatePickerDateVisiteMedicale_SelectedDateChanged">
+                    </DatePicker>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>                    
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock 
+                x:Name="_TextBlockDateValidite"
+                Text="Observations : "
+                Grid.Row="0" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxObservation" 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                Margin="2" 
+                Text="{Binding Path=Observation, UpdateSourceTrigger=PropertyChanged}"
+                >
+
+                    </TextBox>
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock 
+                x:Name="_TextBlockSalarieAdressePerso"
+                Text="Adresse :"
+                Grid.Row="1" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxSalarieAdressePerso" 
+                Grid.Row="1" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Rue, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieAdressePerso_TextChanged"
+                >
+                    </TextBox>
+                    <!-- -->
+
+                    <!-- -->
+                    <TextBlock 
+                x:Name="_TextBlockSalarieAdresseComplementairePerso"
+                Text="Adresse complémentaire :"
+                Grid.Row="2" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxSalarieAdresseComplementairePerso" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="2" 
+                Text="{Binding Path=Adresse1.Complement_Adresse, UpdateSourceTrigger=PropertyChanged}" TextChanged="_TextBoxSalarieAdresseComplementairePerso_TextChanged"
+                >
+                    </TextBox>
+                    <!-- -->
+
+                    <!-- -->
+                    <TextBlock 
+                x:Name="_TextBlockSalarieVillePerso"
+                Text="Ville :"
+                Grid.Row="3" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <ComboBox 
+                x:Name="_ComboBoxSalarieVillePerso" 
+                Grid.Row="3" 
+                Grid.Column="2" 
+                                                    Margin="2"
+                SelectedItem="{Binding Path=Adresse1.Ville1}" 
+                DisplayMemberPath="Libelle" 
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:VisiteMedicaleWindow}}, Path=listVillePerso}"
+                SelectionChanged="_ComboBoxCoordonneesVille_SelectionChanged" GotFocus="_ComboBoxCoordonneesVille_GotFocus"
+                >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <!-- -->
+
+                    <!-- -->
+                    <TextBlock 
+                x:Name="_TextBlockSalarieCodePostalPerso"
+                Text="Code postal :"
+                Grid.Row="4" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxSalarieCodePostalPerso" 
+                Grid.Row="4" 
+                Grid.Column="2" 
+                Margin="2" 
+                TextChanged="_TextBoxSalarieCodePostalPerso_TextChanged"
+                >
+                    </TextBox>
+                    <!-- -->
+
+                    <!-- -->
+                    <TextBlock 
+                x:Name="_TextBlockSalariePaysPerso"
+                Text="Pays :"
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                >
+                    </TextBlock>
+                    <ComboBox 
+                x:Name="_ComboBoxSalariePaysPerso" 
+                Grid.Row="5" 
+                Grid.Column="2" 
+                Margin="2" 
+                DisplayMemberPath="Libelle" 
+                SelectionChanged="_ComboBoxCoordonneesPays_SelectionChanged"
+                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:VisiteMedicaleWindow}}, Path=listPaysPerso}"
+                                >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="9" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

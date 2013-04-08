@@ -1,0 +1,268 @@
+﻿<Window x:Class="SitaffRibbon.Windows.DAOWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:localSolution="clr-namespace:SitaffRibbon"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Title="DAO" MinWidth="580" MinHeight="220" Height="220" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Icon="..\Images\icone-dao-large.png" Loaded="Window_Loaded" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="5"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition MinHeight="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*" MinWidth="150"></ColumnDefinition>
+                    <ColumnDefinition Width="15"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*" MinWidth="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockSalarie"
+                        Text="Demandeur : ">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="_comboBoxSalarie"
+                        DisplayMemberPath="Personne.fullname" 
+                        SelectionChanged="_comboBoxSalarie_SelectionChanged"
+                        SelectedItem="{Binding Path=Salarie}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DAOWindow}}, Path=listSalaries}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockClient"
+                        Text="Client : ">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        x:Name="_comboBoxClient"
+                        DisplayMemberPath="Entreprise.Libelle" 
+                        SelectionChanged="_comboBoxClient_SelectionChanged"
+                        SelectedItem="{Binding Path=Client1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DAOWindow}}, Path=listClients}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockSurAffaire"
+                        Text="Sur Affaire ? ">
+                    </TextBlock>
+                    <CheckBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Checked="_checkBoxSurAffaire_Checked"
+                        Unchecked="_checkBoxSurAffaire_Unchecked"
+                        x:Name="_checkBoxSurAffaire">
+                    </CheckBox>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        HorizontalAlignment="Right"
+                        Visibility="Hidden"
+                        x:Name="_textBlockAffaire"
+                        Text="Affaire : ">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        x:Name="_comboBoxAffaire"
+                        DisplayMemberPath="Numero" 
+                        Visibility="Hidden"
+                        SelectionChanged="_comboBoxAffaire_SelectionChanged"
+                        SelectedItem="{Binding Path=Affaire1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DAOWindow}}, Path=listAffaires}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockSurDevis"
+                        Text="Sur Devis ? ">
+                    </TextBlock>
+                    <CheckBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Checked="_checkBoxSurDevis_Checked"
+                        Unchecked="_checkBoxSurDevis_Unchecked"
+                        x:Name="_checkBoxSurDevis">
+                    </CheckBox>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="3"
+                        HorizontalAlignment="Right"
+                        Visibility="Hidden"
+                        x:Name="_textBlockDevis"
+                        Text="Devis : ">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.Column="4"
+                        x:Name="_comboBoxDevis"
+                        DisplayMemberPath="Numero" 
+                        Visibility="Hidden"
+                        SelectionChanged="_comboBoxDevis_SelectionChanged"
+                        SelectedItem="{Binding Path=Devis1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DAOWindow}}, Path=listDevis}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockLibelle"
+                        Text="Désignation du dessin : ">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        x:Name="_textBoxLibelle"
+                        LostFocus="_textBoxLibelle_LostFocus"
+                        Text="{Binding Path=Libelle}">
+                    </TextBox>
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="3"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockEntrepriseMere"
+                        Text="Entreprise Mère : ">
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="6"
+                        Grid.Column="4"
+                        x:Name="_comboBoxEntrepriseMere"
+                        DisplayMemberPath="Nom" 
+                        SelectionChanged="_comboBoxEntrepriseMere_SelectionChanged"
+                        SelectedItem="{Binding Path=Entreprise_Mere1}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DAOWindow}}, Path=listEntrepriseMeres}"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="8"
+                        Grid.Column="3"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockHeures"
+                        Text="Heures passées : ">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="8"
+                        Grid.Column="4"
+                        TextAlignment="Right"
+                        x:Name="_textBoxHeures"
+                        LostFocus="_textBoxHeures_LostFocus"
+                        Text="{Binding Path=Heures_Passees, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                    </TextBox>
+                    <TextBlock
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        x:Name="_textBlockCommentaire"
+                        Text="Commentaire : ">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        x:Name="_textBoxCommentaire"
+                        LostFocus="_textBoxCommentaire_LostFocus"
+                        Text="{Binding Path=Commentaire}">
+                    </TextBox>
+                </Grid.Children>
+            </Grid>
+            <!--  Nouveau Grid pour boutons Ok/Annuler  -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

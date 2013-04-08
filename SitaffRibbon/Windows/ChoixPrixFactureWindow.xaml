@@ -1,0 +1,50 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ChoixPrixFactureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="..\Images\icone-facture-large.png"
+        Title="Choix prix facture" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <CheckBox IsChecked="True" x:Name="CheckBox" Grid.Row="0" Grid.Column="0" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Le prix facturé correspond au prix remisé"></TextBlock>
+                    <CheckBox x:Name="CheckBox2" Grid.Row="2" Grid.Column="0" Checked="CheckBox2_Checked" Unchecked="CheckBox2_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="Le prix facturé correspond au prix commandé"></TextBlock>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <Button Content="Ok" Click="Button_Click"></Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

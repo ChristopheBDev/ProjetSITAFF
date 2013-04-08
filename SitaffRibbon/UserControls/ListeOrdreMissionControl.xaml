@@ -1,0 +1,703 @@
+﻿<UserControl x:Class="SitaffRibbon.UserControls.ListeOrdreMissionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+             xmlns:local="clr-namespace:SitaffRibbon.UserControls"
+             xmlns:local2="clr-namespace:SitaffRibbon.Converters"
+             xmlns:AppLocal="clr-namespace:SitaffRibbon"
+             xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             FontFamily="Book Antiqua" 
+             Loaded="UserControl_Loaded">
+    <UserControl.CommandBindings>
+        <CommandBinding x:Name="_CommandFiltrage" Command="{x:Static AppLocal:App.Filtrage}" Executed="_CommandFiltrage_Executed"  CanExecute="_CommandFiltrage_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandPlus" Command="{x:Static AppLocal:App.Plus}" Executed="_CommandPlus_Executed"  CanExecute="_CommandPlus_CanExecute"></CommandBinding>
+        <CommandBinding x:Name="_CommandMoins" Command="{x:Static AppLocal:App.Moins}" Executed="_CommandMoins_Executed"  CanExecute="_CommandMoins_CanExecute"></CommandBinding>
+    </UserControl.CommandBindings>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+
+            <!--  Début de construction de la zone de filtrage  -->
+            <Grid Grid.Row="0" Grid.Column="0" Visibility="Visible" x:Name="_filterZone" Background="#FFDFE9F5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <TextBlock  Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Filtrer/Rechercher Par (Ctrl + F) :"
+                               >
+                            </TextBlock>
+                            <Button     
+                                Content="Afficher les filtres"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Height="21"
+                                HorizontalAlignment="Center"
+                                x:Name="_buttonMasqueFiltre"
+                                Click="_buttonMasqueFiltre_Click"
+                                Width="Auto"
+                                ToolTip="Pour afficher ou masquer les filtres (CTRL + F)"
+                                />
+                            <TextBlock  Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="_textBlockTaillePolice"
+                                Text="Taille police :     "
+                               >
+                            </TextBlock>
+                            <Button     
+                                Content=" + "
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Height="21"
+                                HorizontalAlignment="Center"
+                                x:Name="_buttonPlusPolice"
+                                Width="Auto"
+                                ToolTip="Augmente la taille de la police"
+                                Click="_ButtonPlusPolice_Click"
+                                />
+                            <Button     
+                                Content=" - "
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Height="21"
+                                HorizontalAlignment="Center"
+                                x:Name="_buttonMoinsPolice"
+                                Width="Auto"
+                                ToolTip="Diminue la taille de la police"
+                                Click="_ButtonMoinsPolice_Click"
+                                />
+                        </Grid.Children>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="33*"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            
+                            <!--1ere Ligne-->
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                x:Name="_textBlockEntreprise"
+                                Text="Entreprise :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="2" Grid.Row="1" x:Name="_filterContainEntreprise" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="4"
+                                Grid.Row="1"
+                                x:Name="_textBlockAffaire"
+                                Text="Affaire :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="5" Grid.Row="1" x:Name="_filterContainAffaire" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="7"
+                                Grid.Row="1"
+                                x:Name="_textBlockInt_Equ"
+                                Text="Interimaire/Equipe :"
+                                ></TextBlock>
+                            <ComboBox   
+                                Grid.Column="8"
+                                Grid.Row="1"
+                                x:Name="_filterContainInt_Equ"
+                                DisplayMemberPath="chaine"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeOrdreMissionControl}}, Path=listInt_Equ}"
+                                >
+                            </ComboBox>
+
+                            <!--2eme Ligne-->
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="3"
+                                x:Name="_textBlockLieuMission"
+                                Text="Lieu de mission :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="2" Grid.Row="3" x:Name="_filterContainLieuMission" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="4"
+                                Grid.Row="3"
+                                x:Name="_textBlockDateDebut"
+                                Text="A partir du :"
+                                ></TextBlock>
+                            <Grid Grid.Column="5" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DatePicker
+                                    Grid.Column="0"
+                                    x:Name="_datePickerDateDebut"
+                                    SelectedDateFormat="Long"
+                                    ></DatePicker>
+                                <Button
+                                    Grid.Column="1"
+                                    x:Name="_buttonDateDebutNull"
+                                    Click="_buttonDateDebutNull_Click"
+                                    >
+                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                </Button>
+                            </Grid>
+
+                            <TextBlock
+                                Grid.Column="7"
+                                Grid.Row="3"
+                                x:Name="_textBlockDateFin"
+                                Text="Jusqu'au :"
+                                ></TextBlock>
+                            <Grid Grid.Column="8" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DatePicker
+                                    Grid.Column="0"
+                                    x:Name="_datePickerDateFin"
+                                    SelectedDateFormat="Long"
+                                    ></DatePicker>
+                                <Button
+                                    Grid.Column="1"
+                                    x:Name="_buttonDateFinNull"
+                                    Click="_buttonDateFinNull_Click"
+                                    >
+                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                </Button>
+                            </Grid>
+
+                            <!--3eme Ligne-->
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="5"
+                                x:Name="_textBlockNumeroContrat"
+                                Text="Numéro de contrat :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="2" Grid.Row="5" x:Name="_filterContainNumeroContrat" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+                            
+                            <TextBlock
+                                Grid.Column="4"
+                                Grid.Row="5"
+                                x:Name="_textBlockInterimaire"
+                                Text="Intérimaire :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="5" Grid.Row="5" x:Name="_filterContainInterimaire" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="7"
+                                Grid.Row="5"
+                                x:Name="_textBlockMotifMission"
+                                Text="Motif de la mission :"
+                                ></TextBlock>                            
+                            <Grid Grid.Column="8" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox   
+                                Grid.Column="0"
+                                x:Name="_filterContainMotifMission"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeOrdreMissionControl}}, Path=listMotifMission}"
+                                    DisplayMemberPath="Libelle"
+                                >
+                                </ComboBox>
+                                <Button
+                                    Grid.Column="1"
+                                    x:Name="_buttonMotifMissionNull"
+                                    Click="_buttonMotifMissionNull_Click"
+                                    >
+                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                </Button>
+                            </Grid>
+
+                            <!--4eme Ligne-->
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="7"
+                                x:Name="_textBlockCommande"
+                                Text="Commande :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="2" Grid.Row="7" x:Name="_filterContainCommande" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="4"
+                                Grid.Row="7"
+                                x:Name="_textBlockDonneurOrdre"
+                                Text="Donneur d'ordre :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="5" Grid.Row="7" x:Name="_filterContainDonneurOrdre" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="7"
+                                Grid.Row="7"
+                                x:Name="_textBlockContact"
+                                Text="Contact :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="8" Grid.Row="7" x:Name="_filterContainContact" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+                            
+                            <!--5eme Ligne-->
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="9"
+                                x:Name="_textBlockEntrepriseMere"
+                                Text="Entreprise mère :"
+                                ></TextBlock>
+                            <Grid Grid.Column="2" Grid.Row="9">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox   
+                                Grid.Column="0"
+                                x:Name="_filterContainEntrepriseMere"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeOrdreMissionControl}}, Path=listEntrepriseMere}"
+                                    DisplayMemberPath="Nom"
+                                >
+                                </ComboBox>
+                                <Button
+                                    Grid.Column="1"
+                                    x:Name="_buttonEntrepriseMereNull"
+                                    Click="_buttonEntrepriseMereNull_Click"
+                                    >
+                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                </Button>
+                            </Grid>
+
+                            <TextBlock
+                                Grid.Column="4"
+                                Grid.Row="9"
+                                x:Name="_textBlockContactMission_Client"
+                                Text="Contact Client sur chantier :"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="5" Grid.Row="9" x:Name="_filterContainContactMission_Client" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                            <TextBlock
+                                Grid.Column="7"
+                                Grid.Row="9"
+                                x:Name="_textBlockContactMission_Personnel"
+                                Text="Contact Personnel sur chantier:"
+                                ></TextBlock>
+                            <Controls:AutoCompleteBox Grid.Column="8" Grid.Row="9" x:Name="_filterContainContactMission_Personnel" KeyUp="_filter_KeyUp"></Controls:AutoCompleteBox>
+
+                        </Grid.Children>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.Children>
+                            <Button    
+                                Content="Remise à Zéro"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                Name="_buttonRaz"
+                                Click="_buttonRaz_Click"
+                                MinWidth="100"
+                                Width="Auto"
+                                />
+                            <Button     
+                                Content="Filtrer"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="_buttonFiltrer"
+                                Click="_buttonFiltrer_Click"
+                                MinWidth="100" 
+                                Width="Auto"
+                                IsDefault="True"
+                                />
+                        </Grid.Children>
+                    </Grid>
+                </Grid.Children>
+            </Grid>
+            <!--  Fin de construction de la zone de filtrage  -->
+
+            <!--  Début de construction du DataGrid  -->
+            <DataGrid 
+            x:Name="_DataGridMain" 
+            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ListeOrdreMissionControl}}, Path=OrdresMission}" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="false"
+            Grid.Column="0"
+            Grid.Row="1"            
+            EnableColumnVirtualization="True"
+            VirtualizingStackPanel.IsVirtualizing="True"
+            VirtualizingStackPanel.VirtualizationMode="Recycling"
+            IsReadOnly="True"
+            AlternationCount="2"                            
+            AlternatingRowBackground="#FFE9EDF4"
+            RowBackground="White"
+            GridLinesVisibility="Vertical">
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <!--  Style par défaut des lignes  -->
+                        <Style.Setters>
+                            <Setter Property="ToolTip" Value="Pour trier sur plusieurs colonnes, maintenir le touche 'Maj' enfoncée."></Setter>
+                            <Setter Property="SeparatorVisibility" Value="Visible"></Setter>
+                            <Setter Property="SeparatorBrush" Value="LightGray"></Setter>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+                            <Setter Property="MinHeight" Value="40"></Setter>
+                            <Setter Property="Height" Value="40"></Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" Value="#FF4F81BD"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                        <Grid Background="#FF4F81BD">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="BackgroundBorder" BorderThickness="0,1,0,1" Grid.ColumnSpan="2" />
+                                            <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
+                                            <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
+                                                Grid.Column="1" Width="8" Height="6" Fill="White" Margin="5,0,5,0" 
+                                                VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+                                            <Rectangle Width="1" HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+
+                                            <Rectangle Width="1" Margin="0,0,1,0" 
+                                                 HorizontalAlignment="Right" Grid.ColumnSpan="2" />
+                                            <Thumb x:Name="PART_LeftHeaderGripper" Width="1" HorizontalAlignment="Left"/>
+                                            <Thumb x:Name="PART_RightHeaderGripper" Width="1" HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="SortDirection" Value="Ascending">
+                                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                                <Setter TargetName="SortArrow" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="180" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="SortDirection" Value="Descending">
+                                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                        <!--  Fin Style par défaut des lignes  -->
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="_DataGridMain_PreviewMouseDoubleClick" />
+                    </Style>
+                </DataGrid.Resources>
+                <!--  Definition des colomnes du DataGrid  -->
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn 
+                    Header="Numéro de contrat" 
+                    x:Name="_ColonneNumeroContrat"
+                    Binding="{Binding Path=Numero_Contrat, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Motif de mission" 
+                    x:Name="_ColonneMotifMission"
+                    Binding="{Binding Path=Motif_Mission1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Salarié absent" 
+                    x:Name="_ColonneSalarieAbs"
+                    Binding="{Binding Path=Salarie2.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn 
+                    Header="Date de début" 
+                    x:Name="_ColonneDateDebut"
+                    Binding="{Binding Path=Date_Debut, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Date de fin" 
+                    x:Name="_ColonneDateFin"
+                    Binding="{Binding Path=Date_Fin, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy\}}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Heure RDV" 
+                    x:Name="_ColonneHeureRDV"
+                    Binding="{Binding Path=Heure_RDV, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Commentaire" 
+                    x:Name="_ColonneCommentaire"
+                    Binding="{Binding Path=Commentaire, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Entreprise mère" 
+                    x:Name="_ColonneEntrepriseMere"
+                    Binding="{Binding Path=Entreprise_Mere1.Entreprise1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Numéro d'affaire" 
+                    x:Name="_ColonneNumeroAffaire"
+                    Binding="{Binding Path=Affaire1.Numero, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Donneur d'ordre" 
+                    x:Name="_ColonneDonneurOrdre"
+                    Binding="{Binding Path=Salarie1.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Contact personnel sur chantier" 
+                    x:Name="_ColonneContactMission_Personnel"
+                    Binding="{Binding Path=Salarie.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Contact client sur chantier" 
+                    x:Name="_ColonneContactMission_Client"
+                    Binding="{Binding Path=Contact1.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Lieu de mission" 
+                    x:Name="_ColonneLieuMission"
+                    Binding="{Binding Path=Entreprise1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Taux horaire" 
+                    x:Name="_ColonneIntTauxHoraire"
+                    Binding="{Binding Path=Mission_Interimaire1.Taux_Horaire, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Durée hebdomadaire" 
+                    x:Name="_ColonneIntDureeHebdo"
+                    Binding="{Binding Path=Mission_Interimaire1.Duree_Hebdomadaire, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Montant" 
+                    x:Name="_ColonneIntMontant"
+                    Binding="{Binding Path=Mission_Interimaire1.Montant, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Accoss" 
+                    x:Name="_ColonneIntAccoss"
+                    Binding="{Binding Path=Mission_Interimaire1.Accoss, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Temps de déplacement" 
+                    x:Name="_ColonneIntTemps_Deplacement"
+                    Binding="{Binding Path=Mission_Interimaire1.Temps_Deplacement, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Distance de déplacement" 
+                    x:Name="_ColonneIntDistance_Deplacement"
+                    Binding="{Binding Path=Mission_Interimaire1.Distance_Deplacement, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Montant de déplacement" 
+                    x:Name="_ColonneIntMontant_Deplacement"
+                    Binding="{Binding Path=Mission_Interimaire1.Montant_Deplacement, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Intérimaire" 
+                    x:Name="_ColonneIntInterimaire"
+                    Binding="{Binding Path=Mission_Interimaire1.Salarie1.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Entreprise" 
+                    x:Name="_ColonneIntEntreprise"
+                    Binding="{Binding Path=Mission_Interimaire1.Entreprise1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+                    
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Contact" 
+                    x:Name="_ColonneIntContact"
+                    Binding="{Binding Path=Mission_Interimaire1.Contact1.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Intérimaire => Evènement remboursement" 
+                    x:Name="_ColonneIntEventRemboursement"
+                    Binding="{Binding Path=Mission_Interimaire1.Evenement_Remboursement1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Equipe => Taux horaire" 
+                    x:Name="_ColonneEquTauxHoraire"
+                    Binding="{Binding Path=Mission_Tiers1.Taux_Horaire, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Equipe => Durée journalière" 
+                    x:Name="_ColonneEquDureeHebdo"
+                    Binding="{Binding Path=Mission_Tiers1.Duree_Hebdomadaire, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Equipe => Montant" 
+                    x:Name="_ColonneEquMontant"
+                    Binding="{Binding Path=Mission_Tiers1.Montant, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Equipe => Entreprise" 
+                    x:Name="_ColonneEquEntreprise"
+                    Binding="{Binding Path=Mission_Tiers1.Entreprise1.Libelle, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Equipe => Contact" 
+                    x:Name="_ColonneEquContact"
+                    Binding="{Binding Path=Mission_Tiers1.Contact1.Personne.fullname, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn 
+                    Header="Mission Equipe => Commande" 
+                    x:Name="_ColonneEquCommande"
+                    Binding="{Binding Path=Mission_Tiers1.Commande_Fournisseur1.Numero, Mode=OneWay}"                    
+                    IsReadOnly="True"
+                    >
+                    </DataGridTextColumn>
+
+                </DataGrid.Columns>
+                <!--  Fin Definition des colomnes du DataGrid  -->
+            </DataGrid>
+            <!--  Fin de construction du DataGrid  -->
+        </Grid.Children>
+    </Grid>
+
+</UserControl>

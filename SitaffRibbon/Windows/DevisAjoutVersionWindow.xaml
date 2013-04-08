@@ -1,0 +1,152 @@
+﻿<Window x:Class="SitaffRibbon.Windows.DevisAjoutVersionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Title="Devis -> version" Height="Auto" Width="Auto" MinWidth="250" MinHeight="200" Icon="..\Images\icone-devis-large.png" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"  Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+            <!--Numéro masqué-->
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="90*" MinWidth="150"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="_TextBlockDevisAJoutVersionTypeVersion" Grid.Row="1" Grid.Column="1" Text="Type version : "></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Numéro : " Visibility="Hidden"></TextBlock>
+        <TextBlock x:Name="_TextBlockDevisAjoutVersionDesignation" Grid.Row="11" Grid.Column="1" Text="Commentaire : "></TextBlock>
+        <TextBlock x:Name="_TextBlockDevisAjoutVersionMontant" Grid.Row="7" Grid.Column="1" Text="Montant : "></TextBlock>
+        <TextBlock x:Name="_TextBlockDevisAJoutVersionCA" Grid.Row="9" Grid.Column="1" Text="Chargé d'affaire : "></TextBlock>
+        <TextBlock x:Name="_TextBlockDevisAJoutVersionDevis_Etat" Grid.Row="5" Grid.Column="1" Text="Etat de la version : "></TextBlock>
+
+        <ComboBox x:Name="_ComboBoxDevisAJoutVersionTypeVersion"
+                             Grid.Row="1" 
+                             Grid.Column="3"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                             SelectedItem="{Binding Path=Version_Type1}"
+                             DisplayMemberPath="Libelle"
+                             ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DevisAjoutVersionWindow}}, Path=Type_Version}"
+                   SelectionChanged="_ComboBoxDevisAJoutVersionTypeVersion_SelectionChanged"
+                    >
+
+        <ComboBox.ItemsPanel><ItemsPanelTemplate><VirtualizingStackPanel/></ItemsPanelTemplate></ComboBox.ItemsPanel></ComboBox>
+
+        <TextBox x:Name="_TextBoxDevisAjoutVersionNumero"
+                             Grid.Row="3" 
+                             Grid.Column="3"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                             Text="{Binding Path=Numero, UpdateSourceTrigger=PropertyChanged}"
+                 Visibility="Hidden">
+
+        </TextBox>
+
+
+
+        <TextBox x:Name="_TextBoxDevisAjoutVersionDesignation"
+                             Grid.Row="11" 
+                             Grid.Column="3"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                 TextChanged="_TextBoxDevisAjoutVersionDesignation_TextChanged"
+                             Text="{Binding Path=Commentaire, UpdateSourceTrigger=PropertyChanged}"
+                 >
+
+        </TextBox>
+
+        <TextBox x:Name="_TextBoxDevisAjoutVersionMontant"
+                             Grid.Row="7" 
+                 TextAlignment="Right"
+                             Grid.Column="3"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                 TextChanged="_TextBoxDevisAjoutVersionMontant_TextChanged"
+                             Text="{Binding Path=Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+
+        </TextBox>
+
+        <ComboBox x:Name="_ComboBoxDevisAJoutVersionCA"
+                             Grid.Row="9" 
+                             Grid.Column="3"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                             SelectedItem="{Binding Path=Salarie}"
+                             DisplayMemberPath="Personne.fullname"                  
+                             ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DevisAjoutVersionWindow}}, Path=Charge_Affaire}"
+                  SelectionChanged="_ComboBoxDevisAJoutVersionCA_SelectionChanged"
+                    >
+
+        <ComboBox.ItemsPanel><ItemsPanelTemplate><VirtualizingStackPanel/></ItemsPanelTemplate></ComboBox.ItemsPanel></ComboBox>
+
+
+        <ComboBox x:Name="_ComboBoxDevisAJoutVersionDevis_Etat"
+                             Grid.Row="5" 
+                             Grid.Column="3"
+                             Margin="2"
+                             Width="Auto"
+                             MinWidth="100"
+                             SelectedItem="{Binding Path=Devis_Etat1}"
+                             DisplayMemberPath="Libelle"
+                             IsEnabled="{Binding Path=VerouillerEtatDevisVersion}"
+                             ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DevisAjoutVersionWindow}}, Path=listDevis_Etat}"
+                  SelectionChanged="_ComboBoxDevisAJoutVersionDevis_Etat_SelectionChanged"
+                    >
+
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel/>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+
+        <Button 
+                        Content="Valider"
+                        x:Name="_ButtonDevisAjoutVersionValider"
+                        Grid.Row="13"                    
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonDevisAjoutVersionValider_Click"
+                        >
+        </Button>
+
+        <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonDevisAjoutVersionAnnuler"
+                        Grid.Row="13"                    
+                        Grid.Column="3"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonDevisAjoutVersionAnnuler_Click"
+                        >
+        </Button>
+
+    </Grid>
+</Window>

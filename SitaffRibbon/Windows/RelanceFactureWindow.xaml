@@ -1,0 +1,377 @@
+﻿<Window x:Class="SitaffRibbon.Windows.RelanceFactureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:AppLocal="clr-namespace:SitaffRibbon"
+        xmlns:localSolution="clr-namespace:SitaffRibbon"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Icon="..\Images\icone-facture-large.png"
+        Title="Relance Facture" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded_1">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    x:Name="_textBlockFacture"
+                    Text="Facture :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    x:Name="_comboBoxFacture"
+                    DisplayMemberPath="Numero"
+                    SelectedItem="{Binding Path=Facture1}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RelanceFactureWindow}}, Path=listFacture}"
+                    SelectionChanged="_comboBoxFacture_SelectionChanged_1"
+                    IsReadOnly="True"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock
+                    Grid.Column="4"
+                    Grid.Row="0"
+                    x:Name="_textBlockDateFacture"
+                    Text="Date facture :"
+                    ></TextBlock>
+                <DatePicker
+                    Grid.Column="6"
+                    Grid.Row="0"
+                    x:Name="_textBoxDateFacture"
+                    Text="{Binding Path=Facture1.Date_Facture, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}"
+                    IsEnabled="False"
+                    ></DatePicker>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    x:Name="_textBlockClient"
+                    Text="Client :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    x:Name="_comboBoxClient"
+                    DisplayMemberPath="Entreprise.Libelle"
+                    SelectedItem="{Binding Path=Client1}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RelanceFactureWindow}}, Path=listClient}"
+                    SelectionChanged="_comboBoxClient_SelectionChanged_1"
+                    IsReadOnly="True"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock
+                    Grid.Column="4"
+                    Grid.Row="2"
+                    x:Name="_textBlockMontantFacture"
+                    Text="Montant de la facture :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="6"
+                    Grid.Row="2"
+                    x:Name="_textBoxMontantFacture"
+                    Text="{Binding Path=Facture1.Montant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    IsReadOnly="True"
+                    ></TextBox>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    x:Name="_textBlockAffaire"
+                    Text="Affaire :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="2"
+                    Grid.Row="4"
+                    x:Name="_comboBoxAffaire"
+                    DisplayMemberPath="Numero"
+                    SelectedItem="{Binding Path=Affaire1}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RelanceFactureWindow}}, Path=listAffaire}"
+                    SelectionChanged="_comboBoxAffaire_SelectionChanged_1"
+                    IsReadOnly="True"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock
+                    Grid.Column="4"
+                    Grid.Row="4"
+                    x:Name="_textBlockMontantRelance"
+                    Text="Montant relance :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="6"
+                    Grid.Row="4"
+                    x:Name="_textBoxMontantRelance"
+                    LostFocus="_textBoxMontantRelance_LostFocus_1"
+                    Text="{Binding Path=Montant_Relance, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    KeyUp="_textBoxMontant_KeyUp_1"
+                    ></TextBox>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    x:Name="_textBlockDateRelance"
+                    Text="Date relance :"
+                    ></TextBlock>
+                <DatePicker
+                    Grid.Column="2"
+                    Grid.Row="6"
+                    x:Name="_datePickerDateRelance"
+                    SelectedDateChanged="_datePickerDateRelance_SelectedDateChanged_1"
+                    SelectedDate="{Binding Path=Date_Relance}"
+                    ></DatePicker>
+
+                <TextBlock
+                    Grid.Column="4"
+                    Grid.Row="6"
+                    x:Name="_textBlockDateProchaineRelance"
+                    Text="Date prochaine relance :"
+                    ></TextBlock>
+                <DatePicker
+                    Grid.Column="6"
+                    Grid.Row="6"
+                    x:Name="_datePickerDateProchaineRelance"
+                    SelectedDateChanged="_datePickerDateProchaineRelance_SelectedDateChanged_1"
+                    SelectedDate="{Binding Path=Date_Prochaine_Relance}"
+                    ></DatePicker>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="8"
+                    x:Name="_textBlockSalarie"
+                    Text="Salarié :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="2"
+                    Grid.Row="8"
+                    x:Name="_comboBoxSalarie"
+                    SelectionChanged="_comboBoxSalarie_SelectionChanged_1"
+                    DisplayMemberPath="Personne.fullname"
+                    SelectedItem="{Binding Path=Salarie1}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RelanceFactureWindow}}, Path=listSalarie}"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock
+                    Grid.Column="4"
+                    Grid.Row="8"
+                    x:Name="_textBlockCommentaire"
+                    Text="Commentaire :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="6"
+                    Grid.Row="8"
+                    Grid.RowSpan="3"
+                    x:Name="_textBoxCommentaire"
+                    LostFocus="_textBoxCommentaire_LostFocus_1"
+                    Text="{Binding Path=Commentaire}"
+                    ></TextBox>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="10"
+                    x:Name="_textBlockContact"
+                    Text="Contact :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="2"
+                    Grid.Row="10"
+                    x:Name="_comboBoxContact"
+                    SelectionChanged="_comboBoxContact_SelectionChanged_1"
+                    DisplayMemberPath="Personne.fullname"
+                    SelectedItem="{Binding Path=Contact1}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RelanceFactureWindow}}, Path=listContact}"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="12"
+                    x:Name="_textBlockCommentaireEnvoi"
+                    Text="Commentaire envoi :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="2"
+                    Grid.Row="12"
+                    Grid.ColumnSpan="5"
+                    x:Name="_textBoxCommentaireEnvoi"
+                    LostFocus="_textBoxCommentaireEnvoi_LostFocus_1"
+                    Text="{Binding Path=Commentaire_Envoi}"
+                    ></TextBox>
+
+            </Grid>
+            <GroupBox Header="Mail" Grid.Column="1" Grid.Row="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        x:Name="_textBlockDestinataire"
+                        Text="A :"
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        x:Name="_textBoxDestinataire"
+                        LostFocus="_textBoxDestinataire_LostFocus_1"
+                        Text="{Binding Path=Envoyer_A}"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        x:Name="_textBlockObjet"
+                        Text="Objet :"
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="2"
+                        Grid.Row="2"
+                        x:Name="_textBoxObjet"
+                        LostFocus="_textBoxObjet_LostFocus_1"
+                        Text="{Binding Path=Objet_Mail}"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        x:Name="_textBlockCorps"
+                        Text="Corps :"
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="2"
+                        Grid.Row="4"
+                        x:Name="_textBoxCorps"
+                        MinLines="5"
+                        MaxLines="5"
+                        LostFocus="_textBoxCorps_LostFocus_1"
+                        Text="{Binding Path=Corps_Mail}"
+                        ></TextBox>
+
+                    <Button
+                        Grid.Column="4"
+                        Grid.Row="6"
+                        x:Name="_buttonComposerAuto"
+                        Content="Composer Auto"
+                        Click="_buttonComposerAuto_Click_1"
+                        ></Button>
+                    <Button
+                        Grid.Column="2"
+                        Grid.Row="8"
+                        x:Name="_buttonEnvoyerMail"
+                        Content="Envoyer par mail"       
+                        Click="_buttonEnvoyerMail_Click_1"
+                        ></Button>
+                </Grid>
+            </GroupBox>
+            <Grid Grid.Column="1" Grid.Row="5">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

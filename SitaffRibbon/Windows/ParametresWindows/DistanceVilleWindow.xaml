@@ -1,0 +1,145 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ParametresWindows.DistanceVilleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows.ParametresWindows"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Title="Distance Ville" Height="Auto" Width="Auto"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto" MinWidth="150"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto" MinWidth="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    x:Name="_textBlockVille1"
+                    Text="Ville 1 :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    x:Name="_comboBoxVille1"
+                    DisplayMemberPath="fullVille"
+                    SelectedItem="{Binding Path=Ville}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DistanceVilleWindow}}, Path=listVille}"
+                    SelectionChanged="_comboBoxVille1_SelectionChanged"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                
+                <TextBlock
+                    Grid.Column="3"
+                    Grid.Row="0"
+                    x:Name="_textBlockVille2"
+                    Text="Ville 2 :"
+                    ></TextBlock>
+                <ComboBox
+                    Grid.Column="4"
+                    Grid.Row="0"
+                    x:Name="_comboBoxVille2"
+                    DisplayMemberPath="fullVille"
+                    SelectedItem="{Binding Path=Ville3}"
+                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DistanceVilleWindow}}, Path=listVille}"
+                    SelectionChanged="_comboBoxVille2_SelectionChanged"
+                    >
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    x:Name="_textBlockKm"
+                    Text="Kilomètres :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    x:Name="_textBoxKm"
+                    Text="{Binding Path=Kilometres, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    TextChanged="_textBoxKm_TextChanged"
+                    ></TextBox>
+                
+                <TextBlock
+                    Grid.Column="3"
+                    Grid.Row="2"
+                    x:Name="_textBlockTemps"
+                    Text="Temps :"
+                    ></TextBlock>
+                <TextBox
+                    Grid.Column="4"
+                    Grid.Row="2"
+                    x:Name="_textBoxTemps"
+                    KeyUp="_textBoxTemps_KeyUp"
+                    Text = "{Binding Path=Temps, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                    TextChanged="_textBoxTemps_TextChanged"
+                    ></TextBox>
+                
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_buttonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_buttonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

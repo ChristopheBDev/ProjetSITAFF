@@ -1,0 +1,567 @@
+﻿<Window x:Class="SitaffRibbon.Windows.DaillyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Title="Dailly" Height="Auto" Width="Auto" MinHeight="390" MinWidth="625" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded_1">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        x:Name="_textBlockNumeroDaillyInterne"
+                        Text="N° de dailly interne : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        x:Name="_textBoxNumeroDaillyInterne"
+                        Text="{Binding Path=Numero_Interne}"
+                        TextChanged="_textBoxNumeroDaillyInterne_TextChanged_1"
+                        IsReadOnly="True"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="0"
+                        x:Name="_textBlockNumeroDailly"
+                        Text="N° de dailly : "
+                        ></TextBlock>
+                    <TextBox
+                        Grid.Column="4"
+                        Grid.Row="0"
+                        x:Name="_textBoxNumeroDailly"
+                        Text="{Binding Path=Numero}"
+                        TextChanged="_textBoxNumeroDailly_TextChanged_1"
+                        ></TextBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        x:Name="_textBlockMarche"
+                        Text="Marché : "
+                        ></TextBlock>
+                    <CheckBox
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        x:Name="_checkBoxMarche"
+                        IsChecked="{Binding Path=Marche}"
+                        Checked="_checkBoxMarche_Checked_1"
+                        ></CheckBox>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Grid.Row="2"
+                        x:Name="_textBlockBanque"
+                        Text="Banque : "
+                        ></TextBlock>
+                    <ComboBox
+                        Grid.Column="4"
+                        Grid.Row="2"
+                        x:Name="_comboBoxBanque"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DaillyWindow}}, Path=listBanque}"
+                        SelectedItem="{Binding Path=Banque1}"
+                        SelectionChanged="_comboBoxBanque_SelectionChanged_1"
+                        DisplayMemberPath="Libelle"
+                        ></ComboBox>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        x:Name="_textBlockPublic"
+                        Text="Public : "
+                        ></TextBlock>
+                    <CheckBox
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        x:Name="_checkBoxPublic"
+                        IsChecked="{Binding Path=Publique}"
+                        Checked="_checkBoxPublic_Checked_1"
+                        ></CheckBox>
+
+                    <Grid
+                        Grid.Column="3"
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            x:Name="_textBlockAccepte"
+                            Text="Accepté : "
+                            ></TextBlock>
+                        <CheckBox
+                            Grid.Column="1"
+                            x:Name="_checkBoxAccepte"
+                            IsChecked="{Binding Path=Accepte}"
+                            Checked="_checkBoxAccepte_Checked_1"
+                            Unchecked="_checkBoxAccepte_Unchecked_1"
+                            ></CheckBox>
+
+                        <TextBlock
+                            Grid.Column="3"
+                            x:Name="_textBlockDateAcceptation"
+                            Text="Date : "
+                            ></TextBlock>
+                        <DatePicker
+                            Grid.Column="4"
+                            x:Name="_datePickerDateAcceptation"
+                            SelectedDate="{Binding Path=Date_Acceptation}"
+                            SelectedDateChanged="_datePickerDateAcceptation_SelectedDateChanged_1"
+                            >
+                        </DatePicker>
+
+                    </Grid>
+
+                </Grid.Children>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <TabControl>
+                    <TabItem x:Name="_tabItemCommande" Header="Commande">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.Children>
+                                        <Grid Grid.Row="0" Grid.Column="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Children>
+                                                <TextBlock
+                                            x:Name="_filterEntrepriseMere"
+                                            Text="Entreprise mère : "
+                                            Grid.Row="0"
+                                            Grid.Column="0">
+                                                </TextBlock>
+                                                <ComboBox 
+                                            Grid.Row="0" 
+                                            Grid.Column="1"
+                                            x:Name="_comboBoxFilterEntrepriseMere" 
+                                            SelectionChanged="_comboBoxFilterEntrepriseMere_SelectionChanged_1"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DaillyWindow}}, Path=listEntrepriseMere}"
+                                            DisplayMemberPath="Nom">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <Button x:Name="_mettreANullEntrepriseMere" Grid.Row="0" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANullEntrepriseMere_Click_1">
+                                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                                </Button>
+                                                <TextBlock
+                                            x:Name="_filterAffaire"
+                                            Text="Affaire : "
+                                            Grid.Row="1"
+                                            Grid.Column="0">
+                                                </TextBlock>
+                                                <ComboBox 
+                                            Grid.Row="1" 
+                                            Grid.Column="1"
+                                            x:Name="_comboBoxFilterAffaire" 
+                                            SelectionChanged="_comboBoxFilterAffaire_SelectionChanged_1"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DaillyWindow}}, Path=listAffaire}"
+                                            DisplayMemberPath="Numero">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <Button x:Name="_mettreANullAffaire" Grid.Row="1" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANullAffaire_Click_1">
+                                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                                </Button>
+                                                <TextBlock
+                                            x:Name="_filterCommandeBL"
+                                            Text="Client : "
+                                            Grid.Row="2"
+                                            Grid.Column="0">
+                                                </TextBlock>
+                                                <ComboBox 
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            x:Name="_comboBoxFilterClient" 
+                                            SelectionChanged="_comboBoxFilterClient_SelectionChanged_1" 
+                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DaillyWindow}}, Path=listClient}"
+                                            DisplayMemberPath="Entreprise.Libelle">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
+                                                <Button x:Name="_mettreANullClient" Grid.Row="2" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANullClient_Click_1">
+                                                    <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                                                </Button>
+                                            </Grid.Children>
+                                        </Grid>
+                                        <DataGrid 
+                                    Grid.Column="0" 
+                                    Grid.Row="1"
+    				                x:Name="_dataGridCommande"
+    				                AutoGenerateColumns="False" 
+    				                CanUserAddRows="False" 
+    				                CanUserDeleteRows="False"
+    				                MinHeight="150"
+                                    MaxHeight="600"
+                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DaillyWindow}}, Path=listCommande}"
+                                    >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn
+    						                Header="N° de commande"
+    						                x:Name="_ColonneNumCommande"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=Numero_Commande}"
+                                            />
+                                                <DataGridTextColumn
+    						                Header="Date Commande"
+    						                x:Name="_ColonneDateCommande"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=Date_Commande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat=\{0:dd/MM/yyyy\}}"
+                                            />
+                                                <DataGridTextColumn
+    						                Header="Montant"
+    						                x:Name="_ColonneMontant"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=MontantRemiseCommande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                            >
+                                                    <DataGridTextColumn.CellStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                            <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </DataGridTextColumn.CellStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn
+    						                Header="Affaire"
+    						                x:Name="_ColonneAffaire"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=getAffaire.Numero, Mode=OneWay}"
+                                            />
+
+                                                <DataGridTextColumn
+    						                Header="Client"
+    						                x:Name="_ColonneClient"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=getClient.Entreprise.Libelle, Mode=OneWay}"
+                                            />
+
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid.Children>
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="20"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="50*"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="50*"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Button
+    				                    Grid.Column="1"
+    				                    Grid.Row="1"
+    				                    x:Name="_buttonGaucheDroite"
+    				                    MinWidth="20"
+    				                    Content="&gt;&gt;"
+                                        Click="_buttonGaucheDroite_Click_1"
+                                        />
+
+                                    <Button
+    				                    Grid.Column="1"
+    				                    Grid.Row="3"
+    				                    x:Name="_buttonDroiteGauche"
+    				                    MinWidth="20"
+    				                    Content="&lt;&lt;"
+                                        Click="_buttonDroiteGauche_Click_1"
+                                        />
+
+                                </Grid>
+                                <DataGrid 
+                                    Grid.Column="2" 
+                                    Grid.Row="0"
+    				                x:Name="_dataGridCommandeCedee"
+    				                AutoGenerateColumns="False" 
+    				                CanUserAddRows="False" 
+    				                CanUserDeleteRows="False"
+    				                MinHeight="150"
+                                    MaxHeight="600"
+                                    ItemsSource="{Binding Path=Commande}"
+                                    >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+    						                Header="N° de commande"
+    						                x:Name="_ColonneNumCommandeCedee"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=Numero_Commande}"
+                                            />
+                                        <DataGridTextColumn
+    						                Header="Date Commande"
+    						                x:Name="_ColonneDateCommandeCedee"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=Date_Commande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat=\{0:dd/MM/yyyy\}}"
+                                            />
+                                        <DataGridTextColumn
+    						                Header="Montant"
+    						                x:Name="_ColonneMontantCedee"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=MontantRemiseCommande, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                            >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                    <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+    						                Header="Affaire"
+    						                x:Name="_ColonneAffaire2"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=getAffaire.Numero, Mode=OneWay}"
+                                            />
+
+                                        <DataGridTextColumn
+    						                Header="Client"
+    						                x:Name="_ColonneClient2"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=getClient.Entreprise.Libelle, Mode=OneWay}"
+                                            />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="_tabItemFacture" Header="Facture">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Children>
+                                <DataGrid 
+                                    Grid.Column="0"
+    				                x:Name="_dataGridFacture"
+    				                AutoGenerateColumns="False" 
+    				                CanUserAddRows="False" 
+    				                CanUserDeleteRows="False"
+    				                MinHeight="150"
+                                    MaxHeight="600"
+                                    ItemsSource="{Binding Path=Dailly_Cession_Facture}"
+                                    >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+    						                Header="Date cession"
+    						                x:Name="_ColonneDateCession"
+    						                IsReadOnly="True"
+                                            Binding="{Binding Path=Date_Cession, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat=\{0:dd/MM/yyyy\}}"
+                                            />
+                                    </DataGrid.Columns>
+                                    <DataGrid.RowDetailsTemplate>
+                                        <DataTemplate>
+                                            <DataGrid
+    				                            x:Name="_dataGridFacture"
+    				                            AutoGenerateColumns="False" 
+    				                            CanUserAddRows="False" 
+    				                            CanUserDeleteRows="False"
+    				                            MinHeight="150"
+                                                MaxHeight="600"
+                                                ItemsSource="{Binding Path=Facture}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn
+    						                            Header="N° de Facture"
+    						                            x:Name="_ColonneNumFacture"
+    						                            IsReadOnly="True"
+                                                        Binding="{Binding Path=Numero}"
+                                                        />
+                                                    <DataGridTextColumn
+    						                            Header="Date de facture"
+    						                            x:Name="_ColonneDateFacture"
+    						                            IsReadOnly="True"
+                                                        Binding="{Binding Path=Date_Facture, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                        />
+                                                    <DataGridTextColumn
+    						                            Header="Date échéance"
+    						                            x:Name="_ColonneDateEcheance"
+    						                            IsReadOnly="True"
+                                                        Binding="{Binding Path=Date_Echeance, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat=\{0:dd/MM/yyyy\}}"
+                                                        />
+                                                    <DataGridTextColumn
+    						                            Header="Montant TTC"
+    						                            x:Name="_ColonneMontantTTC"
+    						                            IsReadOnly="True"
+                                                        Binding="{Binding Path=Montant_TTC, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn
+    						                            Header="Montant encaissé"
+    						                            x:Name="_ColonneMontantEncaisse"
+    						                            IsReadOnly="True"
+                                                        Binding="{Binding Path=Montant_Encaisse, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn
+    						                            Header="Restant à encaisser"
+    						                            x:Name="_ColonneMontantAEncaisser"
+    						                            IsReadOnly="True"
+                                                        Binding="{Binding Path=restantDu, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                        >
+                                                        <DataGridTextColumn.CellStyle>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.CellStyle>
+                                                    </DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </DataTemplate>
+                                    </DataGrid.RowDetailsTemplate>
+                                </DataGrid>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                        <RowDefinition Height="33*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Button 
+                                        ToolTip="Nouveau"
+                                        x:Name="_buttonDaillyFactureNouveau"
+                                        Grid.Row="0"      
+                                        Click="_buttonDaillyFactureNouveau_Click_1"
+                                        >
+                                        <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                        ToolTip="Modifier"
+                                        x:Name="_buttonDaillyFactureModifier"              
+                                        Grid.Row="1"  
+                                        Click="_buttonDaillyFactureModifier_Click_1"
+                                        >
+                                        <Image Source="..\Images\icone-modifier-small.png" Height="20"></Image>
+                                    </Button>
+
+                                    <Button 
+                                        ToolTip="Supprimer"
+                                        x:Name="_buttonDaillyFactureSupprimer"               
+                                        Grid.Row="2"
+                                        Click="_buttonDaillyFactureSupprimer_Click_1"
+                                        >
+                                        <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                    </Button>
+                                </Grid>
+                            </Grid.Children>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

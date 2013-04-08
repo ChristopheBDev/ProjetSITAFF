@@ -1,0 +1,396 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ReservationSalleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        Title="Réservation de salle"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        Icon="..\Images\icone-resasalle-large.png"
+        Height="565"
+        MinHeight="565"
+        Width="645"
+        MinWidth="645">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <!--Début Grid Information-->
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="15"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <!--Entreprise Mère-->
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Lieu de réunion :" Margin="2" HorizontalAlignment="right"/>
+                    <ComboBox 
+                            Grid.Row="1"
+                            Grid.Column="2" 
+                            x:Name="_comboBoxEntrepriseMere" 
+                            SelectionChanged="_ComboBoxEntrepriseMere_SelectionChanged"
+                            SelectedItem="{Binding Path=Entreprise_Mere1}"
+                            DisplayMemberPath="Nom"
+                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReservationSalleWindow}}, Path=listEntreprise_Mere}"
+                            >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <!--Salle-->
+                    <TextBlock Grid.Row="1" Grid.Column="3" Text="Salle:" Margin="2" HorizontalAlignment="right"/>
+                    <ComboBox Grid.Row="1" Grid.Column="4" x:Name="_comboBoxSalle" SelectionChanged="_ComboBoxSalle_SelectionChanged" 
+                            ToolTip="Pour réserver des salles SBMT ou CCL, les reserver sous SIT53"
+                            SelectedItem="{Binding Path=Salle1}"
+                            DisplayMemberPath="Libelle"
+                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReservationSalleWindow}}, Path=listSalle}"
+                            >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <!--Demandeur-->
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Demandeur:" Margin="2" HorizontalAlignment="right"/>
+                    <ComboBox Grid.Row="3" Grid.Column="2" x:Name="_comboBoxDemandeur" 
+                                  SelectionChanged="_ComboBoxDemandeur_SelectionChanged"
+                                  DisplayMemberPath="Personne.fullname"
+                                  SelectedItem="{Binding Path=Salarie1}"
+                                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReservationSalleWindow}}, Path=listSalarie}"
+                                  >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+
+
+                    <!--Adresse Mail-->
+                    <TextBlock Grid.Row="3" Grid.Column="3" Text="Adresse Mail:" Margin="2" HorizontalAlignment="right"/>
+                    <TextBox Grid.Row="3" Grid.Column="4" IsReadOnly="True" x:Name="_textBoxAdresseMail" TextChanged="_TextBoxAdresseMail_TextChanged" Focusable="False"/>
+                    <!--Date Début-->
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="Date de début:" Margin="2" HorizontalAlignment="Right"/>
+                    <DatePicker Grid.Row="5" Grid.Column="2" x:Name="_datePickerDateDebut" SelectedDate="{Binding Path=Date_Reservation}" SelectedDateChanged="_DatePickerDateDebut_SelectedDateChanged"/>
+                    <!--Date Fin-->
+                    <TextBlock Grid.Row="5" Grid.Column="3" Text="Date de Fin:" Margin="2" HorizontalAlignment="Right"/>
+                    <DatePicker Grid.Row="5" Grid.Column="4" x:Name="_datePickerDateFin" SelectedDate="{Binding Path=Date_Reservation_Fin}" SelectedDateChanged="_DatePickerDateFin_SelectedDateChanged"/>
+                    <!--Heure Début-->
+                    <TextBlock Grid.Row="7" Grid.Column="1" Text="Heure de début:" Margin="2" HorizontalAlignment="right" x:Name="_textBlockHeureDebut"/>
+                    <TextBox Grid.Row="7" Grid.Column="2" x:Name="_textBoxHeureDebut" 
+                                  Text="{Binding Path=Heure_Debut}"
+                                  LostFocus="_TextBoxHeureDebut_LostFocus"
+                                  GotFocus="_TextBoxHeureDebut_GotFocus"/>
+                    <!--Heure Fin-->
+                    <TextBlock Grid.Row="7" Grid.Column="3" Text="Heure de fin:" Margin="2" HorizontalAlignment="right" x:Name="_textBlockHeureFin"/>
+                    <TextBox Grid.Row="7" Grid.Column="4" x:Name="_textBoxHeureFin"
+                                  Text="{Binding Path=Heure_Fin}"
+                                  LostFocus="_TextBoxHeureFin_LostFocus"
+                                 TextChanged="_TextBoxHeureFin_TextChanged"
+                                 GotFocus="_TextBoxHeureFin_GotFocus"/>
+                    <!--Nombre de Participant-->
+                    <TextBlock Grid.Row="9" Grid.Column="1" Text="Nombre de participants:" Margin="2" HorizontalAlignment="right"/>
+                    <TextBox Grid.Row="9" Grid.Column="2" x:Name="_textBoxNbParticipant"
+                                     TextChanged="_TextBoxNbParticipant_TextChanged"
+                                     Text="{Binding Path=Nb_Participants}"
+                                     IsReadOnly="True"
+                                     Focusable="False"/>
+                    <!--Maximum de Participant-->
+                    <TextBlock Grid.Row="9" Grid.Column="3" Text="Maximum de participants:" Margin="2" HorizontalAlignment="right"/>
+                    <TextBlock Grid.Row="9" Grid.Column="4" Text="_" Margin="2" x:Name="_textBlockMaximumParticipant"/>
+                    <!--Objet de la réunion-->
+                    <TextBlock Grid.Row="11" Grid.Column="1" Text="Objet de la réunion:" Margin="2" HorizontalAlignment="right"/>
+                    <TextBox Grid.Row="11" Grid.Column="2" x:Name="_textBoxObjetReunion" TextChanged="_TextBoxObjetReunion_TextChanged"
+                                 Text="{Binding Path=ObjetReunion}"
+                                 Grid.ColumnSpan="3"/>
+                </Grid.Children>
+            </Grid>
+            <!--Début Grid Onglet -->
+            <Grid Grid.Row="1" Grid.Column="1" Width="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TabControl Height="Auto" Width="Auto"
+                                MaxHeight="250">
+                        <TabItem Header="Besoins">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="100*"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <DataGrid Grid.Row="0" Grid.Column="0" x:Name="_dataGridBesoinGauche"
+                                              AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                              ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReservationSalleWindow}}, Path=listBesoin_Reservation_Salle}"
+                                              >
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding Path=Libelle}" Header="Libellé" IsReadOnly="True"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Button x:Name="_newBesoin" Grid.Row="1" Grid.Column="0" ToolTip="Ajouter" Click="Button_Click_1">
+                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+                                    <Grid Grid.Row="0" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="15"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="15"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Button Grid.Column="0" Grid.Row="1" Content="->" x:Name="_buttonBesoinsMettreADroite" Click="_ButtonBesoinsMettreADroite"/>
+                                            <Button Grid.Column="0" Grid.Row="3" Content="&lt;-" x:Name="_buttonBesoinsMettreAGauche" Click="_ButtonBesoinsMettreAGauche"/>
+                                        </Grid.Children>
+                                    </Grid>
+                                    <DataGrid Grid.Row="0" Grid.Column="2" x:Name="_dataGridBesoinDroite"
+                                              AutoGenerateColumns="False" 
+                                              CanUserAddRows="False" 
+                                              CanUserDeleteRows="False"
+                                              GridLinesVisibility="None"
+                                              ItemsSource="{Binding Path=Reservation_SalleBesoin_Reservation_Salle}"
+                                               KeyUp="_dataGridBesoinDroite_KeyUp">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding Path=Besoin_Reservation_Salle1.Libelle}" Header="Libellé" IsReadOnly="True"/>
+                                            <DataGridTextColumn 
+                                                Binding="{Binding Path=Quantite, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                Header="Quantité" 
+                                                IsReadOnly="False"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Clients">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <DataGrid x:Name="_dataGridClient" Grid.Column="0" Grid.Row="0" Width="Auto" 
+                                              AutoGenerateColumns="False" 
+                                              CanUserAddRows="False" 
+                                              CanUserDeleteRows="False"
+                                              GridLinesVisibility="None"
+                                              ItemsSource="{Binding Path=Reservation_SalleContact_Client_Invite}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Contact1.Personne.Entreprise1.Libelle}" Header="Entrprise" IsReadOnly="True"/>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Contact1.Personne.Nom}" Header="Nom" IsReadOnly="True"/>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Contact1.Personne.Prenom}" Header="Prénom" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Button Grid.Row="0" Grid.Column="0" Margin="5" x:Name="_buttonClientsAjouter" Click="_ButtonClientsAjouter_Click">
+                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                            </Button>
+                                            <Button  Grid.Row="1" Grid.Column="0" Margin="5" x:Name="_buttonClientsSupprimer" Click="_ButtonClientsSupprimer_Click">
+                                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Fournisseur">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <DataGrid x:Name="_dataGridFournisseur" Grid.Column="0" Grid.Row="0" Width="Auto"
+                                              AutoGenerateColumns="False" 
+                                              CanUserAddRows="False" 
+                                              CanUserDeleteRows="False"
+                                              GridLinesVisibility="None"
+                                              ItemsSource="{Binding Path=Reservation_SalleContact_Fournisseur_Invite}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Contact1.Personne.Entreprise1.Libelle}" Header="Entrprise" IsReadOnly="True"/>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Contact1.Personne.Nom}" Header="Nom" IsReadOnly="True"/>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Contact1.Personne.Prenom}" Header="Prénom" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Button Grid.Row="0" Grid.Column="0" Margin="5" x:Name="_buttonFournisseurAjouter" Click="_ButtonFournisseurAjouter_Click">
+                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                            </Button>
+                                            <Button Grid.Row="1" Grid.Column="0" Margin="5" x:Name="_buttonSupprimerFournisseur" Click="_buttonFournisseurSupprimer_Click">
+                                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Salariés">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.Children>
+                                    <DataGrid x:Name="_dataGridSalaries" Grid.Column="0" Grid.Row="0" Width="Auto"
+                                              AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
+                                  GridLinesVisibility="None"
+                                  ItemsSource="{Binding Path=Reservation_SalleSalarie_Invite}"
+                                  ScrollViewer.CanContentScroll="True"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              MaxHeight="100">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Salarie1.Personne.Nom}" Header="Nom" IsReadOnly="True"/>
+                                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Salarie1.Personne.Prenom}" Header="Prénom" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Children>
+                                            <Button Grid.Row="0" Grid.Column="0" Margin="5" x:Name="_buttonSalariesAjouter" Click="_ButtonSalariesAjouter_Click">
+                                                <Image Source="..\Images\ajouter-icone-small.png" Height="20"></Image>
+                                            </Button>
+                                            <Button Grid.Row="1" Grid.Column="0" Margin="5" x:Name="_buttonSalariesSupprimer" Click="_ButtonSalariesSupprimer_Click">
+                                                <Image Source="..\Images\icone-supprimer-small.png" Height="20"></Image>
+                                            </Button>
+                                        </Grid.Children>
+                                    </Grid>
+                                </Grid.Children>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="2" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock Text="Commentaire:" Margin="2" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="_textBoxCommentaire" Grid.Row="0" Grid.Column="1" MinHeight="75" MaxHeight="75" AcceptsReturn="True" TextWrapping="WrapWithOverflow"
+                             Text="{Binding Commentaire}"/>
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Valider"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Margin="10" 
+                        Height="40"
+                        IsDefault="True"
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Margin="10" 
+                        Height="40"
+                        IsCancel="True"
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

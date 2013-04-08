@@ -1,0 +1,366 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ParametresWindows.TypeRemboursementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:local3="clr-namespace:SitaffRibbon.Windows.ParametresWindows"
+        Title="Type de remboursement" Height="Auto" Width="Auto" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <TextBlock 
+                x:Name="_textBlockDistanceDebut"
+                Text="Distance début : "
+                Grid.Row="0" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxDistanceDebut" 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                Text="{Binding Path=Distance_Debut, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                TextChanged="_textBoxDistanceDebut_TextChanged"
+                KeyUp="_textBox_KeyUp"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockDistanceFin"
+                Text="Distance fin : "
+                Grid.Row="0" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxDistanceFin" 
+                Grid.Row="0" 
+                Grid.Column="4" 
+                Text="{Binding Path=Distance_Fin, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                TextChanged="_textBoxDistanceFin_TextChanged"
+                KeyUp="_textBox_KeyUp"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockDateDebut"
+                Text="Date de début : "
+                Grid.Row="2" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <DatePicker 
+                x:Name="_datePickerDateDebut" 
+                Grid.Row="2" 
+                Grid.Column="1" 
+                SelectedDate="{Binding Path=Date_Debut}"
+                SelectedDateChanged="_datePickerDateDebut_SelectedDateChanged"
+                ></DatePicker>
+
+                    <TextBlock 
+                x:Name="_textBlockDateFin"
+                Text="Date de fin : "
+                Grid.Row="2" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <DatePicker 
+                x:Name="_datePickerDateFin" 
+                Grid.Row="2" 
+                Grid.Column="4" 
+                SelectedDate="{Binding Path=Date_Fin}"
+                SelectedDateChanged="_datePickerDateFin_SelectedDateChanged"
+                ></DatePicker>
+
+                    <TextBlock 
+                x:Name="_textBlockReference"
+                Text="Référence : "
+                Grid.Row="4" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxReference" 
+                Grid.Row="4" 
+                Grid.Column="1" 
+                Text="{Binding Path=Reference}"
+                TextChanged="_textBoxReference_TextChanged"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockEntrepriseMere"
+                Text="Entreprise mère : "
+                Grid.Row="4" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <Grid Grid.Column="4" Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
+                            x:Name="_comboBoxEntrepriseMere"
+                            Grid.Column="0"
+                            DisplayMemberPath="Nom"
+                            SelectedItem="{Binding Path=Entreprise_Mere1}"
+                            ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local3:TypeRemboursementWindow}}, Path=listEntreprise}"
+                            >
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                        <Button
+                            Grid.Column="1"
+                            x:Name="_buttonEntrepriseMereNull"  
+                            ToolTip="Mettre à null"
+                            Click="_buttonEntrepriseMereNull_Click"
+                            >
+                            <Image Source="..\..\Images\icone-null-small.png" Height="20"></Image>
+                        </Button>
+                    </Grid>
+                    
+                    <TextBlock 
+                x:Name="_textBlockEventDeplacement"
+                Text="Deplacement : "
+                Grid.Row="6" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <ComboBox
+                        x:Name="_comboBoxEventDeplacement"
+                        Grid.Column="1"
+                        Grid.Row="6" 
+                        SelectionChanged="_comboBoxEventDeplacement_SelectionChanged"
+                        SelectedItem="{Binding Path=Evenement_Remboursement}"
+                        DisplayMemberPath="Libelle"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local3:TypeRemboursementWindow}}, Path=listEvent}"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock 
+                x:Name="_textBlockMontantDeplacement"
+                Text="Montant du déplacement : "
+                Grid.Row="6" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxMontantDeplacement" 
+                Grid.Row="6" 
+                Grid.Column="4" 
+                Text="{Binding Path=Montant_Deplacement, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                TextChanged="_textBoxMontantDeplacement_TextChanged"
+                KeyUp="_textBox_KeyUp"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockEventKm"
+                Text="Km : "
+                Grid.Row="8" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <ComboBox
+                        x:Name="_comboBoxEventKm"
+                        Grid.Column="1"
+                        Grid.Row="8" 
+                        SelectionChanged="_comboBoxEventKm_SelectionChanged"
+                        SelectedItem="{Binding Path=Evenement_Remboursement1}"
+                        DisplayMemberPath="Libelle"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local3:TypeRemboursementWindow}}, Path=listEvent}"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock 
+                x:Name="_textBlockPlafond"
+                Text="Plafond : "
+                Grid.Row="8" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxPlafond" 
+                Grid.Row="8" 
+                Grid.Column="4" 
+                Text="{Binding Path=Plafond, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                TextChanged="_textBoxPlafond_TextChanged"
+                KeyUp="_textBox_KeyUp"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockEventRepas"
+                Text="Repas : "
+                Grid.Row="10" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <ComboBox
+                        x:Name="_comboBoxEventRepas"
+                        Grid.Column="1"
+                        Grid.Row="10" 
+                          SelectionChanged="_comboBoxEventRepas_SelectionChanged"
+                        SelectedItem="{Binding Path=Evenement_Remboursement2}"
+                          DisplayMemberPath="Libelle"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local3:TypeRemboursementWindow}}, Path=listEvent}"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock 
+                x:Name="_textBlockMontantRepas"
+                Text="Montant repas : "
+                Grid.Row="10" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxMontantRepas" 
+                Grid.Row="10" 
+                Grid.Column="4" 
+                Text="{Binding Path=Montant_Repas, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                TextChanged="_textBoxMontantRepas_TextChanged"
+                KeyUp="_textBox_KeyUp"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockEventTicket"
+                Text="Ticket Repas : "
+                Grid.Row="12" 
+                Grid.Column="0" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <ComboBox
+                        x:Name="_comboBoxEventTicket"
+                        Grid.Column="1"
+                        Grid.Row="12" 
+                        SelectionChanged="_comboBoxEventTicket_SelectionChanged"
+                        DisplayMemberPath="Libelle"
+                        SelectedItem="{Binding Path=Evenement_Remboursement3}"
+                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local3:TypeRemboursementWindow}}, Path=listEvent}"
+                        >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <TextBlock 
+                x:Name="_textBlockNbTicket"
+                Text="Nombre de ticket repas : "
+                Grid.Row="12" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxNbTicket" 
+                Grid.Row="12" 
+                Grid.Column="4" 
+                Text="{Binding Path=Nb_Ticket_Restaurant}"
+                TextChanged="_textBoxNbTicket_TextChanged"
+                ></TextBox>
+
+                    <TextBlock 
+                x:Name="_textBlockMontantTicket"
+                Text="Montant du ticket repas : "
+                Grid.Row="14" 
+                Grid.Column="3" 
+                VerticalAlignment="Center"
+                ></TextBlock>
+                    <TextBox 
+                x:Name="_textBoxMontantTicket" 
+                Grid.Row="14" 
+                Grid.Column="4" 
+                Text="{Binding Path=Montant_Ticket_Restaurant, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                TextChanged="_textBoxMontantTicket_TextChanged"
+                KeyUp="_textBox_KeyUp"
+                ></TextBox>
+
+                </Grid.Children>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+            <!--  Fin Nouveau Grid pour boutons Ok/Annuler  -->
+        </Grid.Children>
+    </Grid>
+</Window>

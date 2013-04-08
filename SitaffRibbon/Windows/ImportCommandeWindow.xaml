@@ -1,0 +1,184 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ImportCommandeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows"
+        xmlns:local2="clr-namespace:SitaffRibbon.UserControls"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        Icon="..\Images\icone-commande-large.png"
+        Title="Import commande" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1350" MaxHeight="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Children>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <TextBlock
+                        x:Name="_TextBlockFournisseur"
+                        Text="Fournisseur :"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        ></TextBlock>
+                    <ComboBox   x:Name="_ComboBoxFournisseur"
+                                Grid.Column="1"
+                                DisplayMemberPath="Entreprise.Libelle" 
+                                SelectionChanged="_ComboBoxFournisseur_SelectionChanged_1"
+                                ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ImportCommandeWindow}}, Path=listFournisseur}"
+                                >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <Button x:Name="_mettreANullAffaire" Grid.Row="0" Grid.Column="2" ToolTip="Mettre à null" Click="_mettreANull_Click">
+                        <Image Source="..\Images\icone-null-small.png" Height="20"></Image>
+                    </Button>
+
+                    <TextBlock
+                        x:Name="_TextBlockDesignation"
+                        Text="Désignation :"
+                        Grid.Column="3"
+                        VerticalAlignment="Center"
+                        ></TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxDesignation" 
+                        KeyUp="_TextBoxDesignation_KeyUp_1"
+                Grid.Column="4" >
+                    </TextBox>
+                    <TextBlock
+                        x:Name="_TextBlockReference"
+                        Text="Référence :"
+                        Grid.Column="5"
+                        VerticalAlignment="Center"
+                        ></TextBlock>
+
+                    <TextBox 
+                x:Name="_TextBoxReference" 
+                        KeyUp="_TextBoxDesignation_KeyUp_1"
+                Grid.Column="6" >
+                    </TextBox>
+
+                    <TextBlock
+                        x:Name="_TextBlockCommande"
+                        Text="Commande n° :"
+                        Grid.Column="7"
+                        VerticalAlignment="Center"
+                        ></TextBlock>
+
+                    <Controls:AutoCompleteBox
+                x:Name="_TextBoxCommande" 
+                        KeyUp="_TextBoxDesignation_KeyUp_1"
+                Grid.Column="8" >
+                    </Controls:AutoCompleteBox>
+                </Grid.Children>
+            </Grid>
+
+            <DataGrid
+                                  x:Name="_dataGridFournisseur"
+                                  Grid.Row="3"
+                                  Grid.Column="1"
+                                  EnableColumnVirtualization="True"
+                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                  AutoGenerateColumns="False" 
+                                  CanUserAddRows="False" 
+                                  CanUserDeleteRows="false"
+                                  GridLinesVisibility="None"
+                                  IsReadOnly="True"
+                                  MaxHeight="750"
+                                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ImportCommandeWindow}}, Path=listContenuCommande}"
+                                  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                                                    Header="Fournisseur"
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Commande_Fournisseur1.Fournisseur1.Entreprise.Libelle}"
+                                                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                                                    Header="Numero Commande" 
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Commande_Fournisseur1.Numero}"
+                                                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                                                    Header="Référence"
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Reference}"
+                                                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                                                    Header="Désignation"
+                                                    Width="200" 
+                                                    Binding="{Binding Path=Designation}"                                                    
+                                                    >
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                                                    Header="P.U."
+                                                    Width="Auto" 
+                                                    Binding="{Binding Path=Prix_Unitaire, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}"
+                                                    >
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="P.U. Remisé" IsReadOnly="True"  Width="Auto" Binding="{Binding Path=Prix_Remise, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, StringFormat='{}{0:n}'}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Row="5" Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Children>
+                    <Button
+                        x:Name="_BoutonImporter"
+                        Click="Importer_Click"
+                        Content="Importer"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        ></Button>
+                </Grid.Children>
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>

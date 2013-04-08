@@ -1,0 +1,108 @@
+﻿<Window x:Class="SitaffRibbon.Windows.ParametresWindows.ChapitreClauseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:SitaffRibbon.Windows.ParametresWindows"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Chapitre Clause" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Icon="..\..\Images\icone-chapitreclause-large.png" Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="90*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--  Definition des colonnes  -->
+        <Grid.Children>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" MinWidth="200"/>
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock 
+            Grid.Row="1"
+                    Grid.Column="1"
+            Name="textBlock1"
+            Text="Libelle :" 
+            />
+
+                <TextBlock 
+                    Grid.Row="2"
+                    Grid.Column="1"
+            Name="textBlock2" 
+            Text="Libelle Anglais :" 
+            />
+
+                <TextBlock 
+                    Grid.Row="3"
+                    Grid.Column="1"
+            Name="textBlock3" 
+            Text="Libelle Russe :" 
+            />
+                <TextBox Grid.Row="1"
+                         Grid.Column="2"
+            Name="_TextBoxLibelle"
+            TextChanged="_TextBoxLibelle_TextChanged"
+            Text="{Binding Path=Libelle, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="3" 
+                         Grid.Column="2"
+            Name="_TextBoxLibelleRusse"
+            TextChanged="_TextBoxLibelleRusse_TextChanged" 
+            Text="{Binding Path=Libelle_Russe, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBox 
+                    Grid.Column="2"
+                    Grid.Row="2"
+            Name="_TextBoxLibelleAnglais"
+            Text="{Binding Path=Libelle_Anglais, UpdateSourceTrigger=PropertyChanged}" 
+            TextChanged="_TextBoxLibelleAnglais_TextChanged" />
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <!--  Définition des colonnes  -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--  Fin Définition des colonnes  -->
+                <!--  Contenu du Grid2  -->
+                <Grid.Children>
+                    <Button 
+                        Content="Ok"
+                        x:Name="_ButtonOk" 
+                        Grid.Column="0"  
+                        Height="40"
+                        IsDefault="True" 
+                        Click="_ButtonOk_Click"
+                        >
+                    </Button>
+                    <Button 
+                        Content="Annuler"
+                        x:Name="_ButtonCancel" 
+                        Grid.Column="1"  
+                        Height="40"
+                        IsCancel="True" 
+                        Click="_ButtonCancel_Click"
+                        >
+                    </Button>
+                </Grid.Children>
+                <!--  Fin Contenu du Grid2  -->
+            </Grid>
+        </Grid.Children>
+    </Grid>
+</Window>
